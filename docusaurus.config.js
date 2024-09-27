@@ -119,10 +119,6 @@ const config = {
                 to: '/docs/user-guide/userGuideIntro',
               },
               {
-                label: 'Java API Documentation',
-                to: 'https://taskana.azurewebsites.net/taskana/docs/java/taskana-core/index.html',
-              },
-              {
                 label: 'REST API Documentation',
                 href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
               }
@@ -140,7 +136,7 @@ const config = {
           }
 
         ],
-        copyright: `Built with Docusaurus. KADAI is a brand name registered by Envite Consulting GmbH`,
+        copyright: `Built with Docusaurus. KADAI is a brand name registered by envite consulting GmbH`,
 
       },
       prism: {

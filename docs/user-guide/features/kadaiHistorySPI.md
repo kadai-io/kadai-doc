@@ -38,7 +38,7 @@ You can activate SimpleHistoryServiceImpl by adding following dependency to your
       <version><put your KADAI version here></version>
 </dependency>
 ```
-KADAI also provides a REST service for SimpleHistoryServiceImpl documented [here](https://kadai.azurewebsites.net/kadai/docs/rest/simplehistory-rest-api.html). If you want to use the REST Service, you can add the following dependency to your pom:
+KADAI also provides a REST service for SimpleHistoryServiceImpl documented [here](https://kadai-io.azurewebsites.net/kadai/docs/rest/simplehistory-rest-api.html). If you want to use the REST Service, you can add the following dependency to your pom:
 ```
 <dependency>
       <groupId>io.kadai.history</groupId>

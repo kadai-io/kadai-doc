@@ -19,4 +19,4 @@ We can also add parameters for filtering or sorting to the request. Following ex
 GET http://localhost:8080/kadai/api/v1/tasks?state=READY&sort-by=CLASSIFICATION_KEY
 ```
 
-The full documentation of the REST-API can be found [here](https://kadai.azurewebsites.net/kadai/docs/rest/rest-api.html).
+The full documentation of the REST-API can be found [here](https://kadai-io.azurewebsites.net/kadai/docs/rest/rest-api.html).

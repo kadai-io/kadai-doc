@@ -6,7 +6,7 @@ sidebar_position: 1
 
 While our main focus remains ob the backend of KADAI, we additionaly provide an example frontend in form of a Demo App. This is only an example, as KADAI frontend can be implemented differently for specific use cases. Here is what the demo app looks like: 
 ![Demo App](static/demo-app.png)
-### [Click here to go to the Demo App](https://kadai.azurewebsites.net/kadai)
+### [Click here to go to the Demo App](https://kadai-io.azurewebsites.net/kadai)
 
 ## Try out the Demo App
 

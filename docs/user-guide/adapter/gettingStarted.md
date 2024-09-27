@@ -377,4 +377,4 @@ Then, start your KADAI application. Start your camunda app next, and login. Last
    ```
 
 
-More functionalities like the cancelling of a claimed task and their URLs can be found in the [full documentation of the REST-API](https://kadai.azurewebsites.net/kadai/docs/rest/rest-api.html).
+More functionalities like the cancelling of a claimed task and their URLs can be found in the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kadai/docs/rest/rest-api.html).

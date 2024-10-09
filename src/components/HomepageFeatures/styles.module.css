@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.featureBox {
+  background-color: var(--kadai-color-background);
+  background-clip: content-box;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 20px;
+  opacity: 0.75;
+}
+
 .featureSvg {
   height: 140px;
   width: 150px;

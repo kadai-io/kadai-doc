@@ -23,3 +23,10 @@
   padding: 2rem;
   display: inline-block;
 }
+
+.backgroundImage {
+  background-image: url("../../static/img/background.png");
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: cover;
+}

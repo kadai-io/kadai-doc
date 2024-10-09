@@ -1,6 +1,7 @@
 .wrapper {
     margin: 0px auto;
     padding: 0px 1em 0px 1em;
+    opacity: 0.75;
 }
 
 .hero {

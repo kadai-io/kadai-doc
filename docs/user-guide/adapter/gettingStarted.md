@@ -29,7 +29,7 @@ Add following dependencies to the dependencies section of your pom:
 
 ```
 <dependency>
-  <groupId>pro.kadai</groupId>
+  <groupId>io.kadai</groupId>
   <artifactId>kadai-adapter-camunda-outbox-rest-spring-boot-starter</artifactId>
   <version>3.1.0</version>
 </dependency>
@@ -117,7 +117,7 @@ camunda.bpm.generic-properties.properties.historyTimeToLive: P180D
 # properties for resteasy-servlet-spring-boot-starter
 # without these 2 propertiers the camunda-context is registered twice
 resteasy.jaxrs.app.registration=property
-resteasy.jaxrs.app.classes=pro.kadai.adapter.camunda.outbox.rest.config.OutboxRestServiceConfig
+resteasy.jaxrs.app.classes=io.kadai.adapter.camunda.outbox.rest.config.OutboxRestServiceConfig
 
 spring.datasource.url=jdbc:postgresql://localhost:5102/postgres
 spring.datasource.driver-class-name = org.postgresql.Driver
@@ -149,7 +149,7 @@ camunda:
 resteasy:
   jaxrs:
     app:
-      classes: pro.kadai.adapter.camunda.outbox.rest.config.OutboxRestServiceConfig
+      classes: io.kadai.adapter.camunda.outbox.rest.config.OutboxRestServiceConfig
       registration: property
 server:
   port: 8085
@@ -192,17 +192,17 @@ Add following dependencies to the dependencies section of your pom (if they don'
     <optional>true</optional>
   </dependency>
   <dependency>
-     <groupId>pro.kadai</groupId>
+     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
     <version>3.1.0</version>
   </dependency>
   <dependency>
-    <groupId>pro.kadai</groupId>
+    <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-system-connector</artifactId>
     <version>3.1.0</version>
   </dependency>
   <dependency>
-    <groupId>pro.kadai</groupId>
+    <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
     <version>3.1.0</version>
   </dependency>
@@ -225,7 +225,7 @@ Add the following annotations to your AdapterApplication, and import the package
 
 ```
 @EnableScheduling
-@ComponentScan(basePackages = "pro.kadai.adapter")
+@ComponentScan(basePackages = "io.kadai.adapter")
 @Import({AdapterConfiguration.class})
 ```
 
@@ -238,12 +238,12 @@ Add following files to your resources folder:
 ######################################################################################
 ##
 #logging.level.org.springframework=DEBUG
-logging.level.pro.kadai=DEBUG
+logging.level.io.kadai=DEBUG
 #logging.level.com.spring.ibatis=DEBUG
 #logging.level.com.spring.ibatis.*=DEBUG
 #logging.level.org.apache.ibatis=DEBUG
 
-#logging.level.pro.kadai=info
+#logging.level.io.kadai=info
 
 ## Set Server Port for Adapter
 server.port = 8083
@@ -319,9 +319,9 @@ SPIs need to be additionally specified in the Adapter application. You can read 
 The necessary SPI for the Adapter application can be build as follows: First, create a new package with the name taskrouting. Then, create a class in the package taskrouting with the name ExampleTaskRouter. It should look like this:
 ```
 package com.example.demo.taskrouting; //or your own path depending on your packages
-import pro.kadai.common.api.KadaiEngine;
-import pro.kadai.spi.routing.api.TaskRoutingProvider;
-import pro.kadai.task.api.models.Task;
+import io.kadai.common.api.KadaiEngine;
+import io.kadai.spi.routing.api.TaskRoutingProvider;
+import io.kadai.task.api.models.Task;
 
 /** This is a sample implementation of TaskRouter. */
 public class ExampleTaskRouter implements TaskRoutingProvider {
@@ -337,7 +337,7 @@ public class ExampleTaskRouter implements TaskRoutingProvider {
   }
 }
 ```
-Next, add a new folder to your resources folder and name it `META-INF`. Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. Finally, create a file in the `services` folder with the name `pro.kadai.spi.routing.api.TaskRoutingProvider`. This file must contain the fully qualified classname (including the package) of the class ExampleTaskRouter, for example:
+Next, add a new folder to your resources folder and name it `META-INF`. Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. Finally, create a file in the `services` folder with the name `io.kadai.spi.routing.api.TaskRoutingProvider`. This file must contain the fully qualified classname (including the package) of the class ExampleTaskRouter, for example:
 ```
 com.example.demo.taskrouting.ExampleTaskRouter
 ```

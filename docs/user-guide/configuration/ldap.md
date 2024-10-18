@@ -3,7 +3,10 @@ sidebar_position: 3
 ---
 
 # LDAP
-KADAI provides [LDAP](https://ldap.com/learn-about-ldap/) support by showing LDAP-usage in its example module ```kadai-rest-spring-example-boot```. In order to configure LDAP for usage with KADAI, you need an .ldif file. Additionaly, you need to configure LDAP in the ``application.properties`` file using following parameters: 
+KADAI provides [LDAP](https://ldap.com/learn-about-ldap/) support by showing LDAP-usage in its example module ```kadai-rest-spring-example-boot```.
+If you do not create an LdapContextSource bean, KADAI will create one for you using the parameters specified on this documentation page.
+If you want to create your LdapContextSource bean to be used in KADAI, please use as qualifier the constant ```io.kadai.common.rest.ldap.KADAI_LDAP_CONTEXT_SOURCE```.
+In order to configure LDAP for usage with KADAI, you need an .ldif file. Additionaly, you need to configure LDAP in the ``application.properties`` file using following parameters: 
 
 |Parameter                        |Description                                              |Sample Value          |
 |---------------------------------|---------------------------------------------------------|----------------------|              

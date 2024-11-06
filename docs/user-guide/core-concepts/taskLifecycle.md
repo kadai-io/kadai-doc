@@ -11,7 +11,11 @@ import timelineGeneral from '!!raw-loader!../static/core-concepts/TimelineGenera
 
 # Task Lifecycle
 
-A Task goes through different states during its existence. The states and their transitions are described by the Task Lifecycle. Additionaly, a Task has timestamps for important state transitions and expected milestones in the processing of the Task. In this article, Task Lifecycle and the corresponding Task states are explained in detail.
+A Task goes through different states during its existence.
+The Task Lifecycle describes the states and their transitions.
+Additionally,
+a Task has timestamps for important state transitions and expected milestones in the processing of the Task.
+In this article, Task Lifecycle and the corresponding Task states are explained in detail.
 
 The following diagram shows Task states and their transitions. You can read more about Task States below.
 
@@ -29,21 +33,37 @@ The changes of state and timestamps during the lifetime of a Task can be shown i
 
 - **Reaction Time**: Describes the time taken for someone to claim the task after it has been planned.
 - **Processing Time**: Describes how long someone worked on the task from start to finish.
-- **Lead Time**: Describes the time between supposed start date of task until completion.
+- **Lead Time**: Describes the time between supposed start date of a task until completion.
 - **Service Level**: Describes maximum duration from supposed start until deadline.
 
 ### Task Timestamps
 
 Each Task has different timestamps. Most of them are shown in the [example](#example) below:
-- **received**: Describes when the Task first came into the system. For example, it can be the timestamp of an e-mail contaiting the relevant document. If there is no such timestamp, then the received timestamp can be empty.
+- **received**: Describes when the Task first came into the system. For example, it can be the timestamp of an e-mail containing the relevant document. If there is no such timestamp, then the received timestamp can be empty.
 - **created**: Describes when the Task was first inserted into the database.
 - **planned**: Describes when somebody should start working on the Task.
-- **claimed**:  Describes when someone started to work on this Task.
+- **claimed**: Describes when someone started to work on this Task.
 - **due**: Describes the deadline for Task completion.
-- **completed**:  Describes when the Task was completed.
+- **completed**: Describes when the Task was completed.
 - **modified**: Describes when the Task was modified last time. Modifying a Task includes creating, claiming, completing and updating it.
 
-All timestamps except *received* can be set automatically. The timestamps *received*, *planned* and *due* can be set manually. However, the time between planned and due is usually configured to have a fix value by setting [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) to true. If [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is true, the time between planned and due is the smallest service level corresponding to the Task. In order to find out the smallest service level of the Task, the service levels of Classification of the Task and the Classification of its Attachments are compared. Then, either due or planned are set accordingly. If both attributes, planned and due, were set manually without matching the service level, and [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is true, an exception will be thrown. If [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is false, the time between planned and due is not fixed. That means no exception will be thrown.
+All timestamps except *received* can be set automatically.
+The timestamps *received*, *planned* and *due* can be set manually.
+However,
+the time between planned and due is usually configured
+to have a fix value
+by setting [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) to true.
+If [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is true,
+the time between planned and due is the smallest service level corresponding to the Task.
+To find out the smallest service level of the Task,
+the service levels of Classification of the Task and the Classification of its Attachments are compared.
+Then, either due or planned are set accordingly.
+If both attributes, planned and due, were set manually without matching the service level,
+and [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is true,
+an exception will be thrown.
+If [servicelevel.validation.enforce](../configuration/classificationAndServiceLevel.md) is false,
+the time between planned and due is not fixed.
+That means no exception will be thrown.
 
 ### Example
 

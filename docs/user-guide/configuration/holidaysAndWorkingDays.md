@@ -19,9 +19,9 @@ Holidays can be customized. This is relevant because time on a holiday doesn't c
 
 ## Working time
 
-- `kadai.workingTime.schedule.MONDAY` : Working time on Monday, e. g. 09:00-18:00
-- ``kadai.workingTime.schedule.TUESDAY`` : Working time on Tuesday, e. g. 09:00-18:00
-- ``kadai.workingTime.schedule.WEDNESDAY`` : Working time on Wednesday, e. g. 09:00-18:00
-- ``kadai.workingTime.schedule.THURSDAY`` : Working time on Thursday, e. g. 09:00-18:00
-- ``kadai.workingTime.schedule.FRIDAY`` : Working time on Friday, e. g. 09:00-18:00
+- ``kadai.workingTime.schedule.MONDAY`` : Working time on Monday, e.g., 09:00–18:00
+- ``kadai.workingTime.schedule.TUESDAY`` : Working time on Tuesday, e.g., 09:00–18:00
+- ``kadai.workingTime.schedule.WEDNESDAY`` : Working time on Wednesday, e.g., 09:00–18:00
+- ``kadai.workingTime.schedule.THURSDAY`` : Working time on Thursday, e.g., 09:00–18:00
+- ``kadai.workingTime.schedule.FRIDAY`` : Working time on Friday, e.g., 09:00–18:00
 - ``kadai.workingTime.timezone`` : Time zone, e. g. UTC

@@ -86,6 +86,11 @@ const config = {
             position: 'right',
           },
           {
+            href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
+            label: 'KADAI core Java Doc',
+            position: 'right',
+          },
+          {
             type: 'doc',
             docId: 'demo-app/demoApp',
             label: 'Demo App',
@@ -121,6 +126,10 @@ const config = {
               {
                 label: 'REST API Documentation',
                 href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
+              },
+              {
+                label: 'KADAI core Java Documentation',
+                href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
               }
             ]
           },

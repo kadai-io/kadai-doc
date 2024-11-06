@@ -5,30 +5,29 @@ sidebar_position: 1
 # Example Spring Boot
 
 In the first 4 steps, we will set up KADAI REST API without security. Then, we will show how to use
-the resulting REST API with [postman](https://www.postman.com/). This guide then sets up security.
-In the end of the guide, we will add the UI.
+the resulting REST API with [Postman](https://www.postman.com/). This guide then sets up security.
+At the end of the guide, we will add the UI.
 
 import styles from '../../../src/components/HomepageFeatures/styles.module.css';
 import Link from '@docusaurus/Link';
 
 ## What you'll need
 
-In order to set up the example, please install:
+To set up the example, please install:
 
 - an IDE of your choice (preferably IntelliJ)
 - Java 17
 - maven
-- optional: [postman](https://www.postman.com/) (makes REST API requests easier)
+- optional: [Postman](https://www.postman.com/) (makes REST API requests easier)
 
-Note: Please name your packages, folders and files exactly like in the example!
+Note: Please name your packages, folders, and files exactly like in the example!
 
 ## Set up KADAI REST-API without security
 
 ### Step 1: Initialize an empty project
 
 Go to [Spring Initializer](https://start.spring.io/) and create an example Maven Project. Choose the
-same options as in the Screenshot, except the spring version. Please check Java 17, then click on "
-Generate".
+same options as in the Screenshot, except the spring version. Please check Java 17, then click on "Generate".
 
 ![empty spring boot project](../static/getting-started/project-initializer.png)
 
@@ -38,16 +37,18 @@ Unpack the project in the folder of your choice and open it in IntelliJ
 
 ### Step 2: Add dependencies
 
-Please add following dependencies to the pom. All dependencies can be copied as one block at the end
-of step 2. After adding the dependencies, please reload maven and recompile the project.
+Please add the following dependencies to the pom.
+All dependencies can be copied as one block at the end
+of step 2.
+After adding the dependencies, please reload maven and recompile the project.
 
-** 1. spring core depenpendency: **
+** 1. spring core dependency: **
 
 ```
 <dependency>
     <groupId>org.springframework.plugin</groupId>
     <artifactId>spring-plugin-core</artifactId>
-    <version>2.0.0.RELEASE</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -70,17 +71,17 @@ of step 2. After adding the dependencies, please reload maven and recompile the 
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 ```
 
@@ -103,22 +104,22 @@ of step 2. After adding the dependencies, please reload maven and recompile the 
 <dependency>
     <groupId>org.springframework.plugin</groupId>
     <artifactId>spring-plugin-core</artifactId>
-    <version>2.0.0.RELEASE</version>
+    <version>3.0.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>com.h2database</groupId>
@@ -135,10 +136,12 @@ of step 2. After adding the dependencies, please reload maven and recompile the 
 #### Step 3a: Fill out application.properties
 
 The example already has the configuration file ```application.properties``` in
-the ``src/main/ressources`` folder. It's a standard configuration file used by spring. You can read
+the ``src/main/resources`` folder.
+It's a standard configuration file used by spring.
+You can read
 more about spring configuration in
 the [spring documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
-You need to add following content into that file:
+You need to add the following content into that file:
 
 ```
 logging.level.io.kadai=INFO
@@ -228,9 +231,11 @@ spring.ldap.embedded.validation.enabled=false
 
 #### Step 3b: Add kadai.properties
 
-Create ```kadai.properties``` in the resources folder. This file contains kadai specific
-configuration, like custom holidays etc.. Please
-copy following content into ```kadai.properties```:
+Create ```kadai.properties``` in the "resources" folder.
+This file contains KADAI specific
+configuration, like custom holidays, etc.
+Please
+copy the following content into ```kadai.properties```:
 
 ```
 kadai.roles.user=cn=ksc-users,cn=groups,OU=Test,O=KADAI | teamlead-1 | teamlead-2 | user-1-1 | user-1-2 | user-2-1 | user-2-2 | user-b-1 | user-b-2
@@ -279,7 +284,7 @@ kadai.jobs.cleanup.history.simple.enable=false
 
 First, Add ```@ComponentScan({"io.kadai","com.example"})``` as annotation above the class
 definition of the ExampleApplication and a corresponding import to this class. This will allow the
-apllication to find needed components.
+application to find the necessary components.
 
 Then, create a java class with the name ```ExampleRestConfiguration``` in the com.example.demo
 package. This class defines the Beans and their dependencies. Your project structure should look
@@ -362,7 +367,7 @@ public class ExampleRestConfiguration {
 
 ### Step 5: Try out the REST-API
 
-Recompile the project and then start the DemoApplication in your IDE. You can now make following
+Recompile the project and then start the DemoApplication in your IDE. You can now make the following
 request:
 
 ```
@@ -370,11 +375,11 @@ GET http://localhost:8080/kadai/api/v1/classifications
 ```
 
 You should get a list of different Classifications in the body of the response. Here is a screenshot
-of the request and the response in [postman](https://www.postman.com/):
+of the request and the response in [Postman](https://www.postman.com/):
 
 ![example request](../static/getting-started/example-request-classifications.png)
 
-You can also request Tasks using following command:
+You can also request Tasks using the following command:
 
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
@@ -393,7 +398,7 @@ ExampleWebSecurityConfig. The classes will be created in the next steps.
 
 ### Step 6: Add security dependencies and stop disabling security
 
-Add following dependencies to your pom and reload maven:
+Add the following dependencies to your pom and reload maven:
 
 ```
 <dependency>
@@ -416,7 +421,7 @@ Add following dependencies to your pom and reload maven:
 
 Then, set the ``devMode`` property in ``application.properties`` to false. This enables
 authorization checks.
-You also need to remove following lines from the ``ExampleRestConfiguration.java``:
+You also need to remove the following lines from the ``ExampleRestConfiguration.java``:
 
 ```
  @Bean
@@ -436,7 +441,8 @@ Deleted because KadaiEngineConfiguration doesn't exist anymore
 
 ### Step 7: Add BootWebSecurityConfigurer.java
 
-Create ```BootWebSecurityConfigurer.java``` in the security folder and copy following content into
+Create ```BootWebSecurityConfigurer.java``` in the security folder
+and copy the following content into
 it:
 
 ```
@@ -617,7 +623,7 @@ public class BootWebSecurityConfigurer {
 
 ```
 
-Create ```CsrfCookieFilter.java``` in the security folder and copy following content into it:
+Create ```CsrfCookieFilter.java``` in the security folder and copy the following content into it:
 
 ```
 package com.example.demo.security;
@@ -648,7 +654,7 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
 
 ```
 
-Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy following content into it:
+Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy the following content into it:
 
 ```
 package com.example.demo.security;
@@ -761,16 +767,19 @@ First, restart the ExampleApplication. Try to make a request like in the previou
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
 
-You should get the 401 Unauthorized response. Now, you can authorize yourself using basicAuth.
-In [postman](https://www.postman.com/), go to the "Authorization" tab. There, select basicAuth and
-type "admin" as user and "admin" as password. Then, you can make the following request:
+You should get the "401 Unauthorized" response.
+Now, you can authorize yourself using basicAuth.
+In [Postman](https://www.postman.com/), go to the "Authorization" tab.
+There, select basicAuth and
+type "admin" as user and "admin" as password.
+Then, you can make the following request:
 
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
 
 It should return a list of Tasks in the response body. Here is a screenshot of the request and the
-response in [postman](https://www.postman.com/):
+response in [Postman](https://www.postman.com/):
 
 ![example request](../static/getting-started/request-security.png)
 
@@ -778,13 +787,13 @@ response in [postman](https://www.postman.com/):
 
 ### Step 11: Add web dependencies
 
-Add following dependencies to your pom and reload maven:
+Add the following dependencies to your pom and reload maven:
 
 ```
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-web</artifactId>
-    <version>8.1.0</version>
+    <version>9.1.0</version>
 </dependency>
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -796,7 +805,7 @@ Add following dependencies to your pom and reload maven:
 
 Add ```controllers``` package into the ```com.example.demo``` package (in
 src/main/java/com/example/demo). This package will contain the controllers for different paths. Our
-application needs following three controllers:
+application needs the following three controllers:
 
 - LoginController
 - ResourcesController
@@ -860,8 +869,10 @@ the ```static``` folder for it. You can download the ```static``` folder here:
     </Link>
 </div> <br/>
 
-Please unzip the ```static``` folder and copy it into ```resources```. Additionaly, there is
-the ```com.example.demo.controllers``` folder for further customizations. Please downlad it here:
+Please unzip the ```static``` folder and copy it into ```resources```.
+Additionally, there is
+the ```com.example.demo.controllers``` folder for further customizations.
+Please download it here:
 
 
 <div className={styles.buttons}>
@@ -877,7 +888,8 @@ the ```com.example.demo.controllers``` folder for further customizations. Please
 </div> 
 <br/>
 
-Unzip the ```com``` folder and put it into ```resources```. Then, please copy following code
+Unzip the ```com``` folder and put it into ```resources```.
+Then, please copy the following code
 into ```ResourcesController.java```:
 
 ```
@@ -923,7 +935,8 @@ public class ResourcesController {
 
 #### Step 12c: Add ViewController.java
 
-The ViewController manages the root view of kadai. Copy following code
+The ViewController manages the root view of KADAI.
+Copy following code
 into ```ViewController.java```:
 
 ```
@@ -1025,7 +1038,7 @@ type ```localhost:8080/kadai``` into your browser. You should see the login scre
 
 ![Log in](../static/getting-started/login.png)
 
-Log in using "admin" as username and "admin" as password. Now, you should see following:
+Log in using "admin" as username and "admin" as password. Now, you should see the following:
 
 ![Workbaskets](../static/getting-started/workbaskets.png)
 

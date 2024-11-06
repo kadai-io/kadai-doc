@@ -6,18 +6,26 @@ sidebar_position: 3
 import Drawio from '@theme/Drawio'
 import simpleGraph from '!!raw-loader!../static/core-concepts/lib-structure.drawio';
 
-The following article describes the practical implementation of main concepts of KADAI, explained in the [Overview](./overview.md). Please be familiar with the contents of the Overview in order to understand this article.
+The following article describes the practical implementation of KADAI's main concepts,
+explained in the [Overview](./overview.md).
+Please be familiar with the contents of the Overview to understand this article.
 
 ## Where to find entities and operations on them
 The Overview describes [entities](./overview.md#kadai-entities) and [operations on them](./overview.md#operations-on-entities). 
 
 The Task, Classification and Workbasket as well as related entities can be found in ``io.kadai.task.api.models``, ``io.kadai.classification.api.models``, ``io.kadai.workbasket.api.models``. Besides Tasks, Classifications and Workbaskets, KADAI also operates using summary objects: TaskSummaries, ClassificationSummaries and WorkbasketSummaries. They represent the same concepts as Tasks, Classifications and Workbaskets. Each summary object refers to a full entity, but only contains the most important information. For example, a TaskSummary with id 1234 refers to the Task with the id 1234. However, the TaskSummary does not contain the Attachment of the Task as well as some other information. The summary objects can be found in the same package as the complete entity interfaces.
 
-Creating, Deleting and Updating can be done using TaskService, ClassificationService and WorkbasketService. The Services can be found in`` io.kadai.task.api``, ``io.kadai.classification.api``, ``io.kadai.workbasket.api``. The corresponding queries can be also found in these packages. They are called  TaskQuery, ClassificationQuery and WorkbasketQuery.
+Creating, Deleting and Updating can be done using TaskService,
+ClassificationService and WorkbasketService.
+The Services can be found in`` io.kadai.task.api``,
+``io.kadai.classification.api``, ``io.kadai.workbasket.api``.
+The corresponding queries can be also found in these packages.
+They are called TaskQuery, ClassificationQuery and WorkbasketQuery.
 
 ## The core of the Java-API 
 
-Below is the diagramm that shows different packages that make up the Java-API of KADAI. They can be found in the ``lib/kadai-core`` folder
+Below is the diagram that shows different packages that make up the Java-API of KADAI.
+They can be found in the ``lib/kadai-core`` folder
 <Drawio content={simpleGraph} />
 <br />
 
@@ -63,12 +71,12 @@ Below is the diagramm that shows different packages that make up the Java-API of
     - Used Exceptions 
 
 - ``io.kadai.spi``: 
-    - contains all Service Provider Interfaces (SPIs) of KADAI. An SPI allows the client to change the behavior of KADAI by implementing the SPI. More about SPIs can be found here (link)
+    - contains all Service Provider Interfaces (SPIs) of KADAI. An SPI allows the client to change the behavior of KADAI by implementing the SPI. More about SPIs can be found [here](../features/howToUseServiceProviderInterfaces.md).
 
 ### How to create an Entity using the Java-API? 
 
 #### Example Task 
-1. First create a Task object that is not in the database yet with method 
+1. First create a Task object not persisted in the database yet with method 
     ```TaskService.newTask```
 2. Then set some properties of that Task via its setter methods.
 3. Finally, persist this Task to the database via ```TaskSerivce.createTask```
@@ -76,9 +84,17 @@ Below is the diagramm that shows different packages that make up the Java-API of
 You can find corresponding functions ```WorkbasketService.newWorkbasket```, ```ClassificationService.newClassification```  ```WorkbasketService.createWorkbasket``` and ```ClassificationService.createClassification``` in other Services. They can be used to create other entities.
 
 ### How to manipulate an Entity using the Java-API? 
-Some properties of an entity can be set via the entity interface (e.g. the Task interface) in the KADAI Java-API. For example, the method ``  Task.setDescription`` can be used to set the description of a Task.  However, some properties of entities cannot be set this way. For example, a Workbasket has to be specified during the creation of a Task. You can change the Workbasket by transferring the Task using ``TaskService.transfer``. The state of a Task can only be modified by corresponding TaskService methods ``claim``, ``forceClaim``, ``cancelClaim`` etc. You can read more about the status changes here (link).
+Some properties of an entity can be set via the entity interface
+(e.g., the Task interface) in the KADAI Java-API.
+For example, the method ``  Task.setDescription`` can be used to set the description of a Task.
+However, some properties of entities cannot be set this way.
+For example, a Workbasket has to be specified during the creation of a Task.
+You can change the Workbasket by transferring the Task using ``TaskService.transfer``.
+The state of a Task can only be modified by corresponding TaskService methods ``claim``,
+``forceClaim``,
+``cancelClaim`` etc. You can read more about the status changes [here](./taskLifecycle.md).
 
-### How to integrate the Java API of KADAI- into your application?
+### How to integrate the Java API of KADAI into your application?
 
 - Find out the DataSource for your KADAI database. You can read here (link) about setting it up
 - Pass the DataSource to the constructor of ``io.kadai.configuration.KadaiEngineConfiguration``.

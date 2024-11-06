@@ -1,5 +1,5 @@
 # Getting Started
-In this article, the set up of the Adapter is explained step by step. Additionally, you can try out some of the functionalities of the Adapter following the instructions in this article.
+In this article, the set-up of the Adapter is explained step by step. Additionally, you can try out some of the functionalities of the Adapter following the instructions in this article.
 
 ## What you'll need
 
@@ -8,7 +8,7 @@ In this article, the set up of the Adapter is explained step by step. Additional
 - maven
 - Camunda Modeler
 - Postgres or Docker (to set up postgres database)
-- optional: postman (makes REST API requests easier)
+- optional: Postman (makes REST API requests easier)
 - Working KADAI application (see [here](../getting-started/exampleSpringBoot.md) for instructions)
 
 Note: Please name your packages, folders and files exactly like in the example!
@@ -31,12 +31,12 @@ Add following dependencies to the dependencies section of your pom:
 <dependency>
   <groupId>io.kadai</groupId>
   <artifactId>kadai-adapter-camunda-outbox-rest-spring-boot-starter</artifactId>
-  <version>3.1.0</version>
+  <version>9.0.0</version>
 </dependency>
 <dependency>
   <groupId>org.jboss.resteasy</groupId>
   <artifactId>resteasy-servlet-spring-boot-starter</artifactId>
-  <version>6.1.1.Final</version>
+  <version>6.2.0.Final</version>
 </dependency>
 <dependency>
   <groupId>org.camunda.spin</groupId>
@@ -70,7 +70,7 @@ Then, add a repository to the pom:
   </repository>
 </repositories>
 ```
-Add the following file to your resources folder:
+Add the following file to your "resources" folder:
 
 ### kadai-outbox.properties
 ```
@@ -194,17 +194,17 @@ Add following dependencies to the dependencies section of your pom (if they don'
   <dependency>
      <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
-    <version>3.1.0</version>
+    <version>9.0.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-system-connector</artifactId>
-    <version>3.1.0</version>
+    <version>9.0.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
-    <version>3.1.0</version>
+    <version>9.0.0</version>
   </dependency>
   <dependency>
     <groupId>com.ibm.db2</groupId>
@@ -316,7 +316,7 @@ kadai.jobs.enabled=false
 ## Step 4: Add SPIs to your Adapter application
 
 SPIs need to be additionally specified in the Adapter application. You can read more about SPIs [here](../features/howToUseServiceProviderInterfaces.md).
-The necessary SPI for the Adapter application can be build as follows: First, create a new package with the name taskrouting. Then, create a class in the package taskrouting with the name ExampleTaskRouter. It should look like this:
+The necessary SPI for the Adapter application can be built as follows: First, create a new package with the name `taskrouting`. Then, create a class in the package `taskrouting` with the name ExampleTaskRouter. It should look like this:
 ```
 package com.example.demo.taskrouting; //or your own path depending on your packages
 import io.kadai.common.api.KadaiEngine;
@@ -354,27 +354,27 @@ Then, start your KADAI application. Start your camunda app next, and login. Last
 
 ## Step 6: Try out different functionalities of Adapter. 
 
-1. Start a process with a User Task in Camunda. The User Task should be imported to KADAI automatically. You can check it by first knowing the name of the user task from the started process, then make a postgres GET request to KADAI using the following request, entering the name (or just substring of the name) of the user task for the "name-like" attribute
+1. Start a process with a User Task in Camunda. The User Task should be imported to KADAI automatically. You can check it by first knowing the name of the user task from the started process, then make a postgres GET request to KADAI using the following request, entering the name (or just substring of the name) of the user task for the "name-like" attribute.
    ```
    GET http://localhost:8080/kadai/api/v1/tasks?name-like=Say hello
    ```
    Here we assume that the name of the user task is "Say hello to demo", but you can set the name differently by opening the `process.bpmn` file in the camunda application and set the name attribute in `<bpmn:userTask>`differently.
-   Make sure that the correct port number is used for KADAI request. You can check the port number in `application.properties` of KADAI under `server.port`. If not specified, then the default port is 8080. You have to authenticate yourself using Basic Auth: In postman, go to the "Authorization" tab. There, select basicAuth and type "admin" as user and "admin" as password. Make sure enableCsrf is set to false in the properties of the KADAI application.
+   Make sure that the correct port number is used for KADAI request. You can check the port number in `application.properties` of KADAI under `server.port`. If not specified, then the default port is 8080. You have to authenticate yourself using Basic Auth: In Postman, go to the "Authorization" tab. There, select basicAuth and type "admin" as user and "admin" as password. Make sure enableCsrf is set to false in the properties of the KADAI application.
    
    The output of the request in Postman should look like this:
 
    ![Local Image](../static/adapter/show-tasks.png)
 
-2. Claim the KADAI Task from the previous step using postman. Make sure you add the following property to the `application.properties` file of the adapter application: ``kadai.adapter.camunda.claiming.enabled=true``, then restart the adapter. To send the POST request, use the same authorization as in the previous step. The Task should get claimed in Camunda automatically.
+2. Claim the KADAI Task from the previous step using Postman. Make sure you add the following property to the `application.properties` file of the adapter application: ``kadai.adapter.camunda.claiming.enabled=true``, then restart the adapter. To send the POST request, use the same authorization as in the previous step. The Task should get claimed in Camunda automatically.
    ```
    POST http://localhost:8080/kadai/api/v1/tasks/{taskid}/claim
    ```
    You can check that the task in KADAI is also claimed by making the same GET Request as in Step 1 and see the `claimed` attribute.
 
-3. Complete the KADAI Task from previous step using postman. To send the POST request, use the same authorization as in the previous step. The Task should disappear from Camunda Tasklist.
+3. Complete the KADAI Task from the previous step using Postman. To send the POST request, use the same authorization as in the previous step. The Task should disappear from Camunda Tasklist.
    ```
    POST http://localhost:8080/kadai/api/v1/tasks/{taskid}/complete
    ```
 
 
-More functionalities like the cancelling of a claimed task and their URLs can be found in the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kadai/docs/rest/rest-api.html).
+More functionalities like the cancelling of a claimed task and their URLs can be found in the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html).

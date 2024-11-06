@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Demo App
 
-While our main focus remains ob the backend of KADAI, we additionaly provide an example frontend in form of a Demo App. This is only an example, as KADAI frontend can be implemented differently for specific use cases. Here is what the demo app looks like: 
+While our main focus remains ob the backend of KADAI, we additionally provide an example frontend in form of a Demo App. This is only an example, as KADAI frontend can be implemented differently for specific use cases. Here is what the demo app looks like: 
 ![Demo App](static/demo-app.png)
 ### [Click here to go to the Demo App](https://kadai-io.azurewebsites.net/kadai)
 
@@ -15,7 +15,7 @@ In order to login as admin, you need to use the following credentials:
 >
 > password: admin
 
-Then, you will be forwarded to the **KADAI Administration**. There are also other users available. 
+Then, you will be forwarded to the **KADAI Administration**. There are other users available. 
 
 ### Navigation in the Demo App
 To navigate between different pages, select the menu using the three point icon on the upper left. Then, you can choose between the categories shown in the bucket list below.

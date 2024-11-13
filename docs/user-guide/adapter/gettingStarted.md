@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Getting Started
 In this article, the set up of the Adapter is explained step by step. Additionally, you can try out some of the functionalities of the Adapter following the instructions in this article.
 
@@ -297,7 +301,13 @@ kadai.adapter.mapping.default.objectreference.system=DEFAULT_SYSTEM
 kadai.adapter.mapping.default.objectreference.system.instance=DEFAULT_SYSTEM_INSTANCE
 kadai.adapter.mapping.default.objectreference.type=DEFAULT_TYPE
 kadai.adapter.mapping.default.objectreference.value=DEFAULT_VALUE
-
+management.endpoints.web.exposure.include= *
+management.endpoint.health.show-details= always
+management.health.external-services.include=external-services
+management.health.external-services.enabled=true
+camundaOutboxService.port=8081
+camundaOutboxService.address=http://localhost
+outbox.context-path:example-context-root
 ```
 ### kadai.properties
 ```

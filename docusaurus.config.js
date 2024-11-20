@@ -142,10 +142,21 @@ const config = {
                 to: 'docs/demo-app/demoApp'
               }
             ]
+          },
+          {
+            title: "Legal",
+            items: [
+
+              {
+                label: 'Legal Notice',
+                to: 'docs/legal/legalNotice'
+              }
+            ]
           }
 
         ],
-        copyright: `Built with Docusaurus. KADAI is a brand name registered by envite consulting GmbH`,
+        copyright:
+        `Built with Docusaurus. KADAI is a brand name registered by <a href="https://www.envite.de" target="_blank" style="color: #6DCBB3; text-decoration: none;">envite consulting GmbH</a>.`,
 
       },
       prism: {

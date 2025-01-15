@@ -21,7 +21,7 @@ The environment-information.json contains two parameters:
 
 Here is an example:
 
-```
+```json
 {
 	"kadaiRestUrl": "http://localhost:8080/kadai/api",
 	"kadaiLogoutUrl": "http://localhost:8080/kadai"

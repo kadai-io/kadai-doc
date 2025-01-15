@@ -28,7 +28,7 @@ More about queries using the REST-API can be found in the [REST-API Documentatio
 # Query in JAVA-API
 You can also execute queries using the [JAVA-API](../core-concepts/javaApiUsage.md) of KADAI. To do that, create a query using the service of the relevant entity. Then, add filtering and sorting parameters to your query and execute it. When querying for Tasks, you need to use ``TaskService.createTaskQuery()``. You can find the query filter and sorting parameters under ``io.kadai.TaskQuery.api``.
 Here is an example of a query that returns Tasks owned by *user-1-1* or *user-1-2* sorted by the business process id of the Task:
-```language
+```java
 List<TaskSummary> tasks = taskService.createTaskQuery()
                         .ownerIn("user-1-1","user-1-2").orderByBusinessProcessId(SortDirection.ASCENDING)
                         .list();

@@ -14,26 +14,25 @@ The recommended page size for the database is 32 k. It's necessary to create the
         - postgres (case sensitive): de_DE.UTF-8
 
 Example db2:
-```
+```sql
 CREATE DATABASE <databaseName> USING CODESET UTF-8 COLLATE USING IDENTITY PAGESIZE 32 K 
-
 ```
 
 Example Postgres:
-```
+```sql
 CREATE DATABASE <databaseName> WITH ENCODING 'UTF8' LC_COLLATE='de_DE.UTF-8';
 ```
 
 ### DataSource
 
 KADAI connects to the database via a DataSource. It does not support XADataSources for connections to databases. The DataSource can be specified during the creation of KadaiConfiguration. For example, as following:
-```
+```Java
 new KadaiConfiguration.Builder(dataSource, true, schemaName, false)
         .initKadaiProperties(propertiesFileName, delimiter)
         .build();
 ``` 
 In Spring environment, the DataSource has standard spring options that can be configured in the ```application.properties``` file. You can read more about them in the Spring documentation. Here is an example: 
-```
+```properties
 spring.datasource.url=jdbc:h2:mem:kadai;NON_KEYWORDS=KEY,VALUE;IGNORECASE=TRUE;LOCK_MODE=0;
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa

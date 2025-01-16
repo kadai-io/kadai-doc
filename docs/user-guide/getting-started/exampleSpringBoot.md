@@ -220,6 +220,12 @@ kadai.ldap.groupNameAttribute=cn
 kadai.ldap.minSearchForLength=3
 kadai.ldap.maxNumberOfReturnedAccessIds=50
 kadai.ldap.groupsOfUser=uniquemember
+kadai.ldap.permissionSearchBase=
+kadai.ldap.permissionSearchFilterName=objectclass
+kadai.ldap.permissionSearchFilterValue=groupofuniquenames
+kadai.ldap.permissionNameAttribute=permission
+kadai.ldap.permissionsOfUser=uniquemember
+kadai.ldap.useDnForGroups=true
 # Embedded Spring LDAP server
 spring.ldap.embedded.base-dn=OU=Test,O=KADAI
 spring.ldap.embedded.credential.username=uid=admin

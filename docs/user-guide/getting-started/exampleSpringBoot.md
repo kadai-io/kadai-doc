@@ -15,23 +15,26 @@ import Link from '@docusaurus/Link';
 
 To set up the example, please install:
 
-- an IDE of your choice (preferably IntelliJ)
+- an IDE of your choice (IntelliJ recommended)
 - Java 17
 - maven
-- optional: [Postman](https://www.postman.com/) (makes REST API requests easier)
+- [Postman](https://www.postman.com/) or any similar tool for creating API requests
 
-Note: Please name your packages, folders, and files exactly like in the example!
+**Note**: Please name your packages, folders, and files exactly like in the example!
 
 ## Set up KADAI REST-API without security
 
 ### Step 1: Initialize an empty project
 
 Go to [Spring Initializer](https://start.spring.io/) and create an example Maven Project. Choose the
-same options as in the Screenshot, except the spring version. Please check Java 17, then click on "Generate".
+same options as in the Screenshot, except the spring version. Please check Java 17, then click on "
+Generate".
 
 ![empty spring boot project](../static/getting-started/project-initializer.png)
 
-Unpack the project and open it in an IDE of your choice. Your project-structure should look like below:
+Unpack the project and open it in an IDE of your choice. Your project-structure should look like
+below:
+
 ```
 demo
 ├───.mvn
@@ -306,6 +309,7 @@ application to find the necessary components.
 Then, create a java class with the name ```ExampleRestConfiguration``` in the `com.example.demo`
 package. This class defines the Beans and their dependencies. Your project structure should look
 like this:
+
 ```
 demo
 ├───.mvn
@@ -410,10 +414,37 @@ request:
 GET http://localhost:8080/kadai/api/v1/classifications
 ```
 
-You should get a list of different Classifications in the body of the response. Here is a screenshot
-of the request and the response in [Postman](https://www.postman.com/):
+You should get a list of different Classifications the responses body.
+See a snippet of the expected response-body below:
 
-![example request](../static/getting-started/example-request-classifications.png)
+```json
+{
+  "classifications": [
+    {
+      "classificationId": "CLI:000000000000000000000000000000000001",
+      "key": "L10000",
+      "applicationEntryPoint": "",
+      "category": "EXTERNAL",
+      "domain": "",
+      "name": "OLD-Leistungsfall",
+      "parentId": "",
+      "parentKey": "",
+      "priority": 999,
+      "serviceLevel": "P1D",
+      "type": "TASK",
+      "custom1": "VNR,RVNR,KOLVNR",
+      "custom2": "",
+      "custom3": "",
+      "custom4": "",
+      "custom5": "",
+      "custom6": "",
+      "custom7": "",
+      "custom8": ""
+    },
+    ...
+  ]
+}
+```
 
 You can also request Tasks using the following command:
 
@@ -428,7 +459,7 @@ They will be added in the next steps.
 
 Our example application uses [ldap](https://ldap.com/learn-about-ldap/) for its authorization.
 First, add a ```security``` package into the ```com.example.demo``` package (in
-src/main/java/com/example/demo). The package will consist of one configurer class:
+`src/main/java/com/example/demo`). The package will consist of one configurer class:
 BootWebSecurityConfigurer (will be replaced), and one example configuration
 ExampleWebSecurityConfig. The classes will be created in the next steps.
 
@@ -690,7 +721,8 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
 
 ```
 
-Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy the following content into it:
+Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy the following
+content into it:
 
 ```
 package com.example.demo.security;
@@ -793,6 +825,7 @@ the ```example-users.ldif``` file here:
 Please unzip the ```example-users``` file and put it into the ```resources``` folder.
 
 Your project structure should now look like this:
+
 ```
 demo
 ├───.mvn
@@ -829,21 +862,43 @@ First, restart the ExampleApplication. Try to make a request like in the previou
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
 
-You should get the "401 Unauthorized" response.
-Now, you can authorize yourself using basicAuth.
+You should get the `401 Unauthorized` response.
+Now, you can authorize yourself using `basicAuth`.
 In [Postman](https://www.postman.com/), go to the "Authorization" tab.
-There, select basicAuth and
-type "admin" as user and "admin" as password.
-Then, you can make the following request:
+There, select `basicAuth` and
+type `admin` as user and `admin` as password.
+Then you can make the following request:
 
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
 
-It should return a list of Tasks in the response body. Here is a screenshot of the request and the
-response in [Postman](https://www.postman.com/):
+It should return a list of Tasks in the responses body.
+See a snippet of the expected response-body below:
 
-![example request](../static/getting-started/request-security.png)
+```json
+{
+  "tasks": [
+    {
+      "taskId": "TKI:000000000000000000000000000000000000",
+      "externalId": "ETI:000000000000000000000000000000000000",
+      "created": "2025-01-15T19:27:56.991Z",
+      "claimed": "2025-01-16T19:27:56.991Z",
+      "completed": null,
+      "modified": "2025-01-16T19:27:56.991Z",
+      "planned": "2025-01-15T19:27:56.991Z",
+      "received": "2025-01-16T19:27:56.991Z",
+      "due": "2025-01-16T19:27:56.991Z",
+      "name": "Task99",
+      "creator": "creator_user_id",
+      "note": "Some custom Note",
+      "description": "Lorem ipsum was n Quatsch dolor sit amet.",
+      ...
+    },
+    ...
+  ]
+}
+```
 
 ## Set up KADAI UI
 
@@ -869,9 +924,9 @@ Add ```controllers``` package into the ```com.example.demo``` package (in
 src/main/java/com/example/demo). This package will contain the controllers for different paths. Our
 application needs the following three controllers:
 
-- LoginController
-- ResourcesController
-- ViewController
+- `LoginController`
+- `ResourcesController`
+- `ViewController`
 
 These will be added in the steps 12a, 12b and 12c.
 
@@ -916,7 +971,7 @@ public class LoginController implements WebMvcConfigurer {
 
 #### Step 12b: Add ResourcesController.java
 
-The ResourcesController handles resources like images and additional customizations. You'll need
+The `ResourcesController` handles resources like images and additional customizations. You'll need
 the ```static``` folder for it. You can download the ```static``` folder here:
 
 <div className={styles.buttons}>
@@ -1090,6 +1145,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 ```
 
 Your project structure should look like this:
+
 ```
 demo
 ├───.mvn
@@ -1139,7 +1195,6 @@ demo
 │   pom.xml
 ```
 
-
 ### Step 14: Start and open the application
 
 Recompile the application, then go to the DemoApplication class in the IDE and start it. Then
@@ -1147,7 +1202,7 @@ type ```localhost:8080/kadai``` into your browser. You should see the login scre
 
 ![Log in](../static/getting-started/login.png)
 
-Log in using "admin" as username and "admin" as password. Now, you should see the following:
+Log in using `admin` as username and `admin` as password. Now, you should see the following:
 
 ![Workbaskets](../static/getting-started/workbaskets.png)
 

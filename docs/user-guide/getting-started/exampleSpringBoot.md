@@ -31,13 +31,24 @@ same options as in the Screenshot, except the spring version. Please check Java 
 
 ![empty spring boot project](../static/getting-started/project-initializer.png)
 
-Unpack the project in the folder of your choice and open it in IntelliJ
-
-![unpacked project](../static/getting-started/schritt-2.png)
+Unpack the project and open it in an IDE of your choice. Your project-structure should look like below:
+```
+demo
+├───.mvn
+│   └───wrapper
+├───src
+│   ├───main
+│   └───test
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
 
 ### Step 2: Add dependencies
 
-Please add the following dependencies to the pom.
+Please add the following dependencies to the `pom`.
 All dependencies can be copied as one block at the end
 of step 2.
 After adding the dependencies, please reload maven and recompile the project.
@@ -289,16 +300,35 @@ kadai.jobs.cleanup.history.simple.enable=false
 ### Step 4: Add rest configuration
 
 First, Add ```@ComponentScan({"io.kadai","com.example"})``` as annotation above the class
-definition of the ExampleApplication and a corresponding import to this class. This will allow the
+definition of the `ExampleApplication` and a corresponding import to this class. This will allow the
 application to find the necessary components.
 
-Then, create a java class with the name ```ExampleRestConfiguration``` in the com.example.demo
+Then, create a java class with the name ```ExampleRestConfiguration``` in the `com.example.demo`
 package. This class defines the Beans and their dependencies. Your project structure should look
 like this:
+```
+demo
+├───.mvn
+├───src
+│   ├───main
+│       ├───java
+│       │   └───com
+│       │       └───example
+│       │           └───demo
+│       │                   DemoApplication.java
+│       │                   ExampleRestConfiguration.java
+│       └───resources
+│               application.properties
+│               kadai.properties
+├───target
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
 
-![basic project](../static/getting-started/rest-api-project.png)
-
-Copy following content into ```ExampleRestConfiguration.java```:
+Copy the following content into ```ExampleRestConfiguration.java```:
 
 ```
 package com.example.demo;
@@ -763,7 +793,33 @@ the ```example-users.ldif``` file here:
 Please unzip the ```example-users``` file and put it into the ```resources``` folder.
 
 Your project structure should now look like this:
-![project structure](../static/getting-started/project-structure-security.png)
+```
+demo
+├───.mvn
+├───src
+│   ├───main
+│       ├───java
+│       │   └───com
+│       │       └───example
+│       │           └───demo
+│       │               │───security
+│       │               │       BootWebSecurityConfigurer.java
+│       │               │       CsrfCookieFilter.java
+│       │               │       ExampleWebSecurityConfig.java
+│       │               │       SpaCsrfTokenRequestHandler.java
+│       │               │───DemoApplication.java
+│       │               │───ExampleRestConfiguration.java
+│       └───resources
+│               application.properties
+│               example-users.ldif
+│               kadai.properties
+├───target
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
 
 ### Step 10: Try out the REST-API
 
@@ -1034,8 +1090,55 @@ public class WebMvcConfig implements WebMvcConfigurer {
 ```
 
 Your project structure should look like this:
+```
+demo
+├───.mvn
+│
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───example
+│   │   │           └───demo
+│   │   │               │
+│   │   │               ├───controllers
+│   │   │               │       LoginController.java
+│   │   │               │       ResourcesController.java
+│   │   │               │       ViewController.java
+│   │   │               │
+│   │   │               │───security
+│   │   │               │       BootWebSecurityConfigurer.java
+│   │   │               │       CsrfCookieFilter.java
+│   │   │               │       ExampleWebSecurityConfig.java
+│   │   │               │       SpaCsrfTokenRequestHandler.java
+│   │   │               │───DemoApplication.java
+│   │   │               │───ExampleRestConfiguration.java
+│   │   │               │───WebMvcConfig.java
+│   │   └───resources
+│   │       │   application.properties
+│   │       │   example-users.ldif
+│   │       │   kadai.properties
+│   │       │
+│   │       ├───com
+│   │       │   └───example
+│   │       │       └───demo
+│   │       │           └───controllers
+│   │       │                   kadai-customization.json
+│   │       │
+│   │       ├───static
+│   │       │   ├───css
+│   │       │   ├───environments
+│   │       │   └───img
+│   │       └───templates
+│   └───test
+│   .gitattributes
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
 
-![project structure](../static/getting-started/project-structure-end.png)
 
 ### Step 14: Start and open the application
 

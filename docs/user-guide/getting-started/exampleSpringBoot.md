@@ -71,17 +71,17 @@ After adding the dependencies, please reload maven and recompile the project.
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 ```
 
@@ -109,17 +109,17 @@ After adding the dependencies, please reload maven and recompile the project.
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>com.h2database</groupId>
@@ -793,7 +793,7 @@ Add the following dependencies to your pom and reload maven:
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-web</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
 </dependency>
 <dependency>
     <groupId>org.springframework.boot</groupId>

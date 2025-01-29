@@ -1,3 +1,6 @@
+![Docusaurus 3.6.3](https://img.shields.io/badge/Docusaurus-3.6.3-blue?logo=docusaurus&link=https://docusaurus.io/docs/3.6.3)
+[![CI](https://github.com/kadai-io/kadai-doc/actions/workflows/github-actions.yml/badge.svg)](https://github.com/kadai-io/kadai-doc/actions/workflows/github-actions.yml)
+
 # KADAI - Documentation for the open source task management library
 
 This repository contains the [website](http://kadai.io/) for the documentation of [KADAI](https://github.com/kadai-io/kadai).
@@ -5,7 +8,7 @@ This repository contains the [website](http://kadai.io/) for the documentation o
 KADAI is a task management component open source library. It can be embedded into your application or be operated standalone if appropriate. Beside the basic task management functionalities, KADAI adds workbaskets and classifications to control and monitor a large amount of Tasks within a larger organization.
 
 ## 🔨Build
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ```bash
   yarn build

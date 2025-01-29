@@ -30,7 +30,7 @@ a list of access ids that refer to users or groups can be specified using the fo
 | task_router    | kadai.roles.task_router    |
 
 The access ids are separated by a configurable separator. If none is provided, the default is "|". The assignment of roles to users or groups can look like this:
-```properties
+```properties title="src/main/resources/kadai.properties"
 kadai.roles.user=cn=ksc-users,cn=groups,OU=Test,O=KADAI | teamlead-1 | teamlead-2 | user-1-1 | user-1-2 | user-2-1 | user-2-2 | user-b-1 | user-b-2
 kadai.roles.admin=admin | uid=admin,cn=users,OU=Test,O=KADAI
 kadai.roles.business_admin=businessadmin | cn=business-admins,cn=groups,OU=Test,O=KADAI

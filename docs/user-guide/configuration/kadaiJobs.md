@@ -93,7 +93,7 @@ These configuration options are overwritten by job-specific configuration option
 ## Example
 **Setup**:
 
-```
+```properties title="src/main/resources/kadai.properties"
 kadai.jobs.scheduler.enabled=true
 kadai.jobs.scheduler.initialStartDelay=2
 kadai.jobs.scheduler.period=3

@@ -36,7 +36,7 @@ Below, you can see example business use cases for KadaiHistory.
 Additionally to the SPI, KADAI already provides an implementation at `io.kadai.simplehistory.impl.SimpleHistoryServiceImpl`. 
 You can activate `SimpleHistoryServiceImpl` by adding the following dependency to your pom:
 
-```xml
+```xml title="pom.xml"
 <dependency>
       <groupId>io.kadai.history</groupId>
       <artifactId>kadai-simplehistory-provider</artifactId>
@@ -44,7 +44,7 @@ You can activate `SimpleHistoryServiceImpl` by adding the following dependency t
 </dependency>
 ```
 KADAI also provides a REST service for SimpleHistoryServiceImpl documented [here](https://kadai-io.azurewebsites.net/kadai/docs/rest/simplehistory-rest-api.html). If you want to use the REST Service, you can add the following dependency to your pom:
-```xml
+```xml title="pom.xml"
 <dependency>
       <groupId>io.kadai.history</groupId>
       <artifactId>kadai-simplehistory-rest-spring</artifactId>

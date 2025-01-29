@@ -32,7 +32,7 @@ new KadaiConfiguration.Builder(dataSource, true, schemaName, false)
         .build();
 ``` 
 In Spring environment, the DataSource has standard spring options that can be configured in the ```application.properties``` file. You can read more about them in the Spring documentation. Here is an example: 
-```properties
+```properties title="src/main/resources/application.properties"
 spring.datasource.url=jdbc:h2:mem:kadai;NON_KEYWORDS=KEY,VALUE;IGNORECASE=TRUE;LOCK_MODE=0;
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa

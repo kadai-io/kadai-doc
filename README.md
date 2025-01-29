@@ -1,4 +1,4 @@
-![Docusaurus 3.6.3](https://img.shields.io/badge/Docusaurus-3.6.3-blue?logo=docusaurus&link=https://docusaurus.io/docs/3.6.3)
+[![Docusaurus 3.6.3](https://img.shields.io/badge/Docusaurus-3.6.3-blue?logo=docusaurus&link=https://docusaurus.io/docs/3.6.3)](https://docusaurus.io/docs/3.6.3)
 [![CI](https://github.com/kadai-io/kadai-doc/actions/workflows/github-actions.yml/badge.svg)](https://github.com/kadai-io/kadai-doc/actions/workflows/github-actions.yml)
 
 # KADAI - Documentation for the open source task management library

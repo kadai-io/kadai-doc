@@ -79,14 +79,14 @@ The securityEnabled-flag can disable authentication for the complete KADAI funct
 to false. The default value of the flag is true. You can change the value by specifying the
 *securityEnabled* parameter of the constructor of KadaiEngineConfiguration.
 
-```
+```java
 KadaiEngineConfiguration(DataSource dataSource, boolean useManagedTransactions,
         boolean securityEnabled, String propertiesFileName, String propertiesSeparator)
 ```
 
 In the spring boot example, you can add the following bean to disable security:
 
-```
+```java
     @Bean
     public KadaiEngineConfiguration kadaiEngineConfiguration(DataSource dataSource) {
         return new SpringKadaiEngineConfiguration(dataSource, true, false, "KADAI");

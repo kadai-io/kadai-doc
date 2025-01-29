@@ -44,7 +44,7 @@ After adding the dependencies, please reload maven and recompile the project.
 
 ** 1. spring core dependency: **
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.plugin</groupId>
     <artifactId>spring-plugin-core</artifactId>
@@ -54,7 +54,7 @@ After adding the dependencies, please reload maven and recompile the project.
 
 ** 2. database dependencies: **
 
-```
+```xml
 <dependency>
     <groupId>com.h2database</groupId>
     <artifactId>h2</artifactId>
@@ -67,7 +67,7 @@ After adding the dependencies, please reload maven and recompile the project.
 
 ** 3. kadai dependencies: **
 
-```
+```xml
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
@@ -87,7 +87,7 @@ After adding the dependencies, please reload maven and recompile the project.
 
 ** 4. tomcat application server dependency: **
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -96,7 +96,7 @@ After adding the dependencies, please reload maven and recompile the project.
 
 ** All dependencies **
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -143,7 +143,7 @@ more about spring configuration in
 the [spring documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 You need to add the following content into that file:
 
-```
+```properties
 logging.level.io.kadai=INFO
 logging.level.org.springframework=INFO
 server.servlet.context-path=/kadai
@@ -237,7 +237,7 @@ configuration, like custom holidays, etc.
 Please
 copy the following content into ```kadai.properties```:
 
-```
+```properties
 kadai.roles.user=cn=ksc-users,cn=groups,OU=Test,O=KADAI | teamlead-1 | teamlead-2 | user-1-1 | user-1-2 | user-2-1 | user-2-2 | user-b-1 | user-b-2
 kadai.roles.admin=admin | uid=admin,cn=users,OU=Test,O=KADAI
 kadai.roles.business_admin=businessadmin | cn=business-admins,cn=groups,OU=Test,O=KADAI
@@ -294,7 +294,7 @@ like this:
 
 Copy following content into ```ExampleRestConfiguration.java```:
 
-```
+```java
 package com.example.demo;
 
 import java.sql.SQLException;
@@ -400,7 +400,7 @@ ExampleWebSecurityConfig. The classes will be created in the next steps.
 
 Add the following dependencies to your pom and reload maven:
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.ldap</groupId>
     <artifactId>spring-ldap-core</artifactId>
@@ -423,8 +423,8 @@ Then, set the ``devMode`` property in ``application.properties`` to false. This 
 authorization checks.
 You also need to remove the following lines from the ``ExampleRestConfiguration.java``:
 
-```
- @Bean
+```java
+@Bean
 @ConditionalOnMissingBean(KadaiConfiguration.class)
 public KadaiConfiguration kadaiConfiguration(
     DataSource dataSource,
@@ -445,7 +445,7 @@ Create ```BootWebSecurityConfigurer.java``` in the security folder
 and copy the following content into
 it:
 
-```
+```java
 package com.example.demo.security;
 
 import java.util.List;
@@ -625,7 +625,7 @@ public class BootWebSecurityConfigurer {
 
 Create ```CsrfCookieFilter.java``` in the security folder and copy the following content into it:
 
-```
+```java
 package com.example.demo.security;
 
 import jakarta.servlet.FilterChain;
@@ -656,7 +656,7 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
 
 Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy the following content into it:
 
-```
+```java
 package com.example.demo.security;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -710,7 +710,7 @@ ExampleWebSecurityConfig specifies beans that are used for authorization by spri
 Create ```ExampleWebSecurityConfig.java``` in the ```security``` package and copy following content
 there:
 
-```
+```java
 package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
@@ -789,7 +789,7 @@ response in [Postman](https://www.postman.com/):
 
 Add the following dependencies to your pom and reload maven:
 
-```
+```xml
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-web</artifactId>
@@ -833,7 +833,7 @@ in the ```resources``` folder. You can download the templates folder here:
 Please unzip the ```templates``` folder and put it into the ```resources``` folder. Then, copy
 following code into ```LoginController.java```:
 
-```
+```java
 package com.example.demo.controllers;
 
 import org.springframework.core.Ordered;
@@ -892,7 +892,7 @@ Unzip the ```com``` folder and put it into ```resources```.
 Then, please copy the following code
 into ```ResourcesController.java```:
 
-```
+```java
 package com.example.demo.controllers;
 
 import org.springframework.http.MediaType;
@@ -939,7 +939,7 @@ The ViewController manages the root view of KADAI.
 Copy following code
 into ```ViewController.java```:
 
-```
+```java
 package com.example.demo.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -961,7 +961,7 @@ public class ViewController {
 Create ```WebMvcConfig.java``` in the ``com.example.demo`` package. It handles resources and
 messages of the application. Copy following content into ```WebMvcConfig.java```:
 
-```
+```java
 package com.example.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

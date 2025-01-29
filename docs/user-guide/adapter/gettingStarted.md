@@ -27,7 +27,7 @@ Add a new extension property to your User Tasks. The name of the property should
 
 Add following dependencies to the dependencies section of your pom:
 
-```
+```xml
 <dependency>
   <groupId>io.kadai</groupId>
   <artifactId>kadai-adapter-camunda-outbox-rest-spring-boot-starter</artifactId>
@@ -48,7 +48,7 @@ Add following dependencies to the dependencies section of your pom:
 </dependency>
 ```
 You need to exclude the following from the org.camunda.bpm.springboot dependency with the artifact ID "camunda-bpm-spring-boot-starter-rest":
-```
+```xml
 <dependency>
   <groupId>org.camunda.bpm.springboot</groupId>
   <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
@@ -61,7 +61,7 @@ You need to exclude the following from the org.camunda.bpm.springboot dependency
 </dependency>
 ```
 Then, add a repository to the pom:
-```
+```xml
 <repositories>
   <repository>
     <id>jboss-public-repository</id>
@@ -73,7 +73,7 @@ Then, add a repository to the pom:
 Add the following file to your "resources" folder:
 
 ### kadai-outbox.properties
-```
+```properties
 kadai.adapter.outbox.schema = kadai_tables
 kadai.adapter.outbox.max.number.of.events = 57
 kadai.adapter.create_outbox_schema = true
@@ -97,7 +97,7 @@ kadai.adapter.outbox.datasource.password=postgres
 You need to add at least one of the following `application.properties` or `application.yaml` given below:
 
 ### application.properties
-```
+```properties
 server.port=8085
 spring.main.allow-bean-definition-overriding=true
 camunda.bpm.auto-deployment-enabled=true
@@ -132,7 +132,7 @@ spring.datasource.password = postgres
 ```
 
 ### application.yaml
-```
+```yaml
 camunda:
   bpm:
     admin-user:
@@ -180,7 +180,7 @@ Unpack the project in a folder of your choice and open it in your IDE.
 
 Add following dependencies to the dependencies section of your pom (if they don't already exist):
 
-```
+```xml
 <dependencies>
   <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -223,7 +223,7 @@ Add following dependencies to the dependencies section of your pom (if they don'
 
 Add the following annotations to your AdapterApplication, and import the packages correspondingly:
 
-```
+```java
 @EnableScheduling
 @ComponentScan(basePackages = "io.kadai.adapter")
 @Import({AdapterConfiguration.class})
@@ -232,7 +232,7 @@ Add the following annotations to your AdapterApplication, and import the package
 Add following files to your resources folder:
 
 ### application.properties
-```
+```properties
 ######################################################################################
 ## Adapter properties
 ######################################################################################
@@ -300,7 +300,7 @@ kadai.adapter.mapping.default.objectreference.value=DEFAULT_VALUE
 
 ```
 ### kadai.properties
-```
+```properties
 kadai.roles.user=group1 | group2|teamlead-1 |teamlead-2 |user-1-1| user-1-1| user-1-2| user-2-1| user-2-2| max|elena|simone
 kadai.roles.Admin=name=konrad,Organisation=novatec|admin
 kadai.roles.business_admin=max|Moritz|businessadmin
@@ -317,7 +317,7 @@ kadai.jobs.enabled=false
 
 SPIs need to be additionally specified in the Adapter application. You can read more about SPIs [here](../features/howToUseServiceProviderInterfaces.md).
 The necessary SPI for the Adapter application can be built as follows: First, create a new package with the name `taskrouting`. Then, create a class in the package `taskrouting` with the name ExampleTaskRouter. It should look like this:
-```
+```java
 package com.example.demo.taskrouting; //or your own path depending on your packages
 import io.kadai.common.api.KadaiEngine;
 import io.kadai.spi.routing.api.TaskRoutingProvider;

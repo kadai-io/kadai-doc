@@ -32,6 +32,11 @@ const config = {
     ['drawio', {}],
   ],
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       'classic',
@@ -163,6 +168,9 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
         additionalLanguages: ['java', 'properties', 'sql']
+      },
+      mermaid: {
+        theme: {light: 'neo', dark: 'neo-dark'},
       },
     }),
 };

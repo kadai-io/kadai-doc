@@ -19,11 +19,61 @@ In this article, Task Lifecycle and the corresponding Task states are explained 
 
 The following diagram shows Task states and their transitions. You can read more about Task States below.
 
-<Drawio content={lifecycle} />
+```mermaid
+---
+config:
+  look: neo
+  theme: neo
+---
+stateDiagram-v2
+    [*] --> READY: create()
+    READY --> CLAIMED: claim()
+    READY --> nonFinalEndStates: forceComplete() | cancel()
+    READY --> finalEndStates: terminate()
+
+    CLAIMED --> READY_FOR_REVIEW: requestReview()
+    CLAIMED --> READY: transfer() | cancelClaim()
+    CLAIMED --> nonFinalEndStates: complete() | cancel()
+    CLAIMED --> finalEndStates: terminate()
+
+    READY_FOR_REVIEW --> IN_REVIEW: claim()
+    READY_FOR_REVIEW --> nonFinalEndStates: forceComplete() | cancel()
+    READY_FOR_REVIEW --> finalEndStates: terminate()
+
+    IN_REVIEW --> READY_FOR_REVIEW: transfer() | cancelClaim()
+    IN_REVIEW --> nonFinalEndStates: forceComplete() | cancel()
+    IN_REVIEW --> finalEndStates: terminate()
+
+    nonFinalEndStates --> CLAIMED: reopen()
+    nonFinalEndStates --> [*]
+    finalEndStates --> [*]
+    
+    nonFinalEndStates: Non-final endstates
+    state nonFinalEndStates {
+        COMPLETED
+        CANCELLED
+    }
+
+    finalEndStates: Final endstates
+    state finalEndStates {
+        TERMINATED
+    }
+```
 
 ## Task States
 
-<Drawio content={simpleGraph} />
+| State            | Description                                                                                                                                                                                            |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| READY            | The state of a Task after its creation. READY Tasks are seen by all users with access to the Workbasket of the Task. A READY Task can be claimed by a user who wants to work on it.                    |
+| CLAIMED          | After a Task has been claimed by a user, its state is CLAIMED. It means that the Task is being processed by the user. The user processing the Task is called owner.                                    |
+| READY_FOR_REVIEW | The state of a Task after a review on a CLAIMED Task has been requested. Tasks in this state are seen by all users with  access to the Workbasket . They can be claimed by a user who wants to review. |
+| IN_REVIEW        | After a Task in the READY_FOR_REVIEW state has been claimed, it's IN_REVIEW. The user who claimed the Task is reviewing it. This user is called owner.                                                 |
+| COMPLETED        | The state of a Task after it has been completed. This is an end state, which still allows a Task to be reopened from.                                                                                  |
+| CANCELLED        | The state of a Task after it has been cancelled. This is an end state, which still allows a Task to be reopened from.                                                                                  |
+| TERMINATED       | The state of a Task after it has been terminated. This is a final end state, so that the state of the Task cannot be changed anymore.                                                                  | 
+
+
+
 
 ## Task Timeline
 
@@ -39,13 +89,24 @@ The changes of state and timestamps during the lifetime of a Task can be shown i
 ### Task Timestamps
 
 Each Task has different timestamps. Most of them are shown in the [example](#example) below:
-- **received**: Describes when the Task first came into the system. For example, it can be the timestamp of an e-mail containing the relevant document. If there is no such timestamp, then the received timestamp can be empty.
-- **created**: Describes when the Task was first inserted into the database.
-- **planned**: Describes when somebody should start working on the Task.
-- **claimed**: Describes when someone started to work on this Task.
-- **due**: Describes the deadline for Task completion.
-- **completed**: Describes when the Task was completed.
-- **modified**: Describes when the Task was modified last time. Modifying a Task includes creating, claiming, completing and updating it.
+
+
+
+
+
+
+
+
+
+| Timestamp | Description                                                                                                                                                                                                      |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Received  | Describes when the Task first came into the system. For example, it can be the timestamp of an e-mail containing the relevant document. If there is no such timestamp, then the received timestamp can be empty. |
+| Created   | Describes when the Task was first inserted into the database.                                                                                                                                                    |
+| Planned   | Describes when somebody should start working on the Task.                                                                                                                                                        |
+| Claimed   | Describes when someone started to work on this Task.                                                                                                                                                             |
+| Due       | Describes the deadline for Task completion.                                                                                                                                                                      |
+| Completed | Describes when the Task was completed.                                                                                                                                                                           |
+| Modified  | Describes when the Task was modified last time.                                                                                                                                                                  |
 
 All timestamps except *received* can be set automatically.
 The timestamps *received*, *planned* and *due* can be set manually.

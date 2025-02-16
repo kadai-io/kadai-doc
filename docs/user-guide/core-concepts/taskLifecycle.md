@@ -72,9 +72,6 @@ stateDiagram-v2
 | CANCELLED        | The state of a Task after it has been cancelled. This is an end state, which still allows a Task to be reopened from.                                                                                  |
 | TERMINATED       | The state of a Task after it has been terminated. This is a final end state, so that the state of the Task cannot be changed anymore.                                                                  | 
 
-
-
-
 ## Task Timeline
 
 The changes of state and timestamps during the lifetime of a Task can be shown in a timeline. Below is a general timeline of a Task for a common case. It shows how states and timestamps relate to each other, as well as their chronological order. It contains most of the timestamps. For a complete list of timestamps with an explanation, see the text below the diagram.
@@ -89,14 +86,6 @@ The changes of state and timestamps during the lifetime of a Task can be shown i
 ### Task Timestamps
 
 Each Task has different timestamps. Most of them are shown in the [example](#example) below:
-
-
-
-
-
-
-
-
 
 | Timestamp | Description                                                                                                                                                                                                      |
 |-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

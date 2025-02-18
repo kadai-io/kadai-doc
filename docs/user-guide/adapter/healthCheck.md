@@ -15,7 +15,7 @@ assuming that the adapter application runs at `http://localhost:8082`.
 
 When all of the services are healthy, it will give the following response:
 
-```
+```json
 {
     "status": "UP",
     "components": {
@@ -83,4 +83,4 @@ When healthy, it should return the last run timestamp of the job scheduler
 
 
 If any of the service is not running properly, the overall status and the corresponding 
-service will be `DOWN` and the error will be shown in the `"details"`
+service will be `DOWN` and the error will be shown in the `"details"`.

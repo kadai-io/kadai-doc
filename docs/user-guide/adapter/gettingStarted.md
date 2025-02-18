@@ -7,13 +7,13 @@ In this article, the set-up of the Adapter is explained step by step. Additional
 
 ## What you'll need
 
-- an IDE of your choice (preferably IntelliJ)
+- An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
 - Java 17
-- maven
-- Camunda Modeler
-- Postgres or Docker (to set up postgres database)
-- optional: Postman (makes REST API requests easier)
-- Working KADAI application (see [here](../getting-started/exampleSpringBoot.md) for instructions)
+- [Maven](https://maven.apache.org/)
+- [Camunda Modeler](https://camunda.com/de/download/modeler/)
+- [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres database)
+- [Postman](https://www.postman.com/) or any similar tool for creating API requests
+- Working KADAI application (e.g. see our Spring-Boot-Example [here](../getting-started/exampleSpringBoot.md))
 
 Note: Please name your packages, folders and files exactly like in the example!
 
@@ -35,7 +35,7 @@ Add following dependencies to the dependencies section of your pom:
 <dependency>
   <groupId>io.kadai</groupId>
   <artifactId>kadai-adapter-camunda-outbox-rest-spring-boot-starter</artifactId>
-  <version>9.0.0</version>
+  <version>9.2.0</version>
 </dependency>
 <dependency>
   <groupId>org.jboss.resteasy</groupId>
@@ -74,7 +74,7 @@ Then, add a repository to the pom:
   </repository>
 </repositories>
 ```
-Add the following file to your `resources` folder:
+Add the following configuration of Kadai-Outbox to your `resources` folder:
 
 ```properties title="src/main/resources/kadai-outbox.properties"
 kadai.adapter.outbox.schema = kadai_tables
@@ -97,7 +97,7 @@ kadai.adapter.outbox.datasource.password=postgres
 #kadai.adapter.outbox.datasource.password=sa
 ```
 
-You need to add at least one of the following `application.properties` or `application.yaml` given below:
+Further add the following properties to your Spring Boot configuration:
 
 ```properties title="src/main/resources/application.properties"
 server.port=8085
@@ -133,54 +133,34 @@ spring.datasource.password = postgres
 
 ```
 
-### application.yaml
-```yaml title="src/main/resources/application.yaml"
-camunda:
-  bpm:
-    admin-user:
-      first-name: admin
-      id: admin
-      last-name: admin
-      password: admin
-    auto-deployment-enabled: true
-    database:
-      type: postgres
-    generic-properties:
-      properties:
-        historyTimeToLive: P180D
-resteasy:
-  jaxrs:
-    app:
-      classes: io.kadai.adapter.camunda.outbox.rest.config.OutboxRestServiceConfig
-      registration: property
-server:
-  port: 8085
-  servlet:
-    context-path: /example-context-root
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    password: postgres
-    url: jdbc:postgresql://localhost:5102/postgres
-    username: postgres
-  main:
-    allow-bean-definition-overriding: true
-```
-
 Start the camunda application and check if it runs correctly.
 Close the camunda application after checking.
 
 ## Step 2: Initialize an empty Adapter application
 
-Use the [Spring Initializer](https://start.spring.io/) to initialize a Spring Boot Project. Chose Java 17.
+Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.2&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
+It is already configured to our needs, you can simply click `GENERATE`.
 
-![Local Image](../static/adapter/adapter-initialization.png)
+Unpack the project and open it in an IDE of your choice. Your project-structure should look like
+below:
 
-Unpack the project in a folder of your choice and open it in your IDE.
+```
+demo
+├───.mvn
+│   └───wrapper
+├───src
+│   ├───main
+│   └───test
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
 
 ## Step 3: Configure your Adapter application
 
-Add following dependencies to the dependencies section of your pom (if they don't already exist):
+Add the following dependencies to the dependencies section of your pom (if they don't already exist):
 
 ```xml title="pom.xml"
 <dependencies>
@@ -196,17 +176,17 @@ Add following dependencies to the dependencies section of your pom (if they don'
   <dependency>
      <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
-    <version>9.0.0</version>
+    <version>9.2.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-system-connector</artifactId>
-    <version>9.0.0</version>
+    <version>9.2.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
-    <version>9.0.0</version>
+    <version>9.2.0</version>
   </dependency>
   <dependency>
     <groupId>com.ibm.db2</groupId>
@@ -223,15 +203,15 @@ Add following dependencies to the dependencies section of your pom (if they don'
 </dependencies>
 ```
 
-Add the following annotations to your AdapterApplication, and import the packages correspondingly:
+Add the following annotations to your `AdapterApplication`, and import the packages correspondingly:
 
-```java title="src/main/com/example/demo/AdapterConfiguration.java"
+```java title="src/main/com/example/demo/AdapterApplication.java"
 @EnableScheduling
 @ComponentScan(basePackages = "io.kadai.adapter")
 @Import({AdapterConfiguration.class})
 ```
 
-Add following files to your resources folder:
+Add the following files to your resources folder:
 
 ### application.properties
 ```properties title="src/main/resources/application.properties"
@@ -324,7 +304,8 @@ kadai.jobs.enabled=false
 ## Step 4: Add SPIs to your Adapter application
 
 SPIs need to be additionally specified in the Adapter application. You can read more about SPIs [here](../features/howToUseServiceProviderInterfaces.md).
-The necessary SPI for the Adapter application can be built as follows: First, create a new package with the name `taskrouting`. Then, create a class in the package `taskrouting` with the name ExampleTaskRouter. It should look like this:
+The necessary SPI for the Adapter application can be built as follows: First, create a new package with the name `taskrouting`. 
+Then, create a class in the package `taskrouting` with the name `ExampleTaskRouter`. It should look like this:
 ```java title="src/main/com/example/demo/taskrouting/ExampleTaskRouter.java"
 package com.example.demo.taskrouting; //or your own path depending on your packages
 import io.kadai.common.api.KadaiEngine;
@@ -345,33 +326,101 @@ public class ExampleTaskRouter implements TaskRoutingProvider {
   }
 }
 ```
-Next, add a new folder to your resources folder and name it `META-INF`. Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. Finally, create a file in the `services` folder with the name `io.kadai.spi.routing.api.TaskRoutingProvider`. This file must contain the fully qualified classname (including the package) of the class ExampleTaskRouter, for example:
-```
+Next, add a new folder to your resources folder and name it `META-INF`. 
+Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. 
+Finally, create a file in the `services` folder with the name `io.kadai.spi.routing.api.TaskRoutingProvider`. 
+This file must contain the fully qualified classname (including the package) of the class `ExampleTaskRouter`, for example:
+```text
 com.example.demo.taskrouting.ExampleTaskRouter
 ```
 Make sure there aren't any empty lines in this file. 
 The finished structure of the source folder should look like this:
-
-![Local Image](../static/adapter/adapter-getting-started-project-structure.png)
+```
+demo
+├───.mvn
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───example
+│   │   │           └───adapter
+│   │   │               │───taskrouting
+│   │   │               │       ExampleTaskRouter.java
+│   │   │               │───AdapterApplication.java
+│   │   └───resources
+│   │       │───META-INF.services
+│   │               io.kadai.spi.routing.api.TaskRoutingProvider
+│   │       │───application.properties
+│   │       │───kadai.properties
+│   ...
+│   pom.xml
+```
 
 ## Step 5: Start all applications together
 
-First, check if your postgres database is running. For example, start the container provided in the KADAI repository by executing `bash ./docker-databases/prepare_db.sh POSTGRES_14 && exit` in a terminal. 
+First, check if your postgres database is running.
+For example, start the container provided in the KADAI repository by executing `bash ./docker-databases/prepare_db.sh POSTGRES_14 && exit` in a terminal. 
 
-Then, start your KADAI application. Start your camunda app next, and login. Last, start the adapter. 
+Then, start your KADAI application. 
+Start your camunda app next, and login. 
+Last, start the adapter. 
 
-## Step 6: Try out different functionalities of Adapter. 
+## Step 6: Try out different functionalities of Adapter
 
 1. Start a process with a User Task in Camunda. The User Task should be imported to KADAI automatically. You can check it by first knowing the name of the user task from the started process, then make a postgres GET request to KADAI using the following request, entering the name (or just substring of the name) of the user task for the "name-like" attribute.
    ```
    GET http://localhost:8080/kadai/api/v1/tasks?name-like=Say hello
    ```
-   Here we assume that the name of the user task is "Say hello to demo", but you can set the name differently by opening the `process.bpmn` file in the camunda application and set the name attribute in `<bpmn:userTask>`differently.
-   Make sure that the correct port number is used for KADAI request. You can check the port number in `application.properties` of KADAI under `server.port`. If not specified, then the default port is 8080. You have to authenticate yourself using Basic Auth: In Postman, go to the "Authorization" tab. There, select basicAuth and type "admin" as user and "admin" as password. Make sure enableCsrf is set to false in the properties of the KADAI application.
+   Here we assume that the name of the user task is "Say hello to demo", 
+   but you can set the name differently by opening the `process.bpmn` file in the camunda application and set the name attribute in `<bpmn:userTask>`differently.
+   Make sure that the correct port number is used for KADAI request. 
+   You can check the port number in `application.properties` of KADAI under `server.port`. 
+   If not specified, then the default port is `8080`. 
+   You have to authenticate yourself using Basic Auth: 
+   In Postman, go to the "Authorization" tab. 
+   There, select `basicAuth` and type `admin` as user and `admin` as password. 
+   Make sure `enableCsrf` is set to false in the `application.properties` of the KADAI application.
    
-   The output of the request in Postman should look like this:
+   The response to the request should look like this:
 
-   ![Local Image](../static/adapter/show-tasks.png)
+   ```json
+   {
+     "tasks": [
+       {
+         "taskId": "TKI:40deb1b2-ce28-4b74-a250-f19852f43bf",
+         "externalId": "8793b74b-1f34-11ef-b35c-a0294240468e",
+         "created": "2025-02-17T16:16:51.910Z",
+         "claimed": null,
+         "completed": null,
+         "modified": "2025-02-18T16:16:51.910Z",
+         "planned": "2025-02-17T16:16:51.910Z",
+         "received": null,
+         "due": "2025-02-18T16:16:51.910Z",
+         "name": "Say hello to \ndemo",
+         "creator": "taskadmin",
+         "note": null,
+         "description": "Widerruf",
+         "priority": 1,
+         "manualPriority": -1,
+         "state": "READY",
+         "numberOfComments": 3,
+         "classificationSummary": {
+           "classificationId": "CLI:100000000000000000000000000000000016",
+           "key": "L1950",
+           "applicationEntryPoint": "",
+           "category": "EXTERNAL",
+           "domain": "DOMAIN_A",
+           "name": "Widerruf",
+           "parentId": "",
+           "parentKey": "",
+           ...
+         },
+         ...
+       },
+       ...
+     ]
+   }
+   ```
 
 2. Claim the KADAI Task from the previous step using Postman. Make sure you add the following property to the `application.properties` file of the adapter application: ``kadai.adapter.camunda.claiming.enabled=true``, then restart the adapter. To send the POST request, use the same authorization as in the previous step. The Task should get claimed in Camunda automatically.
    ```

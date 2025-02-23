@@ -20,7 +20,64 @@ This command generates static content into the `build` directory and can be serv
 ```
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-# 📨Contact
+## 📚Versioning
+We align versioning of our documentation with the release of major versions in terms of [Semantic Versioning](https://semver.org/).
+
+Therefore, we keep patching the _current_ (major) version until the _next_ (major) version is released.
+The [`/docs`](./docs) folder represents the _current_ version while older, unmaintained versions reside in [`/versioned_docs`](./versioned_docs).
+
+Let's consider publishing the _next_ version `A.B.C` and assume our _current_ version is `X.Y.Z`.
+We want to publish `A.B.C`. Therefore:
+1. open a command-line in the project's root and run
+```bash
+  npm run docusaurus docs:version X.Y.Z
+```
+2. set the label of the new _current_ version `A.B.C` in [`/docusaurus.config.js`](./docusaurus.config.js) at `config.presets.docs.versions.current.label` to `vA.B.C`,
+```json
+...
+versions: {
+  current: {
+    label: 'vA.B.C',
+    path: '/',
+    badge: true,
+  }, 
+  ...
+}
+...
+```
+3. add the new _previous_ version `X.Y.Z` there:
+```json
+...
+versions: {
+  current: {
+    label: 'vA.B.C',
+    path: '/',
+    badge: true,
+  },
+  "X.Y.Z": {
+    label: 'vX.Y.Z',
+    path: 'X.Y.Z',
+    badge: true,
+  },  
+  ...
+}
+...
+```
+4. move the version `"current"` in [`./versions.json`](./versions.json) above `"X.Y.Z"`, it should now look like:
+```json
+[
+  "current",
+  "X.Y.Z",
+  ...
+]
+```
+
+You did it! The _current_ version is now `A.B.C` and the _previous_ version is now `X.Y.Z`.
+Now we maintain the _current_ version simply by editing in the [`/docs`](./docs) folder.
+
+If we need to edit an older version, e.g. the _previous_ version, we can edit in `/versioned_docs/version-X.Y.Z`. 
+
+## 📨Contact
 
 If you have any questions or ideas feel free to create an [issue](https://github.com/kadai-io/kadai/issues) or contact us
 via [GitHub Discussions](https://github.com/kadai-io/kadai/discussions).

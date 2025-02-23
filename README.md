@@ -33,42 +33,45 @@ We want to publish `A.B.C`. Therefore:
   npm run docusaurus docs:version X.Y.Z
 ```
 2. set the label of the new _current_ version `A.B.C` in [`/docusaurus.config.js`](./docusaurus.config.js) at `config.presets.docs.versions.current.label` to `vA.B.C`,
-```json
-...
-versions: {
-  current: {
-    label: 'vA.B.C',
-    path: '/',
-    badge: true,
-  }, 
-  ...
-}
-...
+```js
+({
+  // ...
+  versions: {
+    current: {
+      label: 'vA.B.C',
+      path: '/',
+      badge: true
+    },
+    // ...
+  }
+  // ...
+})
 ```
 3. add the new _previous_ version `X.Y.Z` there:
-```json
-...
-versions: {
-  current: {
-    label: 'vA.B.C',
-    path: '/',
-    badge: true,
-  },
-  "X.Y.Z": {
-    label: 'vX.Y.Z',
-    path: 'X.Y.Z',
-    badge: true,
-  },  
-  ...
-}
-...
+```js
+({
+  // ...
+  versions: {
+    current: {
+      label: 'vA.B.C',
+      path: '/',
+      badge: true
+    },
+    "X.Y.Z": {
+      label: 'vX.Y.Z',
+      path: 'X.Y.Z',
+      badge: true
+    },
+    // ...
+  }
+  // ...
+})
 ```
 4. move the version `"current"` in [`./versions.json`](./versions.json) above `"X.Y.Z"`, it should now look like:
 ```json
 [
   "current",
-  "X.Y.Z",
-  ...
+  "X.Y.Z"
 ]
 ```
 

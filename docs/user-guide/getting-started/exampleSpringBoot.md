@@ -8,7 +8,7 @@ In the first 4 steps, we will set up KADAI REST API without security. Then, we w
 the resulting REST API with [Postman](https://www.postman.com/). This guide then sets up security.
 At the end of the guide, we will add the UI.
 
-import styles from '../../../src/components/HomepageFeatures/styles.module.css';
+import styles from '@site/src/components/HomepageFeatures/styles.module.css';
 import Link from '@docusaurus/Link';
 
 ## What you'll need

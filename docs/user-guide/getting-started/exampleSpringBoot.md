@@ -26,7 +26,7 @@ To set up the example, please install:
 
 ### Step 1: Initialize an empty project
 
-Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.2&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
+Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.3&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
 Unpack the project and open it in an IDE of your choice. Your project-structure should look like
@@ -53,7 +53,7 @@ All dependencies can be copied as one block at the end
 of step 2.
 After adding the dependencies, please reload maven and recompile the project.
 
-** 1. spring core dependency: **
+**1. spring core dependency:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -63,7 +63,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 2. database dependencies: **
+**2. database dependencies:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -76,7 +76,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 3. kadai dependencies: **
+**3. kadai dependencies:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -96,7 +96,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 4. tomcat application server dependency: **
+**4. tomcat application server dependency:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -105,7 +105,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** All dependencies **
+**All dependencies**
 
 ```xml title="pom.xml"
 <dependency>
@@ -300,7 +300,7 @@ kadai.jobs.cleanup.history.simple.enable=false
 ### Step 4: Add rest configuration
 
 First, Add ```@ComponentScan({"io.kadai","com.example"})``` as annotation above the class
-definition of the `ExampleApplication` and a corresponding import to this class. This will allow the
+definition of the `DemoApplication` and a corresponding import to this class. This will allow the
 application to find the necessary components.
 
 Then, create a java class with the name ```ExampleRestConfiguration``` in the `com.example.demo`
@@ -337,7 +337,9 @@ package com.example.demo;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.h2.tools.Server;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -1186,7 +1188,7 @@ demo
 ```
 
 ### Step 14: Clone & build the Angular frontend
-First, clone the source code of the Angular demo:
+First, clone the source code of the Angular demo in a separate project:
 ```bash
 git clone https://github.com/kadai-io/kadai.git
 ```

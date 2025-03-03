@@ -4,8 +4,9 @@ sidebar_position: 1
 
 # Example Spring Boot
 
-We will set up KADAI REST API without security in the first steps and then enable and configure security.
-Each part will show how to use the resulting REST API with [Postman](https://www.postman.com/).
+In the first 4 steps, we will set up KADAI REST API without security. Then, we will show how to use
+the resulting REST API with [Postman](https://www.postman.com/). This guide then sets up security.
+At the end of the guide, we will add the UI.
 
 import styles from '../../../src/components/HomepageFeatures/styles.module.css';
 import Link from '@docusaurus/Link';
@@ -16,7 +17,7 @@ To set up the example, please install:
 
 - an IDE of your choice (IntelliJ recommended)
 - Java 17
-- Maven
+- maven
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
 
 **Note**: Please name your packages, folders, and files exactly like in the example!
@@ -899,6 +900,312 @@ See a snippet of the expected response-body below:
 }
 ```
 
-You have now successfully created and secured a Kadai REST Api!
+## Set up KADAI UI
 
-You can also check out Kadais UI in our [demo](https://kadai-io.azurewebsites.net/kadai/login). 
+### Step 11: Add web dependencies
+
+Add the following dependencies to your pom and reload maven:
+
+```xml title="pom.xml"
+<dependency>
+    <groupId>io.kadai</groupId>
+    <artifactId>kadai-web</artifactId>
+    <version>9.2.0</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
+### Step 12: Add controllers
+
+Add ```controllers``` package into the ```com.example.demo``` package (in
+src/main/java/com/example/demo). This package will contain the controllers for different paths. Our
+application needs the following three controllers:
+
+- `LoginController`
+- `ResourcesController`
+- `ViewController`
+
+These will be added in the steps 12a, 12b and 12c.
+
+#### Step 12a: Add ```LoginController.java```
+
+The LoginController will handle the login into kadai. It will need the ```templates/login.html```
+in the ```resources``` folder. You can download the templates folder here:
+
+<div className={styles.buttons}>
+<Link
+            className="button button--secondary button--lg">
+    <a
+    className="button button--secondary button--lg"
+    href={ require("../static/getting-started/templates.zip").default }
+    download
+    target="_blank"
+  >Download templates </a>
+    </Link>
+</div>
+
+Please unzip the ```templates``` folder and put it into the ```resources``` folder. Then, copy
+following code into ```LoginController.java```:
+
+```java title="src/main/com/example/demo/controllers/LoginController.java"
+package com.example.demo.controllers;
+
+import org.springframework.core.Ordered;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Controller
+public class LoginController implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
+}
+```
+
+#### Step 12b: Add ResourcesController.java
+
+The `ResourcesController` handles resources like images and additional customizations. You'll need
+the ```static``` folder for it. You can download the ```static``` folder here:
+
+<div className={styles.buttons}>
+<Link
+            className="button button--secondary button--lg">
+    <a
+    className="button button--secondary button--lg"
+    href={ require("../static/getting-started/static.zip").default }
+    download
+    target="_blank"
+  >Download static </a>
+    </Link>
+</div> <br/>
+
+Please unzip the ```static``` folder and copy it into ```resources```.
+Additionally, there is
+the ```com.example.demo.controllers``` folder for further customizations.
+Please download it here:
+
+
+<div className={styles.buttons}>
+<Link
+            className="button button--secondary button--lg">
+    <a
+    className="button button--secondary button--lg"
+    href={ require("../static/getting-started/com.zip").default }
+    download
+    target="_blank"
+  >Download controllers </a>
+    </Link>
+</div> 
+<br/>
+
+Unzip the ```com``` folder and put it into ```resources```.
+Then, please copy the following code
+into ```ResourcesController.java```:
+
+```java title="src/main/com/example/demo/controllers/ResourcesController.java"
+package com.example.demo.controllers;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import io.kadai.common.internal.util.ResourceUtil;
+
+import java.io.IOException;
+
+@Controller
+public class ResourcesController {
+
+    public static final String KADAI_CUSTOMIZATION_FILE_NAME = "kadai-customization.json";
+
+    @GetMapping(
+            value = "/environments/data-sources/kadai-customization.json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> kadaiCustomization() throws IOException {
+        return ResponseEntity.ok(readResourceAsString(KADAI_CUSTOMIZATION_FILE_NAME));
+    }
+
+    // the environment-information.json file will be served via "static" folder
+    //  @GetMapping(
+    //      value = "/environments/data-sources/environment-information.json",
+    //      produces = MediaType.APPLICATION_JSON_VALUE)
+    //  public ResponseEntity<String> environmentInformation() throws Exception {
+    //    return ResponseEntity.ok(readResourceAsString("environment-information.json"));
+    //  }
+
+    private String readResourceAsString(String resource) throws IOException {
+        String resourceAsString = ResourceUtil.readResourceAsString(getClass(), resource);
+        if (resourceAsString == null) {
+            return "{}";
+        }
+        return resourceAsString;
+    }
+}
+```
+
+#### Step 12c: Add ViewController.java
+
+The ViewController manages the root view of KADAI.
+Copy following code
+into ```ViewController.java```:
+
+```java title="src/main/com/example/demo/controllers/ViewController.java"
+package com.example.demo.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/** The view controller. */
+@Controller
+public class ViewController {
+
+    @GetMapping(path = {"", "kadai/**"})
+    public String index() {
+        return "forward:/index.html";
+    }
+}
+```
+
+### Step 13: Add WebMvcConfig.java
+
+Create ```WebMvcConfig.java``` in the ``com.example.demo`` package. It handles resources and
+messages of the application. Copy following content into ```WebMvcConfig.java```:
+
+```java title="src/main/com/example/demo/WebMvcConfig.java"
+package com.example.demo;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import jakarta.annotation.PostConstruct;
+import java.util.List;
+
+/**
+ * The Web MVC Configuration.
+ */
+@Configuration
+@EnableWebMvc
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+            "classpath:/META-INF/resources/", "classpath:/resources/",
+            "classpath:/static/", "classpath:/public/", "classpath:/templates/"
+    };
+
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+    public WebMvcConfig(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        if (!registry.hasMappingForPattern("/webjars/**")) {
+            registry
+                    .addResourceHandler("/webjars/**")
+                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        }
+        if (!registry.hasMappingForPattern("/**")) {
+            registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+        }
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof MappingJackson2HttpMessageConverter) {
+                MappingJackson2HttpMessageConverter jacksonConverter =
+                        (MappingJackson2HttpMessageConverter) converter;
+                jacksonConverter.setPrettyPrint(true);
+            }
+        }
+    }
+
+    @PostConstruct
+    public void enableObjectIndent() {
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    }
+}
+
+```
+
+Your project structure should look like this:
+
+```
+demo
+├───.mvn
+│
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───example
+│   │   │           └───demo
+│   │   │               │
+│   │   │               ├───controllers
+│   │   │               │       LoginController.java
+│   │   │               │       ResourcesController.java
+│   │   │               │       ViewController.java
+│   │   │               │
+│   │   │               │───security
+│   │   │               │       BootWebSecurityConfigurer.java
+│   │   │               │       CsrfCookieFilter.java
+│   │   │               │       ExampleWebSecurityConfig.java
+│   │   │               │       SpaCsrfTokenRequestHandler.java
+│   │   │               │───DemoApplication.java
+│   │   │               │───ExampleRestConfiguration.java
+│   │   │               │───WebMvcConfig.java
+│   │   └───resources
+│   │       │   application.properties
+│   │       │   example-users.ldif
+│   │       │   kadai.properties
+│   │       │
+│   │       ├───com
+│   │       │   └───example
+│   │       │       └───demo
+│   │       │           └───controllers
+│   │       │                   kadai-customization.json
+│   │       │
+│   │       ├───static
+│   │       │   ├───css
+│   │       │   ├───environments
+│   │       │   └───img
+│   │       └───templates
+│   └───test
+│   .gitattributes
+│   .gitignore
+│   HELP.md
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+```
+
+### Step 14: Start and open the application
+
+Recompile the application, then go to the DemoApplication class in the IDE and start it. Then
+type ```localhost:8080/kadai``` into your browser. You should see the login screen:
+
+![Log in](../static/getting-started/login.png)
+
+Log in using `admin` as username and `admin` as password. Now, you should see the following:
+
+![Workbaskets](../static/getting-started/workbaskets.png)
+
+Press the menu button in the upper left to navigate.
+
+![Navigate](../static/getting-started/navigate.png)

@@ -39,6 +39,15 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          includeCurrentVersion: false,
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'v9.2.*',
+              path: '/',
+              badge: true,
+            },
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -95,7 +104,12 @@ const config = {
             docId: 'demo-app/demoApp',
             label: 'Demo App',
             position: 'right',
-          }
+          },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
         ],
       },
       footer: {

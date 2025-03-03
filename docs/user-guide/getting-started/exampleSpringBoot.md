@@ -901,6 +901,7 @@ See a snippet of the expected response-body below:
 ```
 
 ## Set up KADAI UI
+To set up the Kadai UI we will first need to configure the previously built backend and then clone, build and start the Angular frontend.
 
 ### Step 11: Add web dependencies
 
@@ -1031,14 +1032,6 @@ public class ResourcesController {
     public ResponseEntity<String> kadaiCustomization() throws IOException {
         return ResponseEntity.ok(readResourceAsString(KADAI_CUSTOMIZATION_FILE_NAME));
     }
-
-    // the environment-information.json file will be served via "static" folder
-    //  @GetMapping(
-    //      value = "/environments/data-sources/environment-information.json",
-    //      produces = MediaType.APPLICATION_JSON_VALUE)
-    //  public ResponseEntity<String> environmentInformation() throws Exception {
-    //    return ResponseEntity.ok(readResourceAsString("environment-information.json"));
-    //  }
 
     private String readResourceAsString(String resource) throws IOException {
         String resourceAsString = ResourceUtil.readResourceAsString(getClass(), resource);
@@ -1195,10 +1188,35 @@ demo
 │   pom.xml
 ```
 
-### Step 14: Start and open the application
+### Step 14: Clone & build the Angular frontend
+First, clone the source code of the Angular demo:
+```bash
+git clone https://github.com/kadai-io/kadai.git
+```
 
-Recompile the application, then go to the DemoApplication class in the IDE and start it. Then
-type ```localhost:8080/kadai``` into your browser. You should see the login screen:
+Second, navigate to the Angular source:
+```bash
+cd kadai/web
+```
+
+Then install the frontend:
+```bash
+yarn install
+```
+
+### Step 15: Start backend & frontend
+
+Recompile the application, head to the `DemoApplication` class in the IDE and run it.
+
+Now, start the frontend:
+```bash
+yarn start
+```
+
+### Step 16: Explore the Kadai UI
+
+Visit `localhost:8080/kadai` in your browser. 
+You should see the login screen:
 
 ![Log in](../static/getting-started/login.png)
 
@@ -1209,3 +1227,6 @@ Log in using `admin` as username and `admin` as password. Now, you should see th
 Press the menu button in the upper left to navigate.
 
 ![Navigate](../static/getting-started/navigate.png)
+
+You're all ready!
+Feel free to explore our Angular demo as you wish!

@@ -43,8 +43,13 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: 'v9.2.*',
+              label: 'v9.3.*',
               path: '/',
+              badge: true,
+            },
+            "9.2.0": {
+              label: 'v9.2.*',
+              path: '/9.2.*',
               badge: true,
             },
           },

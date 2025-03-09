@@ -1187,29 +1187,29 @@ demo
 │   pom.xml
 ```
 
-### Step 14: Clone & build the Angular frontend
+### Step 14: Clone, build & bundle the frontend
 First, clone the source code of the Angular demo in a separate project:
 ```bash
 git clone https://github.com/kadai-io/kadai.git
 ```
 
-Second, navigate to the Angular source:
+Second, navigate to the Angular source and build the frontend:
 ```bash
 cd kadai/web
+yarn build:prod
 ```
 
 Then install the frontend:
 ```bash
-yarn install
+cd ..
+./mvnw -B install -pl :kadai-web -am
 ```
 
 ### Step 15: Start backend & frontend
 
-Recompile the application, head to the `DemoApplication` class in the IDE and run it.
-
-Now, start the frontend:
+Inside the root of your demo project, now start the application:
 ```bash
-yarn start
+./mvnw spring-boot:run -pl :demo  
 ```
 
 ### Step 16: Explore the Kadai UI

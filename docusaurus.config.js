@@ -181,7 +181,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['java', 'properties', 'sql']
+        additionalLanguages: ['java', 'properties', 'sql', 'bash']
       },
     }),
 };

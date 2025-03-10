@@ -26,7 +26,7 @@ To set up the example, please install:
 
 ### Step 1: Initialize an empty project
 
-Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.2&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
+Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.3&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
 Unpack the project and open it in an IDE of your choice. Your project-structure should look like
@@ -53,7 +53,7 @@ All dependencies can be copied as one block at the end
 of step 2.
 After adding the dependencies, please reload maven and recompile the project.
 
-** 1. spring core dependency: **
+**1. spring core dependency:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -63,7 +63,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 2. database dependencies: **
+**2. database dependencies:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -76,7 +76,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 3. kadai dependencies: **
+**3. kadai dependencies:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -96,7 +96,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** 4. tomcat application server dependency: **
+**4. tomcat application server dependency:**
 
 ```xml title="pom.xml"
 <dependency>
@@ -105,7 +105,7 @@ After adding the dependencies, please reload maven and recompile the project.
 </dependency>
 ```
 
-** All dependencies **
+**All dependencies**
 
 ```xml title="pom.xml"
 <dependency>
@@ -300,7 +300,7 @@ kadai.jobs.cleanup.history.simple.enable=false
 ### Step 4: Add rest configuration
 
 First, Add ```@ComponentScan({"io.kadai","com.example"})``` as annotation above the class
-definition of the `ExampleApplication` and a corresponding import to this class. This will allow the
+definition of the `DemoApplication` and a corresponding import to this class. This will allow the
 application to find the necessary components.
 
 Then, create a java class with the name ```ExampleRestConfiguration``` in the `com.example.demo`
@@ -337,7 +337,9 @@ package com.example.demo;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.h2.tools.Server;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -898,6 +900,7 @@ See a snippet of the expected response-body below:
 ```
 
 ## Set up KADAI UI
+To set up the Kadai UI we will first need to configure the previously built backend and then clone, build and start the Angular frontend.
 
 ### Step 11: Add web dependencies
 
@@ -1028,14 +1031,6 @@ public class ResourcesController {
     public ResponseEntity<String> kadaiCustomization() throws IOException {
         return ResponseEntity.ok(readResourceAsString(KADAI_CUSTOMIZATION_FILE_NAME));
     }
-
-    // the environment-information.json file will be served via "static" folder
-    //  @GetMapping(
-    //      value = "/environments/data-sources/environment-information.json",
-    //      produces = MediaType.APPLICATION_JSON_VALUE)
-    //  public ResponseEntity<String> environmentInformation() throws Exception {
-    //    return ResponseEntity.ok(readResourceAsString("environment-information.json"));
-    //  }
 
     private String readResourceAsString(String resource) throws IOException {
         String resourceAsString = ResourceUtil.readResourceAsString(getClass(), resource);
@@ -1192,10 +1187,35 @@ demo
 │   pom.xml
 ```
 
-### Step 14: Start and open the application
+### Step 14: Clone, build & bundle the frontend
+First, clone the source code of the Angular demo in a separate project:
+```bash
+git clone https://github.com/kadai-io/kadai.git
+```
 
-Recompile the application, then go to the DemoApplication class in the IDE and start it. Then
-type ```localhost:8080/kadai``` into your browser. You should see the login screen:
+Second, navigate to the Angular source and build the frontend:
+```bash
+cd kadai/web
+yarn build:prod
+```
+
+Then install the frontend:
+```bash
+cd ..
+./mvnw -B install -pl :kadai-web -am
+```
+
+### Step 15: Start backend & frontend
+
+Inside the root of your demo project, now start the application:
+```bash
+./mvnw spring-boot:run -pl :demo  
+```
+
+### Step 16: Explore the Kadai UI
+
+Visit `localhost:8080/kadai` in your browser. 
+You should see the login screen:
 
 ![Log in](../static/getting-started/login.png)
 
@@ -1206,3 +1226,6 @@ Log in using `admin` as username and `admin` as password. Now, you should see th
 Press the menu button in the upper left to navigate.
 
 ![Navigate](../static/getting-started/navigate.png)
+
+You're all ready!
+Feel free to explore our Angular demo as you wish!

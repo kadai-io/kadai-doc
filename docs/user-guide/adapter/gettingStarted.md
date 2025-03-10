@@ -35,7 +35,7 @@ Add following dependencies to the dependencies section of your pom:
 <dependency>
   <groupId>io.kadai</groupId>
   <artifactId>kadai-adapter-camunda-outbox-rest-spring-boot-starter</artifactId>
-  <version>9.2.0</version>
+  <version>9.3.0</version>
 </dependency>
 <dependency>
   <groupId>org.jboss.resteasy</groupId>
@@ -176,17 +176,17 @@ Add the following dependencies to the dependencies section of your pom (if they 
   <dependency>
      <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
-    <version>9.2.0</version>
+    <version>9.3.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-system-connector</artifactId>
-    <version>9.2.0</version>
+    <version>9.3.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
-    <version>9.2.0</version>
+    <version>9.3.0</version>
   </dependency>
   <dependency>
     <groupId>com.ibm.db2</groupId>

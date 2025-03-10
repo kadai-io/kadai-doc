@@ -1196,6 +1196,7 @@ git clone https://github.com/kadai-io/kadai.git
 Second, navigate to the Angular source and build the frontend:
 ```bash
 cd kadai/web
+yarn install
 yarn build:prod
 ```
 

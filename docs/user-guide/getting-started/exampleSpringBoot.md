@@ -409,7 +409,7 @@ public class ExampleRestConfiguration {
 
 ### Step 5: Try out the REST-API
 
-Recompile the project and then start the DemoApplication in your IDE. 
+Recompile the project and then start the `DemoApplication` in your IDE. 
 ```bash
 mvn clean install -DskipTests
 mvn spring-boot:run -pl :demo
@@ -1215,14 +1215,14 @@ yarn build:prod
 Then install the frontend:
 ```bash
 cd ..
-./mvnw -B install -pl :kadai-web -am
+mvn -B install -pl :kadai-web -am
 ```
 
 ### Step 15: Start backend & frontend
 
 Inside the root of your demo project, now start the application:
 ```bash
-./mvnw spring-boot:run -pl :demo  
+mvn spring-boot:run -pl :demo  
 ```
 
 ### Step 16: Explore the Kadai UI

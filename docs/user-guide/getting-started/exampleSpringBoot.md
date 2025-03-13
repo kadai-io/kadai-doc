@@ -51,7 +51,10 @@ demo
 Please add the following dependencies to the `pom`.
 All dependencies can be copied as one block at the end
 of step 2.
-After adding the dependencies, please reload maven and recompile the project.
+After adding the dependencies, reload maven and recompile the project:
+```bash
+mvn clean install -DskipTests
+```
 
 **1. spring core dependency:**
 
@@ -406,9 +409,13 @@ public class ExampleRestConfiguration {
 
 ### Step 5: Try out the REST-API
 
-Recompile the project and then start the DemoApplication in your IDE. You can now make the following
-request:
+Recompile the project and then start the DemoApplication in your IDE. 
+```bash
+mvn clean install -DskipTests
+mvn spring-boot:run -pl :demo
+```
 
+You can now make the following request:
 ```
 GET http://localhost:8080/kadai/api/v1/classifications
 ```
@@ -855,8 +862,13 @@ demo
 
 ### Step 10: Try out the REST-API
 
-First, restart the ExampleApplication. Try to make a request like in the previous step, for example:
+First, recompile and restart the `DemoApplication`:
+```bash
+mvn clean install -DskipTests
+mvn spring-boot:run -pl :demo
+```
 
+Then try to make a request like in the previous step, for example:
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
 ```

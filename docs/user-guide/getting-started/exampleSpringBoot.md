@@ -46,6 +46,21 @@ demo
 │   pom.xml
 ```
 
+Unfortunately the Initializr ships with the dependency `spring-boot-starter-test`.
+We need to remove a potential conflict by excluding one of its packages:
+```xml title="pom.xml"
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-test</artifactId>
+  <exclusions> 
+    <exclusion> 
+      <groupId>com.vaadin.external.google</groupId>
+      <artifactId>android-json</artifactId>
+    </exclusion> 
+  </exclusions>
+</dependency>
+```
+
 ### Step 2: Add dependencies
 
 Please add the following dependencies to the `pom`.
@@ -411,7 +426,6 @@ public class ExampleRestConfiguration {
 
 Recompile the project and then start the `DemoApplication` in your IDE. 
 ```bash
-mvn clean install -DskipTests
 mvn spring-boot:run -pl :demo
 ```
 
@@ -864,7 +878,6 @@ demo
 
 First, recompile and restart the `DemoApplication`:
 ```bash
-mvn clean install -DskipTests
 mvn spring-boot:run -pl :demo
 ```
 

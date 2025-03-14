@@ -46,12 +46,30 @@ demo
 │   pom.xml
 ```
 
+Unfortunately the Initializr ships with the dependency `spring-boot-starter-test`.
+We need to remove a potential conflict by excluding one of its packages:
+```xml title="pom.xml"
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-test</artifactId>
+  <exclusions> 
+    <exclusion> 
+      <groupId>com.vaadin.external.google</groupId>
+      <artifactId>android-json</artifactId>
+    </exclusion> 
+  </exclusions>
+</dependency>
+```
+
 ### Step 2: Add dependencies
 
 Please add the following dependencies to the `pom`.
 All dependencies can be copied as one block at the end
 of step 2.
-After adding the dependencies, please reload maven and recompile the project.
+After adding the dependencies, reload maven and recompile the project:
+```bash
+mvn clean install -DskipTests
+```
 
 **1. spring core dependency:**
 
@@ -406,9 +424,12 @@ public class ExampleRestConfiguration {
 
 ### Step 5: Try out the REST-API
 
-Recompile the project and then start the DemoApplication in your IDE. You can now make the following
-request:
+Recompile the project and then start the `DemoApplication` in your IDE. 
+```bash
+mvn spring-boot:run -pl :demo
+```
 
+You can now make the following request:
 ```
 GET http://localhost:8080/kadai/api/v1/classifications
 ```
@@ -855,8 +876,12 @@ demo
 
 ### Step 10: Try out the REST-API
 
-First, restart the ExampleApplication. Try to make a request like in the previous step, for example:
+First, recompile and restart the `DemoApplication`:
+```bash
+mvn spring-boot:run -pl :demo
+```
 
+Then try to make a request like in the previous step, for example:
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
@@ -1203,14 +1228,14 @@ yarn build:prod
 Then install the frontend:
 ```bash
 cd ..
-./mvnw -B install -pl :kadai-web -am
+mvn -B install -pl :kadai-web -am
 ```
 
 ### Step 15: Start backend & frontend
 
 Inside the root of your demo project, now start the application:
 ```bash
-./mvnw spring-boot:run -pl :demo  
+mvn spring-boot:run -pl :demo  
 ```
 
 ### Step 16: Explore the Kadai UI

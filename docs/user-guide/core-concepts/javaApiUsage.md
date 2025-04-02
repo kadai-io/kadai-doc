@@ -79,7 +79,7 @@ They can be found in the ``lib/kadai-core`` folder
 1. First create a Task object not persisted in the database yet with method 
     ```TaskService.newTask```
 2. Then set some properties of that Task via its setter methods.
-3. Finally, persist this Task to the database via ```TaskSerivce.createTask```
+3. Finally, persist this Task to the database via ```TaskService.createTask```
 
 You can find corresponding functions ```WorkbasketService.newWorkbasket```, ```ClassificationService.newClassification```  ```WorkbasketService.createWorkbasket``` and ```ClassificationService.createClassification``` in other Services. They can be used to create other entities.
 

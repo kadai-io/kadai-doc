@@ -42,8 +42,8 @@ spring.datasource.password=sa
 
 Additionally to the DataSource, you can also configure the schemaName.
 It can be specified during the creation of KadaiConfiguration, as seen in the example above.
-The default schemaName is `KADAI.
-The schemaName can also be changed by setting the parameter "kadai.schemaName"
+The default schemaName is `KADAI`.
+The schemaName can also be changed by setting the parameter `kadai.schemaName`
 in the ```application.properties``` file:
 
 ```

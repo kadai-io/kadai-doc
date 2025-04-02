@@ -44,6 +44,25 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          includeCurrentVersion: false,
+          lastVersion: '9.3.0',
+          versions: {
+            current: {
+              label: 'v10.0.* (preview)',
+              path: '/',
+              badge: true,
+            },
+            "9.3.0": {
+              label: 'v9.3.*',
+              path: '/9.3.*',
+              badge: true,
+            },
+            "9.2.0": {
+              label: 'v9.2.*',
+              path: '/9.2.*',
+              badge: true,
+            },
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -100,7 +119,12 @@ const config = {
             docId: 'demo-app/demoApp',
             label: 'Demo App',
             position: 'right',
-          }
+          },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
         ],
       },
       footer: {
@@ -167,7 +191,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['java', 'properties', 'sql']
+        additionalLanguages: ['java', 'properties', 'sql', 'bash']
       },
       mermaid: {
         theme: {light: 'neo', dark: 'neo-dark'},

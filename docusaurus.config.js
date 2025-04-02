@@ -41,6 +41,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           includeCurrentVersion: false,
           lastVersion: '9.3.0',
+          routeBasePath: "/",
           versions: {
             current: {
               label: 'v10.0.* (preview)',

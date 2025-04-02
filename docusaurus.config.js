@@ -41,16 +41,15 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           includeCurrentVersion: false,
           lastVersion: '9.3.0',
-          routeBasePath: "/",
           versions: {
             current: {
               label: 'v10.0.* (preview)',
-              path: '/10.0.*-preview',
+              path: '/',
               badge: true,
             },
             "9.3.0": {
               label: 'v9.3.*',
-              path: '/',
+              path: '/9.3.*',
               badge: true,
             },
             "9.2.0": {

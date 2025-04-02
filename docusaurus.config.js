@@ -40,9 +40,14 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           includeCurrentVersion: false,
-          lastVersion: 'current',
+          lastVersion: '9.3.0',
           versions: {
             current: {
+              label: 'v10.0.* (preview)',
+              path: '/10.0.*-preview',
+              badge: true,
+            },
+            "9.3.0": {
               label: 'v9.3.*',
               path: '/',
               badge: true,

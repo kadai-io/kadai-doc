@@ -45,8 +45,6 @@ stateDiagram-v2
     IN_REVIEW --> finalEndStates: terminate()
 
     nonFinalEndStates --> CLAIMED: reopen()
-    nonFinalEndStates --> [*]
-    finalEndStates --> [*]
     
     nonFinalEndStates: Non-final endstates
     state nonFinalEndStates {

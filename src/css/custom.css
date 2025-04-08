@@ -61,7 +61,7 @@
   background-color: var(--kadai-color-background);
   height: 100%;
   padding: 0px 70px 0px 70px;
-  width: var(--kadai-content-width);
+  width: var(--kadai-content-width) + 20;
 }
 
 .navbar__title {

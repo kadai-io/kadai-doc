@@ -11,14 +11,11 @@ Different functionality of KADAI can be found in different modules. In the follo
 - **kadai-core** provides the main functionality of KADAI. You can read more about kadai-core [here](../core-concepts/javaApiUsage)
 - **kadai-spring** configures Spring so that KADAI can be easily integrated
 - **kadai-spring-example** provides an example usage of kadai-spring
-- **kadai-cdi** uses dependency injection of java(CDI) for configuring KADAI
-- **kadai-cdi-example** provides an example usage of kadai-cdi
 
 ## rest
 
 - **kadai-rest-spring** embends KADAI in a spring-boot application. It exposes the Java API by setting up a corresponding REST-API
 - **kadai-rest-spring-example-boot** provides an example application that uses kadai-rest-spring
-- **kadai-rest-spring-example-wildfly** provides an example application that can be deployed on a Wildfly server
 
 ## history
 

@@ -5,6 +5,9 @@ sidebar_position: 1
 # Getting Started
 In this article, the set-up of the Adapter is explained step by step. Additionally, you can try out some of the functionalities of the Adapter following the instructions in this article.
 
+import styles from '@site/src/components/HomepageFeatures/styles.module.css';
+import Link from '@docusaurus/Link';
+
 ## What you'll need
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)

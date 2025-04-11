@@ -379,7 +379,7 @@ Last, start the adapter.
     className="button button--secondary button--lg">
     <a
     className="button button--secondary button--lg"
-    href={ require("../static/adapter/sayHello.bpmn").default }
+    href={ require("../static/adapter/sayHello.zip").default }
     download
     target="_blank"
     >Download example process </a>

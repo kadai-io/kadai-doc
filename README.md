@@ -82,8 +82,8 @@ If we need to edit an older version, e.g. the _previous_ version, we can edit in
 
 ## 📨Contact
 
-If you have any questions or ideas feel free to create an [issue](https://github.com/kadai-io/kadai/issues) or contact us
-via [GitHub Discussions](https://github.com/kadai-io/kadai/discussions).
+If you have any questions or ideas feel free to create an [issue](https://github.com/kadai-io/kadai/issues), contact us
+via [GitHub Discussions](https://github.com/kadai-io/kadai/discussions) or E-mail us at [kadai@envite.de](mailto:kadai@envite.de).
 
 We love listening to your feedback, and of course also discussing the project roadmap and possible use cases with you!
 

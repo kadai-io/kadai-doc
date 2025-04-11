@@ -6,5 +6,4 @@ sidebar_position: 1
 
 Do you have any questions about KADAI? Do you have a suggestion for improvement? Please use the contact information below to contact us.
 
-> Name: Holger Hagen  
-> E-mail: holger.hagen@envite.de
+> E-mail: [kadai@envite.de](mailto:kadai@envite.de)

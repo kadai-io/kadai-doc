@@ -281,7 +281,6 @@ kadai.datasource.jdbcUrl=jdbc:postgresql://localhost:5102/postgres
 kadai.datasource.driverClassName=org.postgresql.Driver
 kadai.datasource.username=postgres
 kadai.datasource.password=postgres
-#kadai.schemaName=kadai
 
 kadai.adapter.mapping.default.objectreference.company=DEFAULT_COMPANY
 kadai.adapter.mapping.default.objectreference.system=DEFAULT_SYSTEM
@@ -339,8 +338,8 @@ public class ExampleTaskRouter implements TaskRoutingProvider {
 }
 ```
 Next, add a new folder to your resources folder and name it `META-INF`. 
-Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. 
-Finally, create a file in the `services` folder with the name `io.kadai.spi.routing.api.TaskRoutingProvider`. 
+Create a new folder named `services` inside of the folder `META-INF`. 
+Finally, in the `services` folder, create a file named `io.kadai.spi.routing.api.TaskRoutingProvider`. 
 This file must contain the fully qualified classname (including the package) of the class `ExampleTaskRouter`, for example:
 ```text
 com.example.demo.taskrouting.ExampleTaskRouter
@@ -370,7 +369,7 @@ demo
 
 ## Step 5: Start all applications together
 
-Then, start your KADAI application. 
+Then, start your KADAI application. Make sure to use the same version as specified in the pom.xml of your adapter.
 Start your camunda app next, and login. 
 Last, start the adapter. 
 

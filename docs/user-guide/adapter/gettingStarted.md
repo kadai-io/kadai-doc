@@ -5,6 +5,9 @@ sidebar_position: 1
 # Getting Started
 In this article, the set-up of the Adapter is explained step by step. Additionally, you can try out some of the functionalities of the Adapter following the instructions in this article.
 
+import styles from '@site/src/components/HomepageFeatures/styles.module.css';
+import Link from '@docusaurus/Link';
+
 ## What you'll need
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
@@ -100,7 +103,7 @@ kadai.adapter.outbox.datasource.password=postgres
 Further add the following properties to your Spring Boot configuration:
 
 ```properties title="src/main/resources/application.properties"
-server.port=8085
+server.port=8081
 spring.main.allow-bean-definition-overriding=true
 camunda.bpm.auto-deployment-enabled=true
 
@@ -133,7 +136,13 @@ spring.datasource.password = postgres
 
 ```
 
-Start the camunda application and check if it runs correctly.
+Check if your postgres database is running. For example, start the container provided in the KADAI repository by executing `bash ./docker-databases/prepare_db.sh POSTGRES_14 && exit` in a terminal.
+Then start the camunda application and check if it runs correctly. 
+The webapp should be available at 
+
+http://localhost:8081/example-context-root/camunda/app/welcome/default/#!/login
+
+
 Close the camunda application after checking.
 
 ## Step 2: Initialize an empty Adapter application
@@ -249,7 +258,7 @@ kadai-system-connector-outbox-rest-api-user-password=admin
 # Set URLs of Camunda REST API and associated KADAI Outbox REST API. The format is
 # <camundaSystem1-RestURL> | <camundaSystem1-OutboxRestURL> , ..., <camundaSystemN-RestURL> | <camundaSystemN-OutboxRestURL>
 
-kadai-system-connector-camundaSystemURLs=http://localhost:8085/example-context-root/engine-rest | http://localhost:8085/example-context-root/outbox-rest
+kadai-system-connector-camundaSystemURLs=http://localhost:8081/example-context-root/engine-rest | http://localhost:8081/example-context-root/outbox-rest
 
 ####################################################################################
 # Kadai-connector properties
@@ -272,7 +281,6 @@ kadai.datasource.jdbcUrl=jdbc:postgresql://localhost:5102/postgres
 kadai.datasource.driverClassName=org.postgresql.Driver
 kadai.datasource.username=postgres
 kadai.datasource.password=postgres
-#kadai.schemaName=kadai
 
 kadai.adapter.mapping.default.objectreference.company=DEFAULT_COMPANY
 kadai.adapter.mapping.default.objectreference.system=DEFAULT_SYSTEM
@@ -330,8 +338,8 @@ public class ExampleTaskRouter implements TaskRoutingProvider {
 }
 ```
 Next, add a new folder to your resources folder and name it `META-INF`. 
-Create a new folder named `services` in the folder `META-INF`, so that services is a subfolder of `META-INF`. 
-Finally, create a file in the `services` folder with the name `io.kadai.spi.routing.api.TaskRoutingProvider`. 
+Create a new folder named `services` inside of the folder `META-INF`. 
+Finally, in the `services` folder, create a file named `io.kadai.spi.routing.api.TaskRoutingProvider`. 
 This file must contain the fully qualified classname (including the package) of the class `ExampleTaskRouter`, for example:
 ```text
 com.example.demo.taskrouting.ExampleTaskRouter
@@ -361,21 +369,29 @@ demo
 
 ## Step 5: Start all applications together
 
-First, check if your postgres database is running.
-For example, start the container provided in the KADAI repository by executing `bash ./docker-databases/prepare_db.sh POSTGRES_14 && exit` in a terminal. 
-
-Then, start your KADAI application. 
+Then, start your KADAI application. Make sure to use the same version as specified in the pom.xml of your adapter.
 Start your camunda app next, and login. 
 Last, start the adapter. 
 
 ## Step 6: Try out different functionalities of Adapter
 
-1. Start a process with a User Task in Camunda. The User Task should be imported to KADAI automatically. You can check it by first knowing the name of the user task from the started process, then make a postgres GET request to KADAI using the following request, entering the name (or just substring of the name) of the user task for the "name-like" attribute.
+1. Start a process with a User Task in Camunda. You can use this example process:
+    <div className={styles.buttons}>
+    <Link
+    className="button button--secondary button--lg">
+    <a
+    className="button button--secondary button--lg"
+    href={ require("../static/adapter/sayHello.zip").default }
+    download
+    target="_blank"
+    >Download example process </a>
+    </Link>
+    </div> 
+    <br/>
+   The User Task should be imported to KADAI automatically. You can check it by first knowing the name of the user task from the started process, then make a postgres GET request to KADAI using the following request, entering the name (or just substring of the name) of the user task for the "name-like" attribute.
    ```
    GET http://localhost:8080/kadai/api/v1/tasks?name-like=Say hello
    ```
-   Here we assume that the name of the user task is "Say hello to demo", 
-   but you can set the name differently by opening the `process.bpmn` file in the camunda application and set the name attribute in `<bpmn:userTask>`differently.
    Make sure that the correct port number is used for KADAI request. 
    You can check the port number in `application.properties` of KADAI under `server.port`. 
    If not specified, then the default port is `8080`. 
@@ -399,7 +415,7 @@ Last, start the adapter.
          "planned": "2025-02-17T16:16:51.910Z",
          "received": null,
          "due": "2025-02-18T16:16:51.910Z",
-         "name": "Say hello to \ndemo",
+         "name": "Say Hello",
          "creator": "taskadmin",
          "note": null,
          "description": "Widerruf",

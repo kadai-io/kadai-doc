@@ -45,14 +45,43 @@ When all of the services are healthy, it will give the following response:
         },
         "Scheduler Health": {
             "status": "UP",
-            "details": {
-                "Last Run": "2025-02-03T10:20:36.174928Z"
+          "components": {
+            "Kadai Task Starter": {
+              "status": "UP",
+              "details": {
+                "Last Run": "2025-04-16T12:08:43.405902Z"
+              }
+            },
+            "Kadai Task Terminator": {
+              "status": "UP",
+              "details": {
+                "Last Run": "2025-04-16T12:08:43.391904800Z"
+              }
+            },
+            "Referenced Task Claim Canceler": {
+              "status": "UP",
+              "details": {
+                "Last Run": "2025-04-16T12:08:43.414898400Z"
+              }
+            },
+            "Referenced Task Claimer": {
+              "status": "UP",
+              "details": {
+                "Last Run": "2025-04-16T12:08:43.415899600Z"
+              }
+            },
+            "Referenced Task Completer": {
+              "status": "UP",
+              "details": {
+                "Last Run": "2025-04-16T12:08:43.414898400Z"
+              }
             }
+          }
         }
     }
 ```
 The above response shows the overall status and the individual health details
-for each service. 
+for each service. For the scheduler health, the health of each individual scheduled job is shown. 
 
 ## Response Structure
 - `status`: Represents the overall health of the system. If all services are operational
@@ -77,9 +106,11 @@ When healthy, it should return the count of events in the outbox
 - `"eventsCount"` represents the number of unprocessed events in the outbox
 
 ### Scheduler Health
-When healthy, it should return the last run timestamp of the job scheduler
-- `"status": "UP"` means the scheduler is running properly
-- `Last Run` shows the timestamp of the last successful scheduler execution
+The **Scheduler Health** component monitors the health of individual scheduled jobs in the system. It is a **composite health check**, meaning it aggregates the status of multiple scheduler components.
+- `"status": "UP"` at the top level means all scheduled jobs are running as expected.
+- `"components"` contains the health details of each individual scheduler job.
+  - `"status": "UP"` indicates that the specific scheduled job is running as expected.
+  - `"Last Run"` shows the timestamp of the last successful execution of that specific job.
 
 
 If any of the service is not running properly, the overall status and the corresponding 

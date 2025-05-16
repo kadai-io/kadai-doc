@@ -17,42 +17,43 @@ When all of the services are healthy, it will give the following response:
 
 ```json
 {
-    "status": "UP",
-    "components": {
-        "Camunda Health": {
-            "status": "UP",
-            "details": {
-                "Camunda Engines": [
-                    {
-                        "name": "default"
-                    }
-                ]
-            }
-        },
-        "Kadai Health": {
-            "status": "UP",
-            "details": {
-                "Kadai Version": "9.2.0"
-            }
-        },
-        "Outbox Health": {
-            "status": "UP",
-            "details": {
-                "Outbox Service": {
-                    "eventsCount": 0
-                }
-            }
-        },
-        "Scheduler Health": {
-            "status": "UP",
-            "details": {
-                "Last Run": "2025-02-03T10:20:36.174928Z"
-            }
+  "status": "UP",
+  "components": {
+    "camunda": {
+      "status": "UP",
+      "details": {
+        "Camunda Engines": [
+          {
+            "name": "default"
+          }
+        ]
+      }
+    },
+    "kadai": {
+      "status": "UP",
+      "details": {
+        "Kadai Version": "9.3.0"
+      }
+    },
+    "outbox": {
+      "status": "UP",
+      "details": {
+        "Outbox Service": {
+          "eventsCount": 0
         }
+      }
+    },
+    "scheduler": {
+      "status": "UP",
+      "details": {
+        "Last Run": "2025-05-13T07:08:56.876522900Z"
+      }
     }
+  }
+}
 ```
 The above response shows the overall status and the individual health details
-for each service. 
+for each service.
 
 ## Response Structure
 - `status`: Represents the overall health of the system. If all services are operational
@@ -81,6 +82,14 @@ When healthy, it should return the last run timestamp of the job scheduler
 - `"status": "UP"` means the scheduler is running properly
 - `Last Run` shows the timestamp of the last successful scheduler execution
 
-
 If any of the service is not running properly, the overall status and the corresponding 
 service will be `DOWN` and the error will be shown in the `"details"`.
+
+## Disabling the HealthCheck
+You can either
+- fully disable the `external-services`-HealthCheck by setting `management.health.external-services.enabled=false` or
+- partially disable any of its contributors by setting either of
+    - `management.health.external-services.camunda.enabled=false`
+    - `management.health.external-services.kadai.enabled=false`
+    - `management.health.external-services.outbox.enabled=false`
+    - `management.health.external-services.scheduler.enabled=false `

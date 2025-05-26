@@ -4,10 +4,11 @@ sidebar_position: 2
 
 # HealthCheck
 
-KadaiAdapter also provides a way to monitor the health of the certain components.
+KadaiAdapter also provides a way to monitor its health - built on top of [SpringBoot Actuator](https://docs.spring.io/spring-boot/reference/actuator/index.html).
+
 Assuming that the adapter application runs at `http://localhost:8082` you can request below URL for all health-information:
 ```
-GET http://localhost:8082/actuator/health/external-services
+GET http://localhost:8082/actuator/health
 ```
 
 The hierarchical nature allows to just request health information for specific sub-systems, e.g. all external services via:

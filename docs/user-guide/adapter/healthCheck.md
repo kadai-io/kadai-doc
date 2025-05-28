@@ -93,3 +93,52 @@ You can either
     - `management.health.external-services.kadai.enabled=false`
     - `management.health.external-services.outbox.enabled=false`
     - `management.health.external-services.scheduler.enabled=false `
+
+## ✅ Configuring URLs for Camunda and Outbox Health Checks
+You can configure how the system performs health checks for the **Camunda** and **Outbox** services using the following application properties.
+
+These properties allow you to customize the **base address**, **port**, **context path**, **endpoint path**, and optional **query parameters** independently for each service.
+### 🔧 Camunda Health Check Properties
+
+| Property                         | Description                                                     | Default Value                  |
+|----------------------------------|------------------------------------------------------------------|--------------------------------|
+| `camundaService.address`        | Base address of the Camunda service                              | `http://localhost`             |
+| `camundaService.port`           | (Optional) Port of the Camunda service                           | *(none — ignored if unset)*    |
+| `camundaService.context-path`   | (Optional) Context path prefix                                   | `""` (empty)                   |
+| `camundaService.endpoint`       | Path to the Camunda health endpoint                              | `engine-rest/engine`           |
+| `camundaService.query`          | (Optional) Query string to append (e.g. `param=value&x=y`)       | *(none)*                       |
+
+### 🔧 Outbox Health Check Properties
+
+| Property                         | Description                                                     | Default Value                        |
+|----------------------------------|------------------------------------------------------------------|--------------------------------------|
+| `outboxService.address`         | Base address of the Outbox service                               | `http://localhost`                   |
+| `outboxService.port`            | (Optional) Port of the Outbox service                            | *(none — ignored if unset)*          |
+| `outboxService.context-path`    | (Optional) Context path prefix                                   | `""` (empty)                         |
+| `outboxService.endpoint`        | Path to the Outbox health endpoint                               | `outbox-rest/events/count`           |
+| `outboxService.query`           | (Optional) Query string to append (e.g. `retries=0&limit=1`)     | *(none)*                             |
+### 📌 Example Configuration
+
+```properties
+# Camunda Service
+camundaService.address=http://localhost
+camundaService.port=8080
+camundaService.context-path=example-context-root
+camundaService.endpoint=engine-rest/engine
+camundaService.query=version=1
+
+# Outbox Service
+outboxService.address=http://localhost
+outboxService.port=8090
+outboxService.context-path=example-context-root
+outboxService.endpoint=outbox-rest/events/count
+outboxService.query=retries=0
+```
+
+This would result in the following effective URLs:
+
+Camunda:
+http://localhost:8080/example-context-root/engine-rest/engine?version=1
+    
+Outbox:
+http://localhost:8090/example-context-root/outbox-rest/events/count?retries=0

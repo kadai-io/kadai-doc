@@ -22,28 +22,65 @@ When all the external services are healthy, it will respond with something simil
 {
   "status": "UP",
   "components": {
-    "camunda": {
+    "camundaSystems": {
       "status": "UP",
-      "details": {
-        "camundaEngines": [
-          {
-            "name": "default"
+      "components": {
+        "camundaSystem1": {
+          "status": "UP",
+          "components": {
+            "camunda": {
+              "status": "UP",
+              "details": {
+                "camundaEngines": [
+                  {
+                    "name": "default"
+                  }
+                ],
+                "baseUrl": "http://localhost:8081/example-context-root/engine-rest/engine"
+              }
+            },
+            "outbox": {
+              "status": "UP",
+              "details": {
+                "outboxService": {
+                  "eventsCount": 0
+                },
+                "baseUrl": "http://localhost:8081/example-context-root/outbox-rest"
+              }
+            }
           }
-        ]
+        },
+        "camundaSystem2": {
+          "status": "UP",
+          "components": {
+            "camunda": {
+              "status": "UP",
+              "details": {
+                "camundaEngines": [
+                  {
+                    "name": "default"
+                  }
+                ],
+                "baseUrl": "http://localhost:8085/example-context-root/engine-rest/engine"
+              }
+            },
+            "outbox": {
+              "status": "UP",
+              "details": {
+                "outboxService": {
+                  "eventsCount": 0
+                },
+                "baseUrl": "http://localhost:8085/example-context-root/outbox-rest"
+              }
+            }
+          }
+        }
       }
     },
     "kadai": {
       "status": "UP",
       "details": {
-        "kadaiVersion": "10.0.0"
-      }
-    },
-    "outbox": {
-      "status": "UP",
-      "details": {
-        "outboxService": {
-          "eventsCount": 0
-        }
+        "kadaiVersion": "10.0.1-SNAPSHOT"
       }
     },
     "scheduler": {
@@ -52,40 +89,40 @@ When all the external services are healthy, it will respond with something simil
         "kadaiTaskStarter": {
           "status": "UP",
           "details": {
-            "lastRun": "2025-05-26T11:41:09.205067300Z",
-            "expectedNextRunBefore": "2025-05-26T11:41:29.222045900Z",
-            "expectedRunTime": 16
+            "lastRun": "2025-07-09T09:27:21.817394500Z",
+            "expectedNextRunBefore": "2025-07-09T09:27:41.853121800Z",
+            "expectedRunTime": 35
           }
         },
         "kadaiTaskTerminator": {
           "status": "UP",
           "details": {
-            "lastRun": "2025-05-26T11:41:09.205067300Z",
-            "expectedNextRunBefore": "2025-05-26T11:41:29.222478500Z",
-            "expectedRunTime": 17
+            "lastRun": "2025-07-09T09:27:21.817394500Z",
+            "expectedNextRunBefore": "2025-07-09T09:27:41.853041700Z",
+            "expectedRunTime": 35
           }
         },
         "referencedTaskClaimCanceler": {
           "status": "UP",
           "details": {
-            "lastRun": "2025-05-26T11:41:09.218071700Z",
-            "expectedNextRunBefore": "2025-05-26T11:41:29.244051Z",
-            "expectedRunTime": 25
+            "lastRun": "2025-07-09T09:27:21.796450400Z",
+            "expectedNextRunBefore": "2025-07-09T09:27:41.820492900Z",
+            "expectedRunTime": 24
           }
         },
         "referencedTaskClaimer": {
           "status": "UP",
           "details": {
-            "lastRun": "2025-05-26T11:41:09.218071700Z",
-            "expectedNextRunBefore": "2025-05-26T11:41:29.243084700Z",
-            "expectedRunTime": 25
+            "lastRun": "2025-07-09T09:27:21.797453900Z",
+            "expectedNextRunBefore": "2025-07-09T09:27:41.824716600Z",
+            "expectedRunTime": 27
           }
         },
         "referencedTaskCompleter": {
           "status": "UP",
           "details": {
-            "lastRun": "2025-05-26T11:41:09.218071700Z",
-            "expectedNextRunBefore": "2025-05-26T11:41:29.243084700Z",
+            "lastRun": "2025-07-09T09:27:21.797453900Z",
+            "expectedNextRunBefore": "2025-07-09T09:27:41.823103100Z",
             "expectedRunTime": 25
           }
         }
@@ -93,7 +130,10 @@ When all the external services are healthy, it will respond with something simil
     }
   }
 }
+
 ```
+
+The URLs for the Camunda Systems are derived from the property `kadai-system-connector-camundaSystemURLs`.
 
 ## Response Structure
 - `status`: Represents the overall health of the system. If all services are operational
@@ -102,17 +142,25 @@ it returns **"UP"**.
 
 ## Component Breakdown
 
-### Camunda
+### Camunda Systems
+- `camundaSystems` contains a composite of camunda systems
+
+#### Camunda System
+- `camundaSystem[i]` contains the health of the ith camunda and outbox component
+
+##### Camunda
 When healthy, it should return a list of the available Camunda Engines
 - `camundaEngines` lists the available Camunda engines by name.
+- `baseUrl` shows the base URL for the Camunda REST
+
+##### Outbox
+When healthy, it should return the count of events in the outbox
+- `eventsCount` represents the number of unprocessed events in the outbox
+- `baseUrl` shows the base URL for the Outbox REST
 
 ### Kadai
 When healthy, it should return the `KADAI` version being used
 - `kadaiVersion` specifies the current running version of `KADAI`
-
-### Outbox
-When healthy, it should return the count of events in the outbox
-- `eventsCount` represents the number of unprocessed events in the outbox
 
 ### Scheduler
 Health-Composite, healthy if all Health-Contributors are healthy. 
@@ -135,9 +183,9 @@ management.health.external-services.scheduler.run-time-acceptance-multiplier=42
 You can either
 - fully disable the `external-services`-HealthCheck by setting `management.health.external-services.enabled=false` or
 - partially disable any of its contributors by setting either of
-    - `management.health.external-services.camunda.enabled=false`
+    - `management.health.external-services.camunda-system.camunda.enabled=false`
+    - `management.health.external-services.camunda-system.outbox.enabled=false`
     - `management.health.external-services.kadai.enabled=false`
-    - `management.health.external-services.outbox.enabled=false`
     - `management.health.external-services.scheduler.enabled=false`
 
 This schema applies to all parts of the HealthCheck.

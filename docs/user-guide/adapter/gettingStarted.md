@@ -291,9 +291,7 @@ management.endpoints.web.exposure.include= *
 management.endpoint.health.show-details= always
 management.health.external-services.include=external-services
 management.health.external-services.enabled=true
-camundaOutboxService.port=8081
-camundaOutboxService.address=http://localhost
-outbox.context-path:example-context-root
+#
 #kadai.adapter.xsrf.token=YOUR_TOKEN_123
 ```
 You can enable Kadai Adapter to send CSRF Headers and Cookies by removing the comment from the `kadai.adapter.xsrf.token` property.

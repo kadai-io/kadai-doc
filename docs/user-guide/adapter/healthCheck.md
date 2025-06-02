@@ -13,7 +13,7 @@ GET http://localhost:8082/actuator/health
 
 The hierarchical nature allows to just request health information for specific sub-systems, e.g. all external services via:
 ```
-GET http://localhost:8082/actuator/health/external-services
+GET http://localhost:8082/actuator/health/externalServices
 ```
 
 When all the external services are healthy, it will respond with something similar to:

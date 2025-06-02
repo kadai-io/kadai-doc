@@ -133,4 +133,4 @@ You can either
     - `management.health.external-services.outbox.enabled=false`
     - `management.health.external-services.scheduler.enabled=false` 
 
-This schema applies to all parts of the Health-Check.
+This schema applies to all parts of the HealthCheck.

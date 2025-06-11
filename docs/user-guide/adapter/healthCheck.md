@@ -124,6 +124,13 @@ Each Health-Contributor provides the following information:
 
 If any of the services is not running properly, the overall status will be `DOWN` and the error will be shown in the `"details"`.
 
+The `expectedNextRunBefore` can be configured by supplying an acceptance-multiplier for threshold.
+It determines `expectedNextRunBefore = run-time-acceptance-multiplier * expectedRunTime + lastRun`. 
+It can be set via:
+```properties title="application.properties"
+management.health.external-services.scheduler.run-time-acceptance-multiplier=42
+```
+
 ## Disabling certain parts of the HealthCheck
 You can either
 - fully disable the `external-services`-HealthCheck by setting `management.health.external-services.enabled=false` or
@@ -131,6 +138,6 @@ You can either
     - `management.health.external-services.camunda.enabled=false`
     - `management.health.external-services.kadai.enabled=false`
     - `management.health.external-services.outbox.enabled=false`
-    - `management.health.external-services.scheduler.enabled=false` 
+    - `management.health.external-services.scheduler.enabled=false`
 
 This schema applies to all parts of the HealthCheck.

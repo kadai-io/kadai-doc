@@ -35,7 +35,7 @@ When all the external services are healthy, it will respond with something simil
     "kadai": {
       "status": "UP",
       "details": {
-        "kadaiVersion": "9.3.1-SNAPSHOT"
+        "kadaiVersion": "10.0.0"
       }
     },
     "outbox": {

@@ -6,6 +6,7 @@ sidebar_position: 2
 
 ### Supported JVM
   - Java 17
+  - Java 21
 ### Supported Databases
 - or DB2 11.5
 - or PostgresSQL 14.7

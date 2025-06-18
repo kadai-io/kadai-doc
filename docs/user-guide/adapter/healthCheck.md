@@ -4,16 +4,19 @@ sidebar_position: 2
 
 # HealthCheck
 
-KadaiAdapter also provides a way to monitor the health of the `Adapter`, 
-`Camunda Engine`, `Outbox`, and the `Job Scheduler`. This can be done by sending a request to 
-the following endpoint:
+KadaiAdapter also provides a way to monitor its health - built on top of [SpringBoot Actuator](https://docs.spring.io/spring-boot/reference/actuator/index.html).
 
+Assuming that the adapter application runs at `http://localhost:8082` you can request below URL for all health-information:
 ```
-GET http://localhost:8082/actuator/health/external-services
+GET http://localhost:8082/actuator/health
 ```
-assuming that the adapter application runs at `http://localhost:8082`.
 
-When all of the services are healthy, it will give the following response:
+The hierarchical nature allows to just request health information for specific sub-systems, e.g. all external services via:
+```
+GET http://localhost:8082/actuator/health/externalServices
+```
+
+When all the external services are healthy, it will respond with something similar to:
 
 ```json
 {
@@ -22,7 +25,7 @@ When all of the services are healthy, it will give the following response:
     "camunda": {
       "status": "UP",
       "details": {
-        "Camunda Engines": [
+        "camundaEngines": [
           {
             "name": "default"
           }
@@ -32,28 +35,65 @@ When all of the services are healthy, it will give the following response:
     "kadai": {
       "status": "UP",
       "details": {
-        "Kadai Version": "10.0.0"
+        "kadaiVersion": "10.0.0"
       }
     },
     "outbox": {
       "status": "UP",
       "details": {
-        "Outbox Service": {
+        "outboxService": {
           "eventsCount": 0
         }
       }
     },
     "scheduler": {
       "status": "UP",
-      "details": {
-        "Last Run": "2025-05-13T07:08:56.876522900Z"
+      "components": {
+        "kadaiTaskStarter": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-05-26T11:41:09.205067300Z",
+            "expectedNextRunBefore": "2025-05-26T11:41:29.222045900Z",
+            "expectedRunTime": 16
+          }
+        },
+        "kadaiTaskTerminator": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-05-26T11:41:09.205067300Z",
+            "expectedNextRunBefore": "2025-05-26T11:41:29.222478500Z",
+            "expectedRunTime": 17
+          }
+        },
+        "referencedTaskClaimCanceler": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-05-26T11:41:09.218071700Z",
+            "expectedNextRunBefore": "2025-05-26T11:41:29.244051Z",
+            "expectedRunTime": 25
+          }
+        },
+        "referencedTaskClaimer": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-05-26T11:41:09.218071700Z",
+            "expectedNextRunBefore": "2025-05-26T11:41:29.243084700Z",
+            "expectedRunTime": 25
+          }
+        },
+        "referencedTaskCompleter": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-05-26T11:41:09.218071700Z",
+            "expectedNextRunBefore": "2025-05-26T11:41:29.243084700Z",
+            "expectedRunTime": 25
+          }
+        }
       }
     }
   }
 }
 ```
-The above response shows the overall status and the individual health details
-for each service.
 
 ## Response Structure
 - `status`: Represents the overall health of the system. If all services are operational
@@ -62,34 +102,42 @@ it returns **"UP"**.
 
 ## Component Breakdown
 
-### Camunda Health
+### Camunda
 When healthy, it should return a list of the available Camunda Engines
-- `"status": "UP"` means the engine is running properly.
-- `"Camunda Engines"` lists the available Camunda engines by name.
+- `camundaEngines` lists the available Camunda engines by name.
 
-### Kadai Health
+### Kadai
 When healthy, it should return the `KADAI` version being used
-- `"status": "UP"` means the `KADAI` service is running properly.
-- `Kadai Version` specifies the current running version of `KADAI`
+- `kadaiVersion` specifies the current running version of `KADAI`
 
-### Outbox Health
+### Outbox
 When healthy, it should return the count of events in the outbox
-- `"status": "UP"` means the `Outbox` service is running properly.
-- `"eventsCount"` represents the number of unprocessed events in the outbox
+- `eventsCount` represents the number of unprocessed events in the outbox
 
-### Scheduler Health
-When healthy, it should return the last run timestamp of the job scheduler
-- `"status": "UP"` means the scheduler is running properly
-- `Last Run` shows the timestamp of the last successful scheduler execution
+### Scheduler
+Health-Composite, healthy if all Health-Contributors are healthy. 
 
-If any of the service is not running properly, the overall status and the corresponding 
-service will be `DOWN` and the error will be shown in the `"details"`.
+Each Health-Contributor provides the following information:
+  - `lastRun`: The last successfully reported run
+  - `expectedNextRunBefore`: The latest point in time the next scheduled run is expected to have been reported successful
+  - `expectedRunTime`: The expected run-time in milliseconds for a single run of the scheduled functionality, reported as lower median
 
-## Disabling the HealthCheck
+If any of the services is not running properly, the overall status will be `DOWN` and the error will be shown in the `"details"`.
+
+The `expectedNextRunBefore` can be configured by supplying an acceptance-multiplier for threshold.
+It determines `expectedNextRunBefore = run-time-acceptance-multiplier * expectedRunTime + lastRun`. 
+It can be set via:
+```properties title="application.properties"
+management.health.external-services.scheduler.run-time-acceptance-multiplier=42
+```
+
+## Disabling certain parts of the HealthCheck
 You can either
 - fully disable the `external-services`-HealthCheck by setting `management.health.external-services.enabled=false` or
 - partially disable any of its contributors by setting either of
     - `management.health.external-services.camunda.enabled=false`
     - `management.health.external-services.kadai.enabled=false`
     - `management.health.external-services.outbox.enabled=false`
-    - `management.health.external-services.scheduler.enabled=false `
+    - `management.health.external-services.scheduler.enabled=false`
+
+This schema applies to all parts of the HealthCheck.

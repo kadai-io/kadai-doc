@@ -45,10 +45,10 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           includeCurrentVersion: false,
-          lastVersion: '9.3.0',
+          lastVersion: 'current',
           versions: {
             current: {
-              label: 'v10.0.* (preview)',
+              label: 'v10.0.*',
               path: '/',
               badge: true,
             },

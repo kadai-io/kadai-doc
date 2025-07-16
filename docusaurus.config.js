@@ -48,7 +48,7 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: 'v10.0.*',
+              label: 'v10.*.*',
               path: '/',
               badge: true,
             },

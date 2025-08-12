@@ -4,7 +4,11 @@ sidebar_position: 4
 
 # Modules
 
-Different functionality of KADAI can be found in different modules. In the following article, the relevant modules for external usage are explained. The modules for internal use only are left out of the article. 
+KADAI is highly modular software.
+It's up to you which modules you want to use.
+The only required module is **kadai-core**.
+
+Note: Only modules that are relevant for external use are explained here. Internal modules, such as those for logging, testing and configuration, have been omitted.
 
 ## lib
 

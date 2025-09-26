@@ -11,3 +11,11 @@ updates:
       docusaurus:
         patterns:
           - "@docusaurus/*"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 99

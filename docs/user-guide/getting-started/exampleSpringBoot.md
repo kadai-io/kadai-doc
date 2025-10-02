@@ -100,17 +100,17 @@ mvn clean install -DskipTests
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 ```
 
@@ -138,17 +138,17 @@ mvn clean install -DskipTests
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-logging</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-rest-spring</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-common-data</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>com.h2database</groupId>
@@ -935,7 +935,7 @@ Add the following dependencies to your pom and reload maven:
 <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-web</artifactId>
-    <version>10.0.0</version>
+    <version>10.1.0</version>
 </dependency>
 <dependency>
     <groupId>org.springframework.boot</groupId>

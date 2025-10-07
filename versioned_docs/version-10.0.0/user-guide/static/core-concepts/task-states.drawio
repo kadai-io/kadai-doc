@@ -1,0 +1,73 @@
+<mxfile host="65bd71144e">
+    <diagram id="ABNCZyfbNFh-MfdMv4a-" name="Page-1">
+        <mxGraphModel dx="734" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="21" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="430" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="280" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry y="590" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry y="432.5" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry y="280" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="128.75" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry y="130" width="330" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;b&gt;CLAIMED&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="305" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;b&gt;READY&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="153.75" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;b&gt;READY_FOR_REVIEW&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="155" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;b&gt;IN_REVIEW&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="303.75" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;b&gt;COMPLETED&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="457.5" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;b&gt;CANCELLED&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="457.5" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;b&gt;TERMINATED&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="617.5" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;The state of a Task after its creation. READY Tasks are seen by all users with access to the Workbasket of the Task. A READY Task can be claimed by a user who wants to work on it.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="135" width="165" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;After a Task has been claimed by a user, its state is CLAIMED. It means that the Task is being processed by the user. The user processing the Task is calles owner.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="290" width="165" height="107.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;The state of a Task after it has been completed. This is an end state, so that the state of the Task cannot be changed anymore.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="456.25" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;The state of a Task after it has been terminated.&amp;nbsp;&lt;/span&gt;&lt;span&gt;This is an end state, so that the state of the Task cannot be changed anymore.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=right;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="617.5" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;The state of a Task after a review on a CLAIMED Task has been requested. Tasks in this state are seen by all users with&amp;nbsp; access to the Workbasket . They can be claimed by a user who wants to review.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="128.75" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;After a Task in the&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;text-align: justify&quot;&gt;READY_FOR_REVIEW state&lt;/span&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;has been claimed, it's IN_REVIEW. The user who claimed the Task is reviewing it. This user is called owner.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="290" width="160" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;The state of a Task after it has been cancelled.&amp;nbsp;&lt;/span&gt;&lt;span&gt;This is an end state, so that the state of the Task cannot be changed anymore.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=center;strokeColor=none;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="455" width="160" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

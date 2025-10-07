@@ -45,11 +45,16 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           includeCurrentVersion: false,
-          lastVersion: 'current',
+          lastVersion: '10.0.0',
           versions: {
             current: {
-              label: 'v10.*.*',
+              label: 'v11.*.* (unreleased)',
               path: '/',
+              badge: true,
+            },
+            "10.0.0": {
+              label: 'v10.*.*',
+              path: '/10.*.*',
               badge: true,
             },
             "9.3.0": {
@@ -72,131 +77,131 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      colorMode: {
-        defaultMode: 'light',
-        disableSwitch: true,
-        respectPrefersColorScheme: false,
-      },
-      navbar: {
-        title: 'KADAI',
-        hideOnScroll: true,
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo-small.png',
+  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+      ({
+        colorMode: {
+          defaultMode: 'light',
+          disableSwitch: true,
+          respectPrefersColorScheme: false,
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'user-guide/userGuideIntro',
-            position: 'left',
-            label: 'User Guide',
+        navbar: {
+          title: 'KADAI',
+          hideOnScroll: true,
+          logo: {
+            alt: 'My Site Logo',
+            src: 'img/logo-small.png',
           },
-          {
-            type: 'doc',
-            docId: 'contact-us/contactUs',
-            position: 'left',
-            label: 'Contact Us',
-          },
-          {
-            href: 'https://github.com/kadai-io/kadai',
-            label: 'GitHub',
-            position: 'right',
-          },
-          {
-            href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
-            label: 'REST API Doc',
-            position: 'right',
-          },
-          {
-            href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
-            label: 'KADAI core Java Doc',
-            position: 'right',
-          },
-          {
-            type: 'doc',
-            docId: 'demo-app/demoApp',
-            label: 'Demo App',
-            position: 'right',
-          },
-          {
-            type: 'docsVersionDropdown',
-            position: 'right',
-            dropdownActiveClassDisabled: true,
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: "Social",
-            items: [
-              {
-                label: 'Contact Us',
-                to: '/docs/contact-us/contactUs',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/kadai-io/kadai',
-              }
-            ]
+          items: [
+            {
+              type: 'doc',
+              docId: 'user-guide/userGuideIntro',
+              position: 'left',
+              label: 'User Guide',
+            },
+            {
+              type: 'doc',
+              docId: 'contact-us/contactUs',
+              position: 'left',
+              label: 'Contact Us',
+            },
+            {
+              href: 'https://github.com/kadai-io/kadai',
+              label: 'GitHub',
+              position: 'right',
+            },
+            {
+              href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
+              label: 'REST API Doc',
+              position: 'right',
+            },
+            {
+              href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
+              label: 'KADAI core Java Doc',
+              position: 'right',
+            },
+            {
+              type: 'doc',
+              docId: 'demo-app/demoApp',
+              label: 'Demo App',
+              position: 'right',
+            },
+            {
+              type: 'docsVersionDropdown',
+              position: 'right',
+              dropdownActiveClassDisabled: true,
+            },
+          ],
+        },
+        footer: {
+          style: 'dark',
+          links: [
+            {
+              title: "Social",
+              items: [
+                {
+                  label: 'Contact Us',
+                  to: '/docs/contact-us/contactUs',
+                },
+                {
+                  label: 'GitHub',
+                  href: 'https://github.com/kadai-io/kadai',
+                }
+              ]
 
-          },
-          {
-            title: "Docs:",
-            items: [
+            },
+            {
+              title: "Docs:",
+              items: [
 
-              {
-                label: 'User Guide',
-                to: '/docs/user-guide/userGuideIntro',
-              },
-              {
-                label: 'REST API Documentation',
-                href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
-              },
-              {
-                label: 'KADAI core Java Documentation',
-                href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
-              }
-            ]
-          },
-          {
-            title: "Demo App",
-            items: [
+                {
+                  label: 'User Guide',
+                  to: '/docs/user-guide/userGuideIntro',
+                },
+                {
+                  label: 'REST API Documentation',
+                  href: 'https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html',
+                },
+                {
+                  label: 'KADAI core Java Documentation',
+                  href: 'https://kadai-io.azurewebsites.net/kadai/docs/java/kadai-core/index.html',
+                }
+              ]
+            },
+            {
+              title: "Demo App",
+              items: [
 
-              {
-                label: 'Demo App',
-                to: 'docs/demo-app/demoApp'
-              }
-            ]
-          },
-          {
-            title: "Legal",
-            items: [
+                {
+                  label: 'Demo App',
+                  to: 'docs/demo-app/demoApp'
+                }
+              ]
+            },
+            {
+              title: "Legal",
+              items: [
 
-              {
-                label: 'Legal Notice',
-                to: 'docs/legal/legalNotice'
-              }
-            ]
-          }
+                {
+                  label: 'Legal Notice',
+                  to: 'docs/legal/legalNotice'
+                }
+              ]
+            }
 
-        ],
-        copyright:
-        `Built with Docusaurus. KADAI is a brand name registered by <a href="https://www.envite.de" target="_blank" style="color: #6DCBB3; text-decoration: none;">envite consulting GmbH</a>.`,
+          ],
+          copyright:
+              `Built with Docusaurus. KADAI is a brand name registered by <a href="https://www.envite.de" target="_blank" style="color: #6DCBB3; text-decoration: none;">envite consulting GmbH</a>.`,
 
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-        additionalLanguages: ['java', 'properties', 'sql', 'bash']
-      },
-      mermaid: {
-        theme: {light: 'neo', dark: 'neo-dark'},
-      },
-    }),
+        },
+        prism: {
+          theme: lightCodeTheme,
+          darkTheme: darkCodeTheme,
+          additionalLanguages: ['java', 'properties', 'sql', 'bash']
+        },
+        mermaid: {
+          theme: {light: 'neo', dark: 'neo-dark'},
+        },
+      }),
 };
 
 module.exports = config;

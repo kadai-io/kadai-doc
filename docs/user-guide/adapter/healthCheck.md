@@ -26,7 +26,7 @@ kernel-components:
     "kadai": {
       "status": "UP",
       "details": {
-        "kadaiVersion": "10.2.1-SNAPSHOT"
+        "kadaiVersion": "11.0.1-SNAPSHOT"
       }
     },
     "scheduler": {

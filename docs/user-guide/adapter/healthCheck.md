@@ -171,6 +171,53 @@ When healthy, it should return the count of events in the outbox
 - `outboxService.eventsCount` represents the number of unprocessed events in the outbox
 - `baseUrl` shows the base URL for the Outbox REST
 
+### Camunda 8
+
+Unlike Camunda7 we do not include the health of the Camunda8-instance itself in here.
+You can inspect that separately with the Health-Endpoints provided by Camunda,
+see [Orchestration-Cluster/Zeebee/Health](https://docs.camunda.io/docs/self-managed/components/orchestration-cluster/zeebe/operations/health/).
+
+#### Example-Response
+
+```json title="http://localhost:8082/actuator/health/kadaiAdapter/plugin/camunda8"
+{
+  "status": "UP",
+  "components": {
+    "jobWorker": {
+      "status": "UP",
+      "components": {
+        "complete": {
+          "status": "UNKNOWN",
+          "details": {
+            "lastRun": null,
+            "expectedRunTime": 0
+          }
+        },
+        "create": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-10-16T08:55:19.287769500Z",
+            "expectedRunTime": 55
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Job-Worker
+
+The health-composite of all job-workers.
+
+#### Create (Job-Worker)
+
+The health-indicator for the job-worker responsible for reacting to user-tasks being created.
+
+#### Complete (Job-Worker)
+
+The health-indicator for the job-worker responsible for reacting to user-tasks being completed.
+
 ## Partially disabling Health-Indicators
 
 **By default**, all kernel- as well as all found plugin-health-composites and -indicators are
@@ -184,6 +231,7 @@ themselves composed of Health-Trees.
 Leafs are [
 `Health-Indicators`](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/actuate/health/HealthIndicator.html).
 In this tree you can
+
 - fully disable any branch `branch` (composite) and it's children by setting
   `management.health.kadai-adapter.branch.enabled=false`, e.g.:
     - `management.health.kadai-adapter.kernel.enabled=false`

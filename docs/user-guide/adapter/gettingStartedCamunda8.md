@@ -163,6 +163,8 @@ camunda.client.zeebe.grpc-address=http://localhost:26500
 camunda.client.zeebe.audience=zeebe-api
 kadai.adapter.plugin.camunda8.system-url=http://localhost:26500
 kadai.adapter.plugin.camunda8.cluster-api-url=http://localhost:8081
+#avoid warning logs if a job worker does not fetch jobs frequently enough
+logging.level.io.camunda.client.job.poller=ERROR
 #for health-tests
 kadai-system-connector-camundaSystemURLs=http://localhost:8081|http://localhost:8081
 ```

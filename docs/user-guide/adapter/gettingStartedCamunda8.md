@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Getting Started with Camunda 8 and KADAI Adapter
+# Getting Started with Camunda 8
 
 In this article, the set-up of the Adapter is explained step by step. Additionally, you can try out
 some of the functionalities of the Adapter following the instructions in this article.
@@ -15,7 +15,7 @@ import Link from '@docusaurus/Link';
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
 - Java 17
 - [Maven](https://maven.apache.org/)
-- [Camunda Modeler Version >= 5.40.0] (https://camunda.com/de/download/modeler/)
+    - [Camunda Modeler Version >= 5.40.0](https://camunda.com/de/download/modeler/)
 - [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres
   database)
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
@@ -257,60 +257,67 @@ Last, start the adapter.
     <br/>
 
    Or find it in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter) under
-   `kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn`. (TODO: Service level??!?)
+   `kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn`. (TODO:
+   Service level??!?)
 
    Open the diagram in the Camunda Modeler and click on "file deployment" (Rocket sign in the lower
    left corner). Here, you can connect to your Camunda 8 instance by entering
    `http://localhost:26500` as the Cluster endpoint:
 
-   ![deploy_diagram.png](../static/adapter/c8/deploy_diagram.png)
+   <img src={require('../static/adapter/c8/deploy_diagram.png').default} alt="deploy_diagram.png"
+   style={{maxWidth: '480px'}} />
 
-   After connecting, you can deploy the process by clicking on "Deploy". Next, start a new instance
+   After connecting, you can deploy the process by clicking on "Deploy BPMN". Next, start a new
+   instance
    by clicking on "Open start instance" (Play sign in the lower left corner) and then "Start BPMN
-   process instance":.
+   process instance":
 
-   ![run_diagram.png](../static/adapter/c8/run_diagram.png)
+   <img src={require('../static/adapter/c8/run_diagram.png').default} alt="run_diagram.png"
+   style={{maxWidth: '480px'}} />
 
-   2. The User Task should be imported to KADAI automatically. You can check it by first knowing the
-      name of the user task from the started process, then make a postgres GET request to KADAI using
-      the following request, entering the name (or just substring of the name) of the user task for
-      the "name-like" attribute.
+2. The User Task should be imported to KADAI automatically. You can check it by first knowing
+   the
+   name of the user task from the started process, then make a postgres GET request to KADAI
+   using
+   the following request, entering the name (or just substring of the name) of the user task for
+   the "name-like" attribute.
 
-      ```
-      GET http://localhost:8080/kadai/api/v1/tasks?name-like=Say hello
-      ```
+   ```
+   GET http://localhost:8080/kadai/api/v1/tasks?name-like=Say hello
+   ```
 
-      Make sure that the correct port number is used for KADAI request.
-      You can check the port number in `application.properties` of KADAI under `server.port`.
-      If not specified, then the default port is `8080`.
-      You have to authenticate yourself using Basic Auth:
-      In Postman, go to the "Authorization" tab.
-      There, select `basicAuth` and type `admin` as user and `admin` as password.
-      Make sure `enableCsrf` is set to false in the `application.properties` of the KADAI application.
+   Make sure that the correct port number is used for KADAI request.
+   You can check the port number in `application.properties` of KADAI under `server.port`.
+   If not specified, then the default port is `8080`.
+   You have to authenticate yourself using Basic Auth:
+   In Postman, go to the "Authorization" tab.
+   There, select `basicAuth` and type `admin` as user and `admin` as password.
+   Make sure `enableCsrf` is set to false in the `application.properties` of the KADAI
+   application.
 
-      The response to the request should look like this:
+   The response to the request should look like this:
 
-          ```json
-          {
-      "tasks": [
-      {
-      "taskId": "TKI:f807830a-44e2-4c50-9f35-43dd945e2b31",
-      "externalId": "c8sysid-0-utk-2251799813691243",
-      "created": "2025-10-24T09:50:59.867Z",
-      "claimed": null,
-      "completed": null,
-      "modified": "2025-10-24T09:50:59.867Z",
-      "planned": "2025-12-02T11:00:00Z",
-      "received": null,
-      "due": "2025-12-22T10:59:59.999Z",
-      "name": "Say Hello Task",
-      "creator": "taskadmin",
-      ...
-      },
-      ...
-      ]
-      }
-      ```
+       ```json
+       {
+   "tasks": [
+   {
+   "taskId": "TKI:f807830a-44e2-4c50-9f35-43dd945e2b31",
+   "externalId": "c8sysid-0-utk-2251799813691243",
+   "created": "2025-10-24T09:50:59.867Z",
+   "claimed": null,
+   "completed": null,
+   "modified": "2025-10-24T09:50:59.867Z",
+   "planned": "2025-12-02T11:00:00Z",
+   "received": null,
+   "due": "2025-12-22T10:59:59.999Z",
+   "name": "Say Hello Task",
+   "creator": "taskadmin",
+   ...
+   },
+   ...
+   ]
+   }
+   ```
 
 3. Claim the KADAI Task from the previous step using Postman. Make sure you add the following
    property to the `application.properties` file of the adapter application:

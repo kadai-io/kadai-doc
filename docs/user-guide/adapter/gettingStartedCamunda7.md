@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Getting Started with Camunda 7 and KADAI Adapter
+# Getting Started with Camunda 7
 
 In this article, the set-up of the Adapter is explained step by step. Additionally, you can try out
 some of the functionalities of the Adapter following the instructions in this article.

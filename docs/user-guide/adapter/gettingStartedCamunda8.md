@@ -15,7 +15,7 @@ import Link from '@docusaurus/Link';
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
 - Java 17
 - [Maven](https://maven.apache.org/)
-    - [Camunda Modeler Version >= 5.40.0](https://camunda.com/de/download/modeler/)
+- [Camunda Modeler Version >= 5.40.0](https://camunda.com/de/download/modeler/)
 - [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres
   database)
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
@@ -299,27 +299,27 @@ Last, start the adapter.
 
    The response to the request should look like this:
 
-       ```json
+    ```json
+    {
+       "tasks": [
        {
-   "tasks": [
-   {
-   "taskId": "TKI:f807830a-44e2-4c50-9f35-43dd945e2b31",
-   "externalId": "c8sysid-0-utk-2251799813691243",
-   "created": "2025-10-24T09:50:59.867Z",
-   "claimed": null,
-   "completed": null,
-   "modified": "2025-10-24T09:50:59.867Z",
-   "planned": "2025-12-02T11:00:00Z",
-   "received": null,
-   "due": "2025-12-22T10:59:59.999Z",
-   "name": "Say Hello Task",
-   "creator": "taskadmin",
-   ...
-   },
-   ...
-   ]
-   }
-   ```
+       "taskId": "TKI:f807830a-44e2-4c50-9f35-43dd945e2b31",
+       "externalId": "c8sysid-0-utk-2251799813691243",
+       "created": "2025-10-24T09:50:59.867Z",
+       "claimed": null,
+       "completed": null,
+       "modified": "2025-10-24T09:50:59.867Z",
+       "planned": "2025-12-02T11:00:00Z",
+       "received": null,
+       "due": "2025-12-22T10:59:59.999Z",
+       "name": "Say Hello Task",
+       "creator": "taskadmin"
+       }
+       , ...
+       ], 
+      ...
+       }
+    ```
 
 3. Claim the KADAI Task from the previous step using Postman. Make sure you add the following
    property to the `application.properties` file of the adapter application:

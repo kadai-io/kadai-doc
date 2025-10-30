@@ -40,8 +40,7 @@ when stopping C8 run. You can check whether C8 run is running properly by loggin
 
 :::info
 You can skip steps 1-3 if you want to use our example Adapter application. You can find it
-in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter) under
-`kadai-adapter-camunda-8-spring-boot-example/src/main/java/io/kadai/adapter/KadaiAdapterApplicationC8.java`.
+in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/kadai-adapter-camunda-8-spring-boot-example/src/main/java/io/kadai/adapter/KadaiAdapterApplicationC8.java).
 :::
 
 Use
@@ -258,10 +257,8 @@ Last, start the adapter.
     </div> 
     <br/>
 
-   Or find it in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter) under
-   `kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn`. (TODO:
-   Service level??!?)
-
+   Or find it
+   in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn).
    Open the diagram in the Camunda Modeler and click on "file deployment" (Rocket sign in the lower
    left corner). Here, you can connect to your Camunda 8 instance by entering
    `http://localhost:26500` as the Cluster endpoint:

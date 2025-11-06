@@ -112,7 +112,7 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
 ### Camunda 7
 
 The URLs for the Camunda7-Systems are derived from the property
-`kadai-system-connector-camundaSystemURLs`.
+`kadai-system-connector-camunda7SystemURLs`.
 
 #### Example-Response
 

@@ -164,8 +164,8 @@ kadai.adapter.plugin.camunda8.system-url=http://localhost:26500
 kadai.adapter.plugin.camunda8.cluster-api-url=http://localhost:8081
 #avoid warning logs if a job worker does not fetch jobs frequently enough
 logging.level.io.camunda.client.job.poller=ERROR
-#for health-tests
-kadai-system-connector-camundaSystemURLs=http://localhost:8081|http://localhost:8081
+# temporarily required workaround due to technical debt, value has no influence on C8 but must be defined
+kadai-system-connector-camunda7SystemURLs=http://localhost:8081|http://localhost:8081
 ```
 
 ## Step 3: Add SPIs to your Adapter application

@@ -199,6 +199,13 @@ see [Orchestration-Cluster/Zeebee/Health](https://docs.camunda.io/docs/self-mana
             "lastRun": "2025-10-16T08:55:19.287769500Z",
             "expectedRunTime": 55
           }
+        },
+        "cancel": {
+          "status": "UP",
+          "details": {
+            "lastRun": "2025-10-16T08:55:20.474158400Z",
+            "expectedRunTime": 74
+          }
         }
       }
     }
@@ -217,6 +224,10 @@ The health-indicator for the job-worker responsible for reacting to user-tasks b
 #### Complete (Job-Worker)
 
 The health-indicator for the job-worker responsible for reacting to user-tasks being completed.
+
+#### Cancel (Job-Worker)
+
+The health-indicator for the job-worker responsible for reacting to user-tasks being cancelled.
 
 ### Register a Health-Indicator for your own plugin
 

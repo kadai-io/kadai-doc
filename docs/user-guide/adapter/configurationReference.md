@@ -10,8 +10,6 @@ Below we will list all configurable and **non-spring-standard** properties and s
 
 ## Kernel
 
-### `application.properties`
-
 | Property                                                                                 | Required? | Description                                                                                                                  | Default Value             | Sample Value                                                                                  |
 |------------------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------|---------------------------|-----------------------------------------------------------------------------------------------|
 | kadai.adapter.run-as.user                                                                | yes       | Kadai-name of the user used to interact with Kadai                                                                           | n.a.                      | `taskadmin`                                                                                   |
@@ -32,24 +30,7 @@ Below we will list all configurable and **non-spring-standard** properties and s
 | kadai.adapter.mapping.default.objectreference.type                                       | no        | Default Object-Reference-Type used for mapping of external tasks to Kadai-Tasks                                              | `DEFAULT_TYPE`            | `DEFAULT_TYPE`                                                                                |
 | kadai.adapter.mapping.default.objectreference.value                                      | no        | Default Object-Reference-Value used for mapping of external tasks to Kadai-Tasks                                             | `DEFAULT_VALUE`           | `DEFAULT_VALUE`                                                                               |
 
-### `kadai.properties`
-
-| Property                                 | Required? | Description | Default Value | Sample Value |
-|------------------------------------------|-----------|-------------|---------------|--------------|
-| kadai.roles.user                         | todo      | todo        | todo          | todo         |
-| kadai.roles.Admin                        | todo      | todo        | todo          | todo         |
-| kadai.roles.business_admin               | todo      | todo        | todo          | todo         |
-| kadai.roles.task_admin                   | todo      | todo        | todo          | todo         |
-| kadai.roles.monitor                      | todo      | todo        | todo          | todo         |
-| kadai.domains                            | todo      | todo        | todo          | todo         |
-| kadai.classification.types               | todo      | todo        | todo          | todo         |
-| kadai.classification.categories.task     | todo      | todo        | todo          | todo         |
-| kadai.classification.categories.document | todo      | todo        | todo          | todo         |
-| kadai.jobs.enabled                       | todo      | todo        | todo          | todo         |
-
 ## Camunda 7 (Plugin)
-
-### `application.properties`
 
 | Property                                              | Required? | Description                                                                                                                               | Default Value | Sample Value                                                                                                                                                                                                                                                         |
 |-------------------------------------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -62,8 +43,6 @@ Below we will list all configurable and **non-spring-standard** properties and s
 | kadai.adapter.xsrf.token                              | no        | XSRF-Token used when communicating with either Camunda or the Outbox REST-API                                                             | n.a.          | `FOO_UNIQUE_TOKEN_123`                                                                                                                                                                                                                                               |
 
 ## Camunda 8 (Plugin)
-
-### `application.properties`
 
 | Property                                      | Required? | Description                                                                                                                               | Default Value                                                                                    | Sample Value                                                                        |
 |-----------------------------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|

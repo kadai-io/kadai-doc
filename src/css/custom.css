@@ -85,7 +85,10 @@
   color: white;
 }
 
-/* Configuration reference table styling - make first column multi-line */
+/* Table styling - make first column multi-line to improve readability 
+ * This applies to all tables in markdown content to prevent horizontal scrolling
+ * and ensure long property names or identifiers wrap properly across lines.
+ */
 .markdown table td:first-child,
 .markdown table th:first-child {
   word-break: break-word;

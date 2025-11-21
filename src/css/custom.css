@@ -85,3 +85,13 @@
   color: white;
 }
 
+/* Configuration reference table styling - make first column multi-line */
+.markdown table td:first-child,
+.markdown table th:first-child {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 200px;
+  max-width: 250px;
+}
+

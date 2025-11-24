@@ -8,80 +8,86 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #6CCBB2;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --kadai-color-primary: #6CCBB2;
-  --kadai-color-primary-darker: #58a591;
-  --kadai-color-secondary: #D5F2E8;
-  --kadai-color-contrast: #90C5E2;
-  --kadai-color-background: #F3F3F2;
-  --kadai-color-text: #1B1B1B;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --kadai-content-width: 1280px;
+    --ifm-color-primary: #6CCBB2;
+    --ifm-color-primary-dark: #29784c;
+    --ifm-color-primary-darker: #277148;
+    --ifm-color-primary-darkest: #205d3b;
+    --ifm-color-primary-light: #33925d;
+    --ifm-color-primary-lighter: #359962;
+    --ifm-color-primary-lightest: #3cad6e;
+    --ifm-code-font-size: 95%;
+    --kadai-color-primary: #6CCBB2;
+    --kadai-color-primary-darker: #58a591;
+    --kadai-color-secondary: #D5F2E8;
+    --kadai-color-contrast: #90C5E2;
+    --kadai-color-background: #F3F3F2;
+    --kadai-color-text: #1B1B1B;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --kadai-content-width: 1280px;
 
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #6CCBB2;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --ifm-color-primary: #6CCBB2;
+    --ifm-color-primary-dark: #21af90;
+    --ifm-color-primary-darker: #1fa588;
+    --ifm-color-primary-darkest: #1a8870;
+    --ifm-color-primary-light: #29d5b0;
+    --ifm-color-primary-lighter: #32d8b4;
+    --ifm-color-primary-lightest: #4fddbf;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
 .menu {
-  padding-top: 2em !important;
+    padding-top: 2em !important;
 }
 
 .padding-top--md {
-  padding-top: 2em !important;
+    padding-top: 2em !important;
 }
 
 .navbar {
-  align-items: center;
-  justify-content: center;
-  box-shadow: none;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  height: 100px;
-  background-color: var(--kadai-color-background);
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 100px;
+    background-color: var(--kadai-color-background);
 }
 
 .navbar .navbar__inner {
-  background-color: var(--kadai-color-background);
-  height: 100%;
-  padding: 0px 70px 0px 70px;
-  width: var(--kadai-content-width) + 20;
+    background-color: var(--kadai-color-background);
+    height: 100%;
+    padding: 0px 70px 0px 70px;
+    width: var(--kadai-content-width) +20;
 }
 
 .navbar__title {
-  font-family: 'Karla', sans-serif;
-  font-weight: 700;
-  font-size: 1.2em;
-  letter-spacing: -1px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+    letter-spacing: -1px;
 }
 
 .navbar .navbar__inner .navbar__item {
-  padding: 4px 20px 4px 20px;
-  margin-left: 10px; 
-  color: var(--kadai-color-text);
-  font-family: 'Karla', sans-serif;
-  font-weight: 400;
-  transition: all .2s ease;
+    padding: 4px 20px 4px 20px;
+    margin-left: 10px;
+    color: var(--kadai-color-text);
+    font-family: 'Karla', sans-serif;
+    font-weight: 400;
+    transition: all .2s ease;
 }
 
 .navbar .navbar__inner .navbar__item:hover {
-  background-color: var(--kadai-color-text);
-  color: white;
+    background-color: var(--kadai-color-text);
+    color: white;
 }
 
+.markdown table td:nth-child(n) {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 50px;
+}

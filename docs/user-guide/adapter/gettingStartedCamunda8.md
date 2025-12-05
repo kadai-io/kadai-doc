@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Getting Started with Camunda 8
@@ -155,16 +155,11 @@ management.health.external-services.enabled=true
 # Camunda 8 properties
 ####################################################################################
 camunda.client.mode=self-managed
-camunda.client.auth.token-url=http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
-camunda.client.zeebe.enabled=true
-camunda.client.zeebe.rest-address=http://localhost:8081
-camunda.client.zeebe.grpc-address=http://localhost:26500
-camunda.client.zeebe.audience=zeebe-api
-kadai.adapter.plugin.camunda8.system-url=http://localhost:26500
-kadai.adapter.plugin.camunda8.cluster-api-url=http://localhost:8081
-#avoid warning logs if a job worker does not fetch jobs frequently enough
+camunda.client.enabled=true
+camunda.client.rest-address=http://localhost:8081
+# avoid warning logs if a job worker does not fetch jobs frequently enough
 logging.level.io.camunda.client.job.poller=ERROR
-#for health-tests
+# temporary fix bad-scoped for health-beans: these are just dummy values!
 kadai-system-connector-camundaSystemURLs=http://localhost:8081|http://localhost:8081
 ```
 

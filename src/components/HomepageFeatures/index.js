@@ -85,8 +85,8 @@ function BlauerEngel() {
               the first software products that carries this certification. Our
               detailed report for the RAL German Institute for Quality Assurance
               and
-              Labeling can be downloaded as a PDF <a color="#FFFFFF"
-                                                     href="https://file.envite.de/?r=/download&path=LzAzX0JsYXVlckVuZ2VsLzAxX0tBREFJL0tBREFJLUFubGFnZS03LnBkZg%3D%3D">here</a>.
+              Labelling can be downloaded as a PDF <a color="#FFFFFF"
+                                                      href="https://file.envite.de/?r=/download&path=LzAzX0JsYXVlckVuZ2VsLzAxX0tBREFJL0tBREFJLUFubGFnZS03LnBkZg%3D%3D">here</a>.
             </p>
           </div>
         </div>

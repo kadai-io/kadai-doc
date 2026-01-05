@@ -159,8 +159,6 @@ camunda.client.enabled=true
 camunda.client.rest-address=http://localhost:8081
 # avoid warning logs if a job worker does not fetch jobs frequently enough
 logging.level.io.camunda.client.job.poller=ERROR
-# temporary fix bad-scoped for health-beans: these are just dummy values!
-kadai-system-connector-camundaSystemURLs=http://localhost:8081|http://localhost:8081
 ```
 
 ## Step 3: Add SPIs to your Adapter application

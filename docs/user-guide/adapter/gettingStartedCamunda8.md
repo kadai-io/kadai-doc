@@ -339,9 +339,9 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
    ``` 
    ```json title="request body"
     {
-    "tenantId": "TENANT_ID",
-    "name": "TENANT_NAME",
-    "description": "DESCRIPTION (optional)"
+      "tenantId": "TENANT_ID",
+      "name": "TENANT_NAME",
+      "description": "DESCRIPTION (optional)"
     }
    ```
    If you want to do it manually, you can follow

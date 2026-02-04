@@ -350,7 +350,7 @@ with [this guide](https://docs.camunda.io/docs/next/self-managed/components/opti
 
 Now you can deploy processes to a specific tenant. By granting access only to some users, only those
 gan access their tasks and other information. Since the adapter should work for all, or at least
-several, tenants, a user with access to all those tenants is necessary. If you want to try teh
+several, tenants, a user with access to all those tenants is necessary. If you want to try the
 adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
 
 1. Create more tenants in Camunda.

@@ -376,7 +376,7 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
 4. Add all selected tenants as defaultTenantIds for the workers (listeners) in the properties.
 
    For the adapter's tasklisteners to continue working with all tenants, they have to know which
-   tenants they should listen for. This is specified in `application.properties` by
+   tenants they should listen to. This is specified in `application.properties` by
    `camunda.client.worker.defaults.tenant-ids`.
    The resulting entry could look like this, to listen to the default tenant and the tenants with
    the ids "tenant1" and "tenant2":

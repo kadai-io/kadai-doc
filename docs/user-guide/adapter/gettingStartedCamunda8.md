@@ -240,35 +240,11 @@ Last, start the adapter.
 ## Step 5: Try out different functionalities of Adapter
 
 1. Start a process with a User Task in Camunda. You can use this example process:
-    <div className={styles.buttons}>
-    <Link
-    className="button button--secondary button--lg">
-    <a
-    className="button button--secondary button--lg"
-    href={ require("../static/adapter/c8/sayHello.zip").default }
-    download
-    target="_blank"
-    >Download example process </a>
-    </Link>
-    </div> 
-    <br/>
-
    Or find it
    in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn).
    Open the diagram in the Camunda Modeler and click on "file deployment" (Rocket sign in the lower
    left corner). Here, you can connect to your Camunda 8 instance by entering
    `http://localhost:26500` as the Cluster endpoint:
-
-   <img src={require('../static/adapter/c8/deploy_diagram.png').default} alt="deploy_diagram.png"
-   style={{maxWidth: '480px'}} />
-
-   After connecting, you can deploy the process by clicking on "Deploy BPMN". Next, start a new
-   instance
-   by clicking on "Open start instance" (Play sign in the lower left corner) and then "Start BPMN
-   process instance":
-
-   <img src={require('../static/adapter/c8/run_diagram.png').default} alt="run_diagram.png"
-   style={{maxWidth: '480px'}} />
 
 2. The User Task should be imported to KADAI automatically. You can check it by first knowing
    the
@@ -337,16 +313,18 @@ the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kada
 
 ## Step 6: Add Multi-Tenancy functionalities
 
-Up until now the adapter only works with a Camunda 8 instance where [multi-tenancy](https://docs.camunda.io/docs/components/concepts/multi-tenancy/) is disabled. To
-enable multi-tenancy, the configuration of your Camunda 8 instance has to be adjusted. This can
-be done by editing the used configuration file (by default that's `configuration/application.yaml`)
-in line
-with [this guide](https://docs.camunda.io/docs/next/self-managed/components/optimize/configuration/multi-tenancy/):
+Up until now the adapter only works with a Camunda 8 instance
+where [multi-tenancy](https://docs.camunda.io/docs/components/concepts/multi-tenancy/) is disabled.
+To enable multi-tenancy, the configuration of your Camunda 8 instance has to be adjusted. By
+default, it is specified in the configuration file `c8run/configuration/application.yaml`. You have
+to make sure the following properties are set (read more about this in
+the [Camunda self-managed multi-tenancy configurations guide](https://docs.camunda.io/docs/next/self-managed/components/optimize/configuration/multi-tenancy/)):
 
-- make sure `camunda.security.authentication.unprotected-api` ist set to `false`
-- the `camunda.security.authentication.method` should be `basic`, or you need to configure the
-  CamundaClient in the KadaiAdapter to work with the specified authorization method
-- set `camunda.security.multitenancy.checksenabled` to `true`
+```configuration/application.yaml
+camunda.security.authentication.unprotected-api=false
+camunda.security.authentication.method=basic # or you need to configure the CamundaClient in the Adapter to work with the specified authorization method
+camunda.security.multitenancy.checksenabled=true
+```
 
 Now you can deploy processes to a specific tenant. By granting access only to some users, only those
 can access their tasks and other information. Since the adapter should work for all, or at least
@@ -354,14 +332,30 @@ several, tenants, a user with access to all those tenants is necessary. If you w
 adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
 
 1. Create more tenants in Camunda.
-   See [here](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#create-a-tenant)
-   how to do it via Optimize
-   and [here](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/create-tenant/)
-   via API calls.
-2. Create a new user in Camunda and grant them access to all tenants. You can do this
-   via [Optimize](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#assign-users-to-a-tenant)
-   or [via API](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/assign-user-to-tenant/).
-3. Configure the CamundaClient in the KadaiAdapter to authenticate as this user.
+   You can send a POST request via Postman to
+   the [Camunda API](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/create-tenant/):
+   ```
+   POST http://localhost:8080/v2/tenants
+   ``` 
+   ```json title="request body"
+    {
+    "tenantId": "TENANT_ID",
+    "name": "TENANT_NAME",
+    "description": "DESCRIPTION (optional)"
+    }
+   ```
+   If you want to do it manually, you can follow
+   the [Camunda guide on how to create a tenant via Optimize](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#create-a-tenant).
+2. Create a new user in Camunda or choose an existing one and grant them access to all tenants. You
+   can grant access to a
+   tenant [via API call](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/assign-user-to-tenant/):
+   ```
+   PUT http://localhost:8080/v2/tenants/YOUR_TENANT_ID/users/YOUR_USERNAME
+   ```
+   Again, you can also follow
+   the [Camunda guide to grant access via Optimize](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#assign-users-to-a-tenant).
+
+3. Configure the `CamundaClient` in the Adapter to authenticate as this user.
 
    To achieve this, you must edit the `application.properties` file. If the authentication method of
    the Camunda instance is `basic`, then add the following and replace "demo" with the actual user
@@ -387,4 +381,5 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
    to, are observed by the adapter and consequently by the Kadai application.
 
 When you deploy a processes to Camunda, you can specify a tenantId. If you don't, the process is
-deployed to the default tenant. 
+deployed to the default tenant (
+see [Camunda docs](https://docs.camunda.io/docs/components/concepts/multi-tenancy/#tenant-identifier)). 

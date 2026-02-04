@@ -367,7 +367,7 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
    the Camunda instance is `basic`, then add the following and replace "demo" with the actual user
    and password created in the previous step.
 
-    ```
+    ```properties
     # camunda client authentication
     camunda.client.auth.methos=basic
     camunda.client.auth.username=demo

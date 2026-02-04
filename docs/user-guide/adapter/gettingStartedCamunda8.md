@@ -231,47 +231,24 @@ demo
 
 ## Step 4: Start all applications together
 
-Then, start your KADAI application together with Postgres. Make sure to use the same version as
+Then, start your KADAI application together with Postgres (you might have to change the properties
+of the KADAI application to use postgres as the datasource). Make sure to use the same version as
 specified in the pom.xml of your adapter.
-Start your camunda app next, and login.
+Start your Camunda app next, and login.
 Last, start the adapter.
 
 ## Step 5: Try out different functionalities of Adapter
 
 1. Start a process with a User Task in Camunda. You can use this example process:
-    <div className={styles.buttons}>
-    <Link
-    className="button button--secondary button--lg">
-    <a
-    className="button button--secondary button--lg"
-    href={ require("../static/adapter/c8/sayHello.zip").default }
-    download
-    target="_blank"
-    >Download example process </a>
-    </Link>
-    </div> 
-    <br/>
-
    Or find it
    in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn).
    Open the diagram in the Camunda Modeler and click on "file deployment" (Rocket sign in the lower
    left corner). Here, you can connect to your Camunda 8 instance by entering
    `http://localhost:26500` as the Cluster endpoint:
 
-   <img src={require('../static/adapter/c8/deploy_diagram.png').default} alt="deploy_diagram.png"
-   style={{maxWidth: '480px'}} />
-
-   After connecting, you can deploy the process by clicking on "Deploy BPMN". Next, start a new
-   instance
-   by clicking on "Open start instance" (Play sign in the lower left corner) and then "Start BPMN
-   process instance":
-
-   <img src={require('../static/adapter/c8/run_diagram.png').default} alt="run_diagram.png"
-   style={{maxWidth: '480px'}} />
-
 2. The User Task should be imported to KADAI automatically. You can check it by first knowing
    the
-   name of the user task from the started process, then make a postgres GET request to KADAI
+   name of the user task from the started process, then make a postman GET request to KADAI
    using
    the following request, entering the name (or just substring of the name) of the user task for
    the "name-like" attribute.
@@ -333,3 +310,76 @@ Last, start the adapter.
 
 More functionalities like the cancelling of a claimed task and their URLs can be found in
 the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kadai/swagger-ui/index.html).
+
+## Step 6: Add Multi-Tenancy functionalities
+
+Up until now the adapter only works with a Camunda 8 instance
+where [multi-tenancy](https://docs.camunda.io/docs/components/concepts/multi-tenancy/) is disabled.
+To enable multi-tenancy, the configuration of your Camunda 8 instance has to be adjusted. By
+default, it is specified in the configuration file `c8run/configuration/application.yaml`. You have
+to make sure the following properties are set (read more about this in
+the [Camunda self-managed multi-tenancy configurations guide](https://docs.camunda.io/docs/next/self-managed/components/optimize/configuration/multi-tenancy/)):
+
+```configuration/application.yaml
+camunda.security.authentication.unprotected-api=false
+camunda.security.authentication.method=basic # or you need to configure the CamundaClient in the Adapter to work with the specified authorization method
+camunda.security.multitenancy.checksenabled=true
+```
+
+Now you can deploy processes to a specific tenant. By granting access only to some users, only those
+can access their tasks and other information. Since the adapter should work for all, or at least
+several, tenants, a user with access to all those tenants is necessary. If you want to try the
+adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
+
+1. Create more tenants in Camunda.
+   You can send a POST request via Postman to
+   the [Camunda API](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/create-tenant/):
+   ```
+   POST http://localhost:8080/v2/tenants
+   ``` 
+   ```json title="request body"
+    {
+      "tenantId": "TENANT_ID",
+      "name": "TENANT_NAME",
+      "description": "DESCRIPTION (optional)"
+    }
+   ```
+   If you want to do it manually, you can follow
+   the [Camunda guide on how to create a tenant via Optimize](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#create-a-tenant).
+2. Create a new user in Camunda or choose an existing one and grant them access to all tenants. You
+   can grant access to a
+   tenant [via API call](https://docs.camunda.io/docs/apis-tools/orchestration-cluster-api-rest/specifications/assign-user-to-tenant/):
+   ```
+   PUT http://localhost:8080/v2/tenants/YOUR_TENANT_ID/users/YOUR_USERNAME
+   ```
+   Again, you can also follow
+   the [Camunda guide to grant access via Optimize](https://docs.camunda.io/docs/self-managed/components/management-identity/manage-tenants/#assign-users-to-a-tenant).
+
+3. Configure the `CamundaClient` in the Adapter to authenticate as this user.
+
+   To achieve this, you must edit the `application.properties` file. If the authentication method of
+   the Camunda instance is `basic`, then add the following and replace "demo" with the actual user
+   and password created in the previous step.
+
+    ```properties
+    # camunda client authentication
+    camunda.client.auth.method=basic
+    camunda.client.auth.username=YOUR_USERNAME
+    camunda.client.auth.password=YOUR_PASSWORD
+    ```
+4. Add all selected tenants as defaultTenantIds for the workers (listeners) in the properties.
+
+   For the adapter's tasklisteners to continue working with all tenants, they have to know which
+   tenants they should listen to. This is specified in `application.properties` by
+   `camunda.client.worker.defaults.tenant-ids`.
+   The following configuration makes all workers listen to the default tenant and the tenants with
+   the ids "tenant1" and "tenant2" if not explicitly stated otherwise for a worker:
+   ```properties
+   camunda.client.worker.defaults.tenant-ids=<default>,tenant1,tenant2
+    ```
+   Only those tenants, that are both added to the workers **and** that the adapter's user have
+   access to, are observed by the adapter, and consequently by the Kadai application.
+
+When you deploy a processes to Camunda, you can specify a tenantId. If you don't, the process is
+deployed to the default tenant (
+see [Camunda docs](https://docs.camunda.io/docs/components/concepts/multi-tenancy/#tenant-identifier)). 

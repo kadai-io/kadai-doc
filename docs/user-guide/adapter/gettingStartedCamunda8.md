@@ -380,7 +380,8 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
    `camunda.client.worker.defaults.tenant-ids`.
    The resulting entry could look like this, to listen to the default tenant and the tenants with
    the ids "tenant1" and "tenant2":
-   ```camunda.client.worker.defaults.tenant-ids=<default>,tenant1,tenant2```
+   ```properties
+   camunda.client.worker.defaults.tenant-ids=<default>,tenant1,tenant2
 
    Only those tenants, that are both added to the workers and that the adapter's user have access
    to, are observed by the adapter and consequently by the Kadai application. So whatever happens in

@@ -364,21 +364,21 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
     ```properties
     # camunda client authentication
     camunda.client.auth.method=basic
-    camunda.client.auth.username=demo
-    camunda.client.auth.password=demo
+    camunda.client.auth.username=YOUR_USERNAME
+    camunda.client.auth.password=YOUR_PASSWORD
     ```
 4. Add all selected tenants as defaultTenantIds for the workers (listeners) in the properties.
 
    For the adapter's tasklisteners to continue working with all tenants, they have to know which
    tenants they should listen to. This is specified in `application.properties` by
    `camunda.client.worker.defaults.tenant-ids`.
-   The resulting entry could look like this, to listen to the default tenant and the tenants with
-   the ids "tenant1" and "tenant2":
+   The following configuration makes all workers listen to the default tenant and the tenants with
+   the ids "tenant1" and "tenant2" if not explicitly stated otherwise for a worker:
    ```properties
    camunda.client.worker.defaults.tenant-ids=<default>,tenant1,tenant2
-
-   Only those tenants, that are both added to the workers **and** that the adapter's user have access
-   to, are observed by the adapter and consequently by the Kadai application.
+    ```
+   Only those tenants, that are both added to the workers **and** that the adapter's user have
+   access to, are observed by the adapter, and consequently by the Kadai application.
 
 When you deploy a processes to Camunda, you can specify a tenantId. If you don't, the process is
 deployed to the default tenant (

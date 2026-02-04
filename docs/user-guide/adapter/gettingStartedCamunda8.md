@@ -369,7 +369,7 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
 
     ```properties
     # camunda client authentication
-    camunda.client.auth.methos=basic
+    camunda.client.auth.method=basic
     camunda.client.auth.username=demo
     camunda.client.auth.password=demo
     ```

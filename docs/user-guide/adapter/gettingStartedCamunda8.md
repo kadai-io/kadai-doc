@@ -337,9 +337,8 @@ the [full documentation of the REST-API](https://kadai-io.azurewebsites.net/kada
 
 ## Step 6: Add Multi-Tenancy functionalities
 
-Up until now the adapter only works with a Camunda 8 instance where multi-tenancy is disabled. To
-enable multi-tenancy, the configurations of your Camunda 8 instance have to be adjusted  (read more
-about the concept [here](https://docs.camunda.io/docs/components/concepts/multi-tenancy/)). This can
+Up until now the adapter only works with a Camunda 8 instance where [multi-tenancy](https://docs.camunda.io/docs/components/concepts/multi-tenancy/) is disabled. To
+enable multi-tenancy, the configuration of your Camunda 8 instance has to be adjusted. This can
 be done by editing the used configuration file (by default that's `configuration/application.yaml`)
 in line
 with [this guide](https://docs.camunda.io/docs/next/self-managed/components/optimize/configuration/multi-tenancy/):

@@ -384,8 +384,7 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
    camunda.client.worker.defaults.tenant-ids=<default>,tenant1,tenant2
 
    Only those tenants, that are both added to the workers **and** that the adapter's user have access
-   to, are observed by the adapter and consequently by the Kadai application. So whatever happens in
-   other tenants is not observed and can not be found in Kadai.
+   to, are observed by the adapter and consequently by the Kadai application.
 
 When you deploy a processes to Camunda, you can specify a tenantId. If you don't, the process is
 deployed to the default tenant. 

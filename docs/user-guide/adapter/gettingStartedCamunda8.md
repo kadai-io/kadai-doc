@@ -239,9 +239,8 @@ Last, start the adapter.
 
 ## Step 5: Try out different functionalities of Adapter
 
-1. Start a process with a User Task in Camunda. You can use this example process:
-   Or find it
-   in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn).
+1. Start a process with a User Task in Camunda. You can use this example process in
+   [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/blob/master/kadai-adapter-camunda8-parent/kadai-adapter-camunda-8-system-connector/src/test/resources/processes/sayHello.bpmn).
    Open the diagram in the Camunda Modeler and click on "file deployment" (Rocket sign in the lower
    left corner). Here, you can connect to your Camunda 8 instance by entering
    `http://localhost:26500` as the Cluster endpoint:

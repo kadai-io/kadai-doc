@@ -73,14 +73,6 @@ The C7 plugin also makes use of standard user task properties from the BPMN.
 | `customInt1`…`customInt8` | Variables `custom-int-1`… (prefixed)                                                            |                                                                                                                     |
 | `customAttributes`        | User task extension property / process model extension property `attributes` (prefixed)         | Names of variables to include in `customAttributes` map; Lookup order: userTask extension → process model extension |
 
-C7 UserTask example:
-
-import C7ExampleProcess from '../static/adapter/c7/exampleProcess.png';
-import C7ExampleUserTask from '../static/adapter/c7/exampleUserTask.png';
-
-<img src={C7ExampleProcess} alt="C7 Example Process" style={{width: 500}} />
-<img src={C7ExampleUserTask} alt="C7 Example User Task" style={{width: 500}} />
-
 ## Camunda 8 (C8) — attributes and sources
 
 The C8 plugin reads from variables with prefix `kadai_`. Additionally, the C8 plugin uses user task
@@ -100,14 +92,6 @@ properties.
 | `customInt1`…`customInt8` | Variable `kadai_custom_int_1`…`kadai_custom_int_8` |                                                                                                                                               |
 | `customAttributes`        | Variable `kadai_attributes`                        | Names of variables to include in `customAttributes` map                                                                                       |
 
-C8 UserTask example:
-
-import C8ExampleUserTask from '../static/adapter/c8/exampleUserTask.png';
-
-<img src={C8ExampleUserTask} alt="C8 Example user task" style={{width: 500}} />
-
 Note that the variables can
 have [different scopes](https://docs.camunda.io/docs/components/concepts/variables/#variable-scopes).
-In the example above, the variables are set in the user task scope, but they could also be set in
-the process instance scope or other scopes. The adapter will synchronize the variables in all
-scopes.
+The adapter will synchronize the variables in all scopes.

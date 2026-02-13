@@ -2,177 +2,112 @@
 sidebar_position: 6
 ---
 
-# User Task Configuration in Camunda 7 vs Camunda 8
+# User Task Configuration in Camunda
 
-## Summary
-- Kadai Adapters for Camunda populate a task with metadata, either dynamically from the process and/or from the BPMN
-todo: are these two points needed?
-- Camunda 7 (C7) prefers user\-task extension properties or user task properties and falls back to process variables (accepted prefixes: `kadai.`, `kadai-`, `taskana.`, `taskana-`).
-- Camunda 8 (C8) reads configuration from process variables (underscored names, e.g. `kadai_classification_key`). C8 also reads certain User Task Properties (follow\-up date, due date, assignee) from the activated user task/job.
+## General behavior
 
-Common fields (present in both adapters, find more details in the respective sections below):
-- `name`
-- `assignee`
-- `created`
+Kadai Adapters for Camunda populate a task with metadata, either dynamically from the process and/or
+from the BPMN.
+The Kadai fields that are set by the Adapter are:
+
+- `name` if not provided, `taskDefinitionKey` is used
+- `description`
+- `owner`
 - `due`
 - `planned`
-- `priority` / `manualPriority`
+- `manualPriority` if not set, defaults to `-1` (lowest priority)
 - `classificationKey`
 - `domain`
 - `workbasketKey`
-- `customInt1` … `customInt8`
-- `variables` (serialized map of selected process variables) todo: are these not called attributes?
-- `systemUrl` / `system engine identifier` (C8 sets `systemUrl`; C7 writes engine name to outbox row) -> from the config
-todo: is this list complete?
+- `customInt1`…`customInt8`
+- `customAttributes`, find more information in [this section](#custom-attributes)
 
-## Kadai attributes
+Additionally, the following fields are set by the adapter but cannot be directly influenced by the
+user:
 
-Kadai attributes can be defined to synchronize additional, custom process variables into Kadai.
-todo: add in C7 and C8 how they are defined
-todo: prefix
-todo: how are they synchronized back to Camunda from Kadai?
+- `created`
+- `systemUrl`
+- `externalId`
+- `callbackInfo`
+- `businessProcessId`
 
-## What is necessary to load a task into Kadai (minimal required)
+### Minimal required attributes
+
 Recommended minimal attributes to ensure proper creation and routing in Kadai:
+
 - `classificationKey`
 - `domain`
 - `workbasketKey`
 
-Notes:
-- Listeners may not throw if missing, but Kadai typically needs these to route/create tasks correctly.
-- `manualPriority` defaults to `-1` when not provided.
+## Custom attributes
 
+Custom attributes let you synchronize extra variables into Kadai. To enable this, provide a
+comma-separated list of variable names in the `attributes` field.
+The adapter will:
+
+- Read each named variable from the process instance.
+- Prefix the attribute name with `camunda:` and add it (with the value information) to the Kadai
+  task's `customAttributes` map.
+
+When the Kadai task is synchronized back to Camunda (for example on completion), the corresponding
+variables in Camunda are updated with the values from Kadai.
 
 ## Camunda 7 (C7) — attributes and sources
-C7 prioritizes user\-task extension properties on the userTask, then process model properties, then process variables. Accepted prefixes for property/variable names: `kadai.`, `kadai-`, `taskana.`, `taskana-`. C7 also makes use of standard User Task properties from the BPMN (e.g. task name, description, assignee, due/followUp dates) and uses the BPMN user task name as the ReferencedTask name when present.
 
-| Attribute | C7 source(s) / key name(s) | Notes |
-|---|---:|---|
-| `id` | `delegateTask.getId()` | Camunda user task id |
-| `name` | BPMN user task name / `delegateTask.getName()` | C7 uses BPMN name by default |
-| `description` | `delegateTask.getDescription()` | |
-| `owner` | `delegateTask.getOwner()` | |
-| `assignee` | `delegateTask.getAssignee()` | also available via variables/extensions |
-| `created` | `delegateTask.getCreateTime()` | ISO format |
-| `due` | `delegateTask.getDueDate()` | ISO format |
-| `planned` | `delegateTask.getFollowUpDate()` | ISO format |
-| `priority` / `manualPriority` | user task/process/variable: `manual-priority` (prefixed) | default `-1` if missing |
-| `taskDefinitionKey` | `delegateTask.getTaskDefinitionKey()` | |
-| `businessProcessId` | `processInstanceId` | |
-| `classificationKey` | user-task extension or process model property `classification-key` (prefixed), fallback process variable with same names | accepts hyphen/dot/alternate prefixes |
-| `domain` | variable `domain` (prefixed) OR user-task extension property (prefixed) OR process model property (prefixed) | lookup order: variable → userTask extension → process model |
-| `workbasketKey` | variable/extension `workbasket-key` (prefixed) | |
-| `customInt1`…`customInt8` | variables `custom-int-1`… (prefixed) | numeric values as strings |
-| `attributes` | user-task extension or process model property `attributes` (comma separated) | names of variables to include in `variables` map |
-| `variables` map | each name from `attributes` is read typed via API and serialized with type info | non\-primitives include `valueInfo` |
+The C7 plugin uses extension properties as well as variables. Both of these must have
+one of the accepted prefixes to be recognized by the adapter, for example `kadai.classificationKey`
+or `taskana-classificationKey`. Accepted prefixes are: `kadai.`, `kadai-`, `taskana.`,`taskana-`.
+The C7 plugin also makes use of standard user task properties from the BPMN.
 
-C7 configuration examples (user task extension):
-insert example snippet here
+| Kadai Attribute           | C7 source(s)                                                                                    | Notes                                                                                                               |
+|---------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| `name`                    | BPMN task name                                                                                  |                                                                                                                     |
+| `description`             | BPMN Element documentation                                                                      |                                                                                                                     |
+| `owner`                   | BPMN User assignment → Assignee                                                                 |                                                                                                                     |
+| `due`                     | BPMN User assignment → Due Date                                                                 | ISO8601 format                                                                                                      |
+| `planned`                 | BPMN User assignment → Follow Up Date                                                           | ISO8601 format                                                                                                      |
+| `manualPriority`          | Variable `manual-priority` (prefixed)                                                           | Default `-1` if missing                                                                                             |
+| `classificationKey`       | User task extension property `classification-key` (prefixed)                                    |                                                                                                                     |
+| `domain`                  | Variable / user task extension property / process model extension property  `domain` (prefixed) | Lookup order: variable → userTask extension → process model extension                                               |
+| `workbasketKey`           | Variable `workbasket-key` (prefixed)                                                            |                                                                                                                     |
+| `customInt1`…`customInt8` | Variables `custom-int-1`… (prefixed)                                                            |                                                                                                                     |
+| `customAttributes`        | User task extension property / process model extension property `attributes` (prefixed)         | Names of variables to include in `customAttributes` map; Lookup order: userTask extension → process model extension |
 
-Serialization & dates in C7:
-Dates formatted as yyyy-MM-dd'T'HH:mm:ss.SSSZ.
-Variables: typed extraction — primitives as values; non-primitives serialized with serializationDataFormat and objectTypeName.
+C7 UserTask example:
 
-Camunda 8 (C8) — attributes and sources
-C8 reads from process variables (underscored names) in the job activation payload or instance variables. Additionally, C8 uses User Task Properties available on the activated job for follow-up date, due date and assignee. Important differences and precedence:
-Name: C8 does not use the BPMN user task name for the Kadai task. Instead, provide kadai_name as a process variable to set the ReferencedTask name in Kadai.
-Dates & assignee: followUp (planned) and due (due) and assignee can be read from the User Task Properties available at activation (job/user task properties) and used by the adapter.
-Priority: user task priority property is not used. Priority is taken from kadai_manual_priority process variable only.
-Attribute
-C8 process variable name / source
-Notes
-id
-composed: c8sysid-<systemId>-utk-<userTaskKey>-eik-<elementInstanceKey>
-helper parsing available
-name
-kadai_name (process variable)
-BPMN user task name is not used in C8
-assignee
-user task/job property or kadai_assignee if provided
-job user task property preferred
-created
-not always available on job; not set by default
+import C7ExampleProcess from '../static/adapter/c7/exampleProcess.png';
+import C7ExampleUserTask from '../static/adapter/c7/exampleUserTask.png';
 
-due
-user task/job property (due date) or kadai_due
-ISO format
-planned
-user task/job property (followUp date) or kadai_planned
-ISO format
-taskDefinitionKey
-job.getElementId()
+<img src={C7ExampleProcess} alt="C7 Example Process" style={{width: 500}} />
+<img src={C7ExampleUserTask} alt="C7 Example User Task" style={{width: 500}} />
 
-businessProcessId
-job.getProcessInstanceKey()
+## Camunda 8 (C8) — attributes and sources
 
-classificationKey
-kadai_classification_key
-process variable
-domain
-kadai_domain
-process variable
-workbasketKey
-kadai_workbasket_key
-process variable
-manualPriority
-kadai_manual_priority
-numeric variable; takes precedence for priority
-customInt1…customInt8
-kadai_custom_int_1…kadai_custom_int_8
+The C8 plugin reads from variables with prefix `kadai_`. Additionally, the C8 plugin uses user task
+properties.
 
-attributes
-kadai_attributes (comma separated)
-names of variables to include in variables map
-variables map
-variables listed in kadai_attributes read from process variables and serialized to JSON
-primitives remain primitives; non-primitives serialized as JSON
-systemUrl
-Camunda8System REST address
-used to construct systemUrl
-C8 example variables payload:
-{
-"kadai_classification_key": "MY_CLASS",
-"kadai_domain": "DOMAIN_A",
-"kadai_workbasket_key": "WB-01",
-"kadai_manual_priority": 100,
-"kadai_attributes": "customerId,amount",
-"kadai_name": "Review Order",
-"customerId": "C-123",
-"amount": 42.5
-}
-Serialization & dates in C8:
-Dates formatted as yyyy-MM-dd'T'HH:mm:ss.SSSZ.
-Variables: read from job variables map; assembled into a JSON object via Jackson (primitives as native JSON types; non-primitives also serialized to JSON).
-Task id format:
-C7: delegateTask.getId() (Camunda user task id).
-C8: c8sysid-<systemId>-utk-<userTaskKey>-eik-<elementInstanceKey> — helper functions available to compose/parse.
+| Attribute                 | C8 source                                          | Notes                                                                                                                                         |
+|---------------------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`                    | Variable `kadai_name`                              | Currently, we are not able to read out the BPMN name in our UserTaskListener. If the variable is not given, the `domain` is used as fallback. |
+| `description`             | -                                                  | Currently not synchronized from Camunda                                                                                                       |
+| `owner`                   | BPMN Assignment → Assignee                         |                                                                                                                                               |
+| `due`                     | BPMN Assignment → Due date                         |                                                                                                                                               |
+| `planned`                 | BPMN Assignment → Follow up date                   |                                                                                                                                               |
+| `manualPriority`          | Variable `kadai_manual_priority`                   | The priority in the BPMN Assignment is not used                                                                                               |
+| `classificationKey`       | Variable `kadai_classification_key`                |                                                                                                                                               |
+| `domain`                  | Variable `kadai_domain`                            |                                                                                                                                               |
+| `workbasketKey`           | Variable `kadai_workbasket_key`                    |                                                                                                                                               |
+| `customInt1`…`customInt8` | Variable `kadai_custom_int_1`…`kadai_custom_int_8` |                                                                                                                                               |
+| `customAttributes`        | Variable `kadai_attributes`                        | Names of variables to include in `customAttributes` map                                                                                       |
 
-Quick checklist before deploy
-Provide classificationKey, domain, workbasketKey.
-Populate kadai_attributes / kadai.attributes with comma separated variable names to copy into Kadai's variables map.
-C7: prefer model-driven config via user task extension properties; use process variables for runtime assignment. C7 also uses the BPMN user task name and standard user task properties.
-C8: prefer underscored kadai_... process variables. For name use kadai_name. For due/planned/assignee you can rely on User Task Properties available at activation; do not rely on task priority property — use kadai_manual_priority.
-Verify date formats and custom-int mappings.
-Debugging tips
-If a task is not created or routed correctly: check variable/property names and prefixes, confirm kadai_attributes / kadai.attributes exists and contains the expected variable names, and verify classificationKey/domain/workbasketKey values.
-For C7: check user task extension properties and model-level properties (listener falls back across sources).
-For C8: confirm variables are present on the job activation payload and correctly named; verify kadai_name is provided if you expect a custom task name.
+C8 UserTask example:
 
+import C8ExampleUserTask from '../static/adapter/c8/exampleUserTask.png';
 
+<img src={C8ExampleUserTask} alt="C8 Example user task" style={{width: 500}} />
 
-Kadai attributes
-What is necessary to load them into Kadai?
-
-## Camunda 7
-
-Extension Properties. 
-Process Variables?
-
-
-## Camunda 8
-
-User Task Attributes that will be loaded into Kadai:
-Variables 
-What is necessary to load them into Kadai?
-
-Link to Variable Scopes in Camunda 8
+Note that the variables can
+have [different scopes](https://docs.camunda.io/docs/components/concepts/variables/#variable-scopes).
+In the example above, the variables are set in the user task scope, but they could also be set in
+the process instance scope or other scopes. The adapter will synchronize the variables in all
+scopes.

@@ -117,48 +117,37 @@ Add the following files to your resources folder:
 ### application.properties
 
 ```properties title="src/main/resources/application.properties"
-######################################################################################
-## Adapter properties
-######################################################################################
-##
-logging.level.io.kadai=WARN
-## Set Server Port for Adapter
+# Spring
 server.port=18082
 spring.main.allow-bean-definition-overriding=true
-kadai.adapter.run-as.user=taskadmin
-kadai.adapter.scheduler.run.interval.for.start.kadai.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.complete.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.claim.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.cancel.claim.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.check.finished.referenced.tasks.in.milliseconds=10000
-####################################################################################
-# Kadai-connector properties
-####################################################################################
-#
-# Configure the datasource for Kadai DB (used by kadai-connector)
-kadai.adapter.events.lockDuration=300
-kadai.adapter.sync.kadai.batchSize=1
+# Logging
+logging.level.io.kadai=WARN
+# avoid warning logs if a job worker does not fetch jobs frequently enough
+logging.level.io.camunda.client.job.poller=ERROR
+# Kernel
+kadai-adapter.kernel.run-as-user=taskadmin
+kadai-adapter.kernel.kadai-connector.batch-size=1
+kadai-adapter.kernel.scheduler.start-kadai-tasks-interval=10000
+kadai-adapter.kernel.scheduler.complete-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.claim-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.cancel-claim-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.check-finished-referenced-tasks-interval=10000
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.company=DEFAULT_COMPANY
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.system=DEFAULT_SYSTEM
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.system-instance=DEFAULT_SYSTEM_INSTANCE
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.type=DEFAULT_TYPE
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.value=DEFAULT_VALUE
 kadai.datasource.jdbcUrl=jdbc:postgresql://localhost:5102/postgres
 kadai.datasource.driverClassName=org.postgresql.Driver
 kadai.datasource.username=postgres
 kadai.datasource.password=postgres
 kadai.schemaName=kadai
-kadai.adapter.mapping.default.objectreference.company=DEFAULT_COMPANY
-kadai.adapter.mapping.default.objectreference.system=DEFAULT_SYSTEM
-kadai.adapter.mapping.default.objectreference.system.instance=DEFAULT_SYSTEM_INSTANCE
-kadai.adapter.mapping.default.objectreference.type=DEFAULT_TYPE
-kadai.adapter.mapping.default.objectreference.value=DEFAULT_VALUE
+# KadaiAdapter Health 
 management.endpoints.web.exposure.include=*
 management.endpoint.health.show-details=always
-management.health.external-services.enabled=true
-####################################################################################
-# Camunda 8 properties
-####################################################################################
 camunda.client.mode=self-managed
 camunda.client.enabled=true
 camunda.client.rest-address=http://localhost:8081
-# avoid warning logs if a job worker does not fetch jobs frequently enough
-logging.level.io.camunda.client.job.poller=ERROR
 ```
 
 ## Step 3: Add SPIs to your Adapter application
@@ -318,10 +307,10 @@ default, it is specified in the configuration file `c8run/configuration/applicat
 to make sure the following properties are set (read more about this in
 the [Camunda self-managed multi-tenancy configurations guide](https://docs.camunda.io/docs/next/self-managed/components/optimize/configuration/multi-tenancy/)):
 
-```configuration/application.yaml
+```properties title="src/main/resources/application.properties"
 camunda.security.authentication.unprotected-api=false
 camunda.security.authentication.method=basic # or you need to configure the CamundaClient in the Adapter to work with the specified authorization method
-camunda.security.multitenancy.checksenabled=true
+camunda.security.multitenancy.checks-enabled=true
 ```
 
 Now you can deploy processes to a specific tenant. By granting access only to some users, only those

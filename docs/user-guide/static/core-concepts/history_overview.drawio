@@ -1,0 +1,76 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Seite-1" id="mq2Ug1PcERRLchDG63AW">
+    <mxGraphModel dx="3585" dy="2390" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bea8dEFWo1SFxuyEezms-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;KadaiEventConsumer&lt;br&gt;&amp;lt;T extends KadaiEvent&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ consume(T): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ consumeAll(Collection&amp;lt;T&amp;gt;): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="190" y="190" width="190" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;KadaiInitializiable&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ initialize(KadaiEngine): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="300" y="30" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Reifiable&amp;lt;T&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ reify(): Class&amp;lt;T&amp;gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="530" y="30" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;KadaiEventPublisher&lt;br&gt;&amp;lt;T extends KadaiEvent&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ publish(T): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ publishAll(Collection&amp;lt;T&amp;gt;): void&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ publishing(Supplier&amp;lt;T&amp;gt;): void&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ publishingAll(Supplier&amp;lt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Collection&amp;lt;T&amp;gt;&amp;gt;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;): void&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="720" y="190" width="260" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;KadaiEvent&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ getCreated(): Instant&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ setCreated(): Instant&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="790" y="30" width="170" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;SimpleKadaiEventPublisher&lt;br&gt;&amp;lt;T extends KadaiEvent&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- kadaiEventBroker: KadaiEventBroker&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="735" y="440" width="230" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-7" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;KadaiEventBroker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- consumers:&amp;nbsp;Map&amp;lt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Class&amp;lt;? extends KadaiEvent&amp;gt;,&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; List&amp;lt;KadaiEventConsumer&amp;lt;? extends KadaiEvent&amp;gt;&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- kadaiEngine: KadaiEngine&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ &amp;lt;T extends KadaiEvent&amp;gt; forward(T event): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;lt;T extends KadaiEvent&amp;gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;subscribes(KadaiEventConsumer&amp;lt;T&amp;gt;): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&amp;nbsp;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;&amp;lt;T extends KadaiEvent&amp;gt; un&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;subscribes(KadaiEventConsumer&amp;lt;T&amp;gt;): void&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-&amp;nbsp; &amp;lt;T extends KadaiEvent&amp;gt;&amp;nbsp;getConsumers(Class&amp;lt;T&amp;gt;):&amp;nbsp;List&amp;lt;KadaiEventConsumer&amp;lt;? super T&amp;gt;&amp;gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;textShadow=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="390" width="510" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-11" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;textShadow=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" edge="1" target="bea8dEFWo1SFxuyEezms-4" source="bea8dEFWo1SFxuyEezms-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="850" y="400" as="sourcePoint" />
+            <mxPoint x="850" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-12" value="implements" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];textShadow=1;" parent="bea8dEFWo1SFxuyEezms-11" vertex="1" connectable="0">
+          <mxGeometry x="-0.1137" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-15" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;textShadow=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.245;exitY=-0.003;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" target="bea8dEFWo1SFxuyEezms-1" source="bea8dEFWo1SFxuyEezms-7">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="300" y="470" as="sourcePoint" />
+            <mxPoint x="285" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-16" value="*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=19;textShadow=1;" parent="bea8dEFWo1SFxuyEezms-15" vertex="1" connectable="0">
+          <mxGeometry x="0.397" y="1" relative="1" as="geometry">
+            <mxPoint x="8" y="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bea8dEFWo1SFxuyEezms-17" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;textShadow=1;entryX=1.001;entryY=0.524;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="bea8dEFWo1SFxuyEezms-6" edge="1" target="bea8dEFWo1SFxuyEezms-7">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="750" y="453" as="sourcePoint" />
+            <mxPoint x="720" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8HsnoNoOq43XrrhQgiYJ-1" value="extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.987;exitY=0.301;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="bea8dEFWo1SFxuyEezms-1" target="bea8dEFWo1SFxuyEezms-3" edge="1">
+          <mxGeometry x="-0.2941" width="160" relative="1" as="geometry">
+            <mxPoint x="450" y="250" as="sourcePoint" />
+            <mxPoint x="610" y="250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="615" y="230" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8HsnoNoOq43XrrhQgiYJ-2" value="extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.194;entryY=1.01;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="bea8dEFWo1SFxuyEezms-1" target="bea8dEFWo1SFxuyEezms-2" edge="1">
+          <mxGeometry x="-0.1951" y="33" width="160" relative="1" as="geometry">
+            <mxPoint x="450" y="250" as="sourcePoint" />
+            <mxPoint x="610" y="250" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -6,8 +6,7 @@ sidebar_position: 2
 
 ## Supported JVM
 
-- Java 17
-- Java 21
+- Java 25
 
 ## Supported Databases
 

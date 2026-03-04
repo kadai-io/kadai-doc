@@ -16,7 +16,7 @@ import Link from '@docusaurus/Link';
 To set up the example, please install:
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
-- Java 17
+- Java 25
 - [Maven](https://maven.apache.org/)
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
 
@@ -26,7 +26,7 @@ To set up the example, please install:
 
 ### Step 1: Initialize an empty project
 
-Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.5.10&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
+Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.3&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
 Unpack the project and open it in an IDE of your choice. Your project-structure should look like

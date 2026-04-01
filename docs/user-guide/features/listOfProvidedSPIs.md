@@ -17,6 +17,7 @@ Currently, KADAI provides the following SPIs:
 | io.kadai.spi.task.api.AfterRequestReviewProvider   | Add actions on Task that are executed after a review on a claimed Task has been requested.                 |
 | io.kadai.spi.task.api.BeforeRequestChangesProvider | Add actions on Task that are executed before changes on a reviewed Task have been requested.               |
 | io.kadai.spi.task.api.BeforeRequestReviewProvider  | Add actions on Task that are executed before a review on a claimed Task has been requested.                |
+| io.kadai.spi.task.api.BeforeTransferTaskProvider   | Add actions on Task that are executed before a transferring.                                               |
 | io.kadai.spi.task.api.CreateTaskPreprocessor       | Add actions on Task that are executed before a new one is created.                                         |
 | io.kadai.spi.task.api.ReviewRequiredProvider       | Add actions on Task that are executed after changes on reviewed Task have been requested.                  |
 | io.kadai.spi.task.api.TaskDistributionProvider     | Add custom distribution logic for task distribution.                                                       |

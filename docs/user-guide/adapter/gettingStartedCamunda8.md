@@ -13,7 +13,7 @@ import Link from '@docusaurus/Link';
 ## What you'll need
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
-- Java 17
+- Java 25
 - [Maven](https://maven.apache.org/)
 - [Camunda Modeler Version >= 5.40.0](https://camunda.com/de/download/modeler/)
 - [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres
@@ -44,7 +44,7 @@ in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/
 :::
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.5.10&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.3&packaging=jar&jvmVersion=25&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
@@ -85,17 +85,17 @@ exist):
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
-    <version>11.1.0</version>
+    <version>12.0.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-8-system-connector</artifactId>
-    <version>11.1.0</version>
+    <version>12.0.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
-    <version>11.1.0</version>
+    <version>12.0.0</version>
   </dependency>
   <dependency>
     <groupId>org.postgresql</groupId>

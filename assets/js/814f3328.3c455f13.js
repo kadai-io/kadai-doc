@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkfirst_example=globalThis.webpackChunkfirst_example||[]).push([[7472],{55513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[]}')}}]);

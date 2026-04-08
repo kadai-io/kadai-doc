@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkfirst_example=globalThis.webpackChunkfirst_example||[]).push([[5736],{19231(a){a.exports=JSON.parse('{"metadata":{"permalink":"/kadai-doc/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

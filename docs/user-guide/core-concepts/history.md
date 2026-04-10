@@ -27,7 +27,7 @@ Here is an overview about all the central components in Kadai's event-management
 
 `KadaiInitializable` is a helper-interface giving access to the `KadaiEngine`. It can be used in
 non-bean `KadaiEventConsumer`s to interact with the `KadaiEngine`.
-`Reifiable` is a helper-interface aiding in type-safety for event-routing in the `KadaiEventBroker`.
+`Reifiable` is a helper-interface aiding in type-safety for event-routing in the `KadaiEventBus`.
 Its implementation is trivial as Java's type-system only allows returning _this_ implementing class.
 
 ### `KadaiEvent`
@@ -38,7 +38,7 @@ Its implementation is trivial as Java's type-system only allows returning _this_
 
 `KadaiEventConsumer` is a sink for _certain_ `KadaiEvent`s. It's consumed events can be specified
 via the type-arg.
-The `KadaiEventBroker` will then only route events of this type or those extending it to that
+The `KadaiEventBus` will then only route events of this type or those extending it to that
 consumer.
 
 ### `KadaiEventPublisher`
@@ -47,10 +47,10 @@ A mediator between producer and broker.
 The default implementation `SimpleKadaiEventPublisher` forwards the event to the broker.
 It's used to scope access to publishing events inside producers.
 
-### `KadaiEventBroker`
+### `KadaiEventBus`
 
-`KadaiEventBroker` manages event-producers and -consumers.
-It takes care of routing events to all eligible consumers.
+`KadaiEventBus` manages event-producers and -consumers.
+It takes care of routing events to all eligible consumers and enriching them with user-context.
 When constructed, it **reads all consumers** declared via **SPI**.
 At runtime, more consumers can be registered via the Java-API.
 

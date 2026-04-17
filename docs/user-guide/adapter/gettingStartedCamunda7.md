@@ -103,8 +103,6 @@ kadai.adapter.outbox.max.number.of.events=57
 kadai.adapter.create_outbox_schema=true
 kadai.adapter.outbox.initial.number.of.task.creation.retries=5
 kadai.adapter.outbox.duration.between.task.creation.retries=PT1H
-#kadai.adapter.outbox.datasource.jndi=java:jboss/datasources/ProcessEnginePostgres
-#kadai.adapter.outbox.datasource.jndi=jdbc/ProcessEngine
 kadai.adapter.outbox.datasource.driver=org.postgresql.Driver
 kadai.adapter.outbox.datasource.url=jdbc:postgresql://localhost:5102/postgres
 kadai.adapter.outbox.datasource.username=postgres
@@ -243,40 +241,23 @@ Add the following files to your resources folder:
 ### application.properties
 
 ```properties title="src/main/resources/application.properties"
-######################################################################################
-## Adapter properties
-######################################################################################
-##
-#logging.level.org.springframework=DEBUG
-logging.level.io.kadai=DEBUG
-#logging.level.com.spring.ibatis=DEBUG
-#logging.level.com.spring.ibatis.*=DEBUG
-#logging.level.org.apache.ibatis=DEBUG
-#logging.level.io.kadai=info
-## Set Server Port for Adapter
+# Spring
 server.port=8083
 spring.main.allow-bean-definition-overriding=true
-kadai.adapter.run-as.user=taskadmin
-kadai.adapter.scheduler.run.interval.for.start.kadai.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.complete.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.claim.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.cancel.claim.referenced.tasks.in.milliseconds=10000
-kadai.adapter.scheduler.run.interval.for.check.finished.referenced.tasks.in.milliseconds=10000
-kadai-system-connector-camunda-rest-api-user-name=admin
-kadai-system-connector-camunda-rest-api-user-password=admin
-kadai-system-connector-outbox-rest-api-user-name=admin
-kadai-system-connector-outbox-rest-api-user-password=admin
-####################################################################################
-# System connector properties
-####################################################################################
-#
-# Set URLs of Camunda REST API and associated KADAI Outbox REST API. The format is
-# <camundaSystem1-RestURL> | <camundaSystem1-OutboxRestURL> , ..., <camundaSystemN-RestURL> | <camundaSystemN-OutboxRestURL>
-kadai-system-connector-camundaSystemURLs=http://localhost:8081/example-context-root/engine-rest | http://localhost:8081/example-context-root/outbox-rest
-####################################################################################
-# Kadai-connector properties
-####################################################################################
-#
+# Logging
+logging.level.io.kadai=DEBUG
+# KadaiAdapter Kernel
+kadai-adapter.kernel.run-as-user=taskadmin
+kadai-adapter.kernel.scheduler.start-kadai-tasks-interval=10000
+kadai-adapter.kernel.scheduler.complete-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.claim-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.cancel-claim-referenced-tasks-interval=10000
+kadai-adapter.kernel.scheduler.check-finished-referenced-tasks-interval=10000
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.company=DEFAULT_COMPANY
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.system=DEFAULT_SYSTEM
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.system-instance=DEFAULT_SYSTEM_INSTANCE
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.type=DEFAULT_TYPE
+kadai-adapter.kernel.kadai-connector.task-mapping.object-reference.value=DEFAULT_VALUE
 # Configure the datasource for Kadai DB (used by kadai-connector)
 #kadai.datasource.jdbcUrl = jdbc:h2:tcp://localhost:9095/mem:kadai;NON_KEYWORDS=KEY,VALUE;IGNORECASE=TRUE;LOCK_MODE=0;
 #kadai.datasource.jdbcUrl=jdbc:h2:mem:kadai;NON_KEYWORDS=KEY,VALUE;IGNORECASE=TRUE;LOCK_MODE=0;DB_CLOSE_ON_EXIT=FALSE
@@ -284,26 +265,21 @@ kadai-system-connector-camundaSystemURLs=http://localhost:8081/example-context-r
 #kadai.datasource.username = sa
 #kadai.datasource.password = sa
 kadai.schemaName=kadai
-#
-# kadai.datasource.jdbcUrl=jdbc:db2://localhost:50050/kadai
-# kadai.datasource.driverClassName=com.ibm.db2.jcc.DB2Driver
-# kadai.datasource.username=db2user
-# kadai.datasource.password=Db2password
 kadai.datasource.jdbcUrl=jdbc:postgresql://localhost:5102/postgres
 kadai.datasource.driverClassName=org.postgresql.Driver
 kadai.datasource.username=postgres
 kadai.datasource.password=postgres
-kadai.adapter.mapping.default.objectreference.company=DEFAULT_COMPANY
-kadai.adapter.mapping.default.objectreference.system=DEFAULT_SYSTEM
-kadai.adapter.mapping.default.objectreference.system.instance=DEFAULT_SYSTEM_INSTANCE
-kadai.adapter.mapping.default.objectreference.type=DEFAULT_TYPE
-kadai.adapter.mapping.default.objectreference.value=DEFAULT_VALUE
+# KadaiAdapter Camunda 7 Plugin
+kadai-adapter.plugin.camunda7.client.username=admin
+kadai-adapter.plugin.camunda7.client.password=admin
+kadai-adapter.plugin.camunda7.outbox.client.username=admin
+kadai-adapter.plugin.camunda7.outbox.client.password=admin
+kadai-adapter.plugin.camunda7.systems[0].system-rest-url=http://localhost:8081/example-context-root/engine-rest
+kadai-adapter.plugin.camunda7.systems[0].system-task-event-url=http://localhost:8081/example-context-root/outbox-rest
+#kadai-adapter.plugin.camunda7.xsrf-token=KAD_UNIQUE_TOKEN_123
+# KadaiAdapter Health
 management.endpoints.web.exposure.include=*
 management.endpoint.health.show-details=always
-management.health.external-services.include=external-services
-management.health.external-services.enabled=true
-#
-#kadai.adapter.xsrf.token=YOUR_TOKEN_123
 ```
 
 You can enable Kadai Adapter to send CSRF Headers and Cookies by removing the comment from the

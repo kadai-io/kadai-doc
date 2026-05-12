@@ -28,7 +28,7 @@ Note: Please name your packages, folders and files exactly like in the example!
 
 If you don't have a Camunda 8 application that you could use for experimenting with the Adapter,
 install a new application. You can use C8 run for
-this. [Download](https://downloads.camunda.cloud/release/camunda/c8run/) a version >= 8.8.0 of C8
+this. [Download](https://downloads.camunda.cloud/release/camunda/c8run/) a version >= 8.9.0 of C8
 run.
 Use [this guide](https://docs.camunda.io/docs/self-managed/quickstart/developer-quickstart/c8run/#install-and-start-camunda-8-run)
 to start C8 run. Make sure to use
@@ -44,7 +44,7 @@ in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/
 :::
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.3&packaging=jar&jvmVersion=25&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.6&packaging=jar&jvmVersion=25&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 

@@ -16,7 +16,7 @@ import Link from '@docusaurus/Link';
 To set up the example, please install:
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
-- Java 17
+- Java 25
 - [Maven](https://maven.apache.org/)
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
 
@@ -26,7 +26,9 @@ To set up the example, please install:
 
 ### Step 1: Initialize an empty project
 
-Use this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.5.10&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=) to create an example Maven Project.
+Use
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.6&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
 Unpack the project and open it in an IDE of your choice. Your project-structure should look like
@@ -48,15 +50,17 @@ demo
 
 Unfortunately the Initializr ships with the dependency `spring-boot-starter-test`.
 We need to remove a potential conflict by excluding one of its packages:
+
 ```xml title="pom.xml"
+
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-test</artifactId>
-  <exclusions> 
-    <exclusion> 
+  <exclusions>
+    <exclusion>
       <groupId>com.vaadin.external.google</groupId>
       <artifactId>android-json</artifactId>
-    </exclusion> 
+    </exclusion>
   </exclusions>
 </dependency>
 ```
@@ -67,6 +71,7 @@ Please add the following dependencies to the `pom`.
 All dependencies can be copied as one block at the end
 of step 2.
 After adding the dependencies, reload maven and recompile the project:
+
 ```bash
 mvn clean install -DskipTests
 ```
@@ -74,89 +79,120 @@ mvn clean install -DskipTests
 **1. spring core dependency:**
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>org.springframework.plugin</groupId>
-    <artifactId>spring-plugin-core</artifactId>
-    <version>3.0.0</version>
+  <groupId>org.springframework.plugin</groupId>
+  <artifactId>spring-plugin-core</artifactId>
+  <version>3.0.0</version>
 </dependency>
 ```
 
 **2. database dependencies:**
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
 </dependency>
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jdbc</artifactId>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-jdbc</artifactId>
 </dependency>
 ```
 
 **3. kadai dependencies:**
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-common-data</artifactId>
-    <version>10.1.0</version>
+  <groupId>io.kadai</groupId>
+  <artifactId>kadai-common-data</artifactId>
+  <version>12.0.0</version>
 </dependency>
 <dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-common-logging</artifactId>
-    <version>10.1.0</version>
+<groupId>io.kadai</groupId>
+<artifactId>kadai-common-logging</artifactId>
+<version>12.0.0</version>
 </dependency>
 <dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-rest-spring</artifactId>
-    <version>10.1.0</version>
+<groupId>io.kadai</groupId>
+<artifactId>kadai-rest-spring</artifactId>
+<version>12.0.0</version>
 </dependency>
 ```
 
 **4. tomcat application server dependency:**
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+**5. HATEOAS dependency:**
+
+```xml title="pom.xml"
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-hateoas</artifactId>
+  <exclusions>
+    <exclusion>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-logging</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
 
 **All dependencies**
 
 ```xml title="pom.xml"
+
 <dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.plugin</groupId>
+<artifactId>spring-plugin-core</artifactId>
+<version>3.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.kadai</groupId>
+<artifactId>kadai-common-logging</artifactId>
+<version>12.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.kadai</groupId>
+<artifactId>kadai-rest-spring</artifactId>
+<version>12.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.kadai</groupId>
+<artifactId>kadai-common-data</artifactId>
+<version>12.0.0</version>
+</dependency>
+<dependency>
+<groupId>com.h2database</groupId>
+<artifactId>h2</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-hateoas</artifactId>
+<exclusions>
+  <exclusion>
     <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.springframework.plugin</groupId>
-    <artifactId>spring-plugin-core</artifactId>
-    <version>3.0.0</version>
-</dependency>
-<dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-common-logging</artifactId>
-    <version>10.1.0</version>
-</dependency>
-<dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-rest-spring</artifactId>
-    <version>10.1.0</version>
-</dependency>
-<dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-common-data</artifactId>
-    <version>10.1.0</version>
-</dependency>
-<dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jdbc</artifactId>
+    <artifactId>spring-boot-starter-logging</artifactId>
+  </exclusion>
+</exclusions>
 </dependency>
 ```
 
@@ -358,11 +394,17 @@ import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.hateoas.config.HypermediaMappingInformation;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+
 import io.kadai.KadaiConfiguration;
 import io.kadai.common.api.KadaiEngine;
 import io.kadai.common.internal.configuration.DbSchemaCreator;
@@ -406,7 +448,7 @@ public class ExampleRestConfiguration {
   public Server inMemoryH2DatabaseaServer() throws SQLException {
     return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9095");
   }
-  
+
   @Bean
   @ConditionalOnMissingBean(KadaiConfiguration.class)
   public KadaiConfiguration kadaiConfiguration(
@@ -417,6 +459,24 @@ public class ExampleRestConfiguration {
         .initKadaiProperties(propertiesFileName, delimiter)
         .build();
   }
+
+  @Bean
+  public RestClient restClient(RestClient.Builder builder, JsonMapper jsonMapper) {
+    return builder.build();
+  }
+
+  @Bean
+  JsonMapperBuilderCustomizer customizer(ObjectProvider<HypermediaMappingInformation> hypermedia) {
+    return builder -> {
+      hypermedia.ifAvailable(
+          hypermediaMappingInformation ->
+              hypermediaMappingInformation.configureJsonMapper(builder));
+      builder
+          .deactivateDefaultTyping()
+          .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+          .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    };
+  }
 }
 
 
@@ -424,12 +484,14 @@ public class ExampleRestConfiguration {
 
 ### Step 5: Try out the REST-API
 
-Recompile the project and then start the `DemoApplication` in your IDE. 
+Recompile the project and then start the `DemoApplication` in your IDE.
+
 ```bash
 mvn spring-boot:run -pl :demo
 ```
 
 You can now make the following request:
+
 ```
 GET http://localhost:8080/kadai/api/v1/classifications
 ```
@@ -488,21 +550,26 @@ ExampleWebSecurityConfig. The classes will be created in the next steps.
 Add the following dependencies to your pom and reload maven:
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>org.springframework.ldap</groupId>
-    <artifactId>spring-ldap-core</artifactId>
+  <groupId>org.springframework.ldap</groupId>
+  <artifactId>spring-ldap-core</artifactId>
 </dependency>
 <dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-ldap</artifactId>
+<groupId>org.springframework.security</groupId>
+<artifactId>spring-security-ldap</artifactId>
 </dependency>
 <dependency>
-    <groupId>com.unboundid</groupId>
-    <artifactId>unboundid-ldapsdk</artifactId>
+<groupId>com.unboundid</groupId>
+<artifactId>unboundid-ldapsdk</artifactId>
 </dependency>
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-ldap</artifactId>
 </dependency>
 ```
 
@@ -511,6 +578,7 @@ authorization checks.
 You also need to remove the following lines from the ``ExampleRestConfiguration.java``:
 
 ```java title="src/main/com/example/demo/ExampleRestConfiguration.java"
+
 @Bean
 @ConditionalOnMissingBean(KadaiConfiguration.class)
 public KadaiConfiguration kadaiConfiguration(
@@ -563,6 +631,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.jaasapi.JaasApiIntegrationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 import io.kadai.common.rest.SpringSecurityToJaasFilter;
 
 /** Default basic configuration for kadai web example. */
@@ -757,6 +826,7 @@ import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler
 import org.springframework.util.StringUtils;
 
 final class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler {
+
   private final CsrfTokenRequestHandler delegate = new XorCsrfTokenRequestAttributeHandler();
 
   @Override
@@ -877,11 +947,13 @@ demo
 ### Step 10: Try out the REST-API
 
 First, recompile and restart the `DemoApplication`:
+
 ```bash
 mvn spring-boot:run -pl :demo
 ```
 
 Then try to make a request like in the previous step, for example:
+
 ```
 GET http://localhost:8080/kadai/api/v1/tasks
 ```
@@ -925,21 +997,24 @@ See a snippet of the expected response-body below:
 ```
 
 ## Set up KADAI UI
-To set up the Kadai UI we will first need to configure the previously built backend and then clone, build and start the Angular frontend.
+
+To set up the Kadai UI we will first need to configure the previously built backend and then clone,
+build and start the Angular frontend.
 
 ### Step 11: Add web dependencies
 
 Add the following dependencies to your pom and reload maven:
 
 ```xml title="pom.xml"
+
 <dependency>
-    <groupId>io.kadai</groupId>
-    <artifactId>kadai-web</artifactId>
-    <version>10.1.0</version>
+  <groupId>io.kadai</groupId>
+  <artifactId>kadai-web</artifactId>
+  <version>12.0.0</version>
 </dependency>
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ```
 
@@ -986,11 +1061,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class LoginController implements WebMvcConfigurer {
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-    }
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/login").setViewName("login");
+    registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+  }
 }
 ```
 
@@ -1041,6 +1116,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import io.kadai.common.internal.util.ResourceUtil;
 
 import java.io.IOException;
@@ -1048,22 +1124,22 @@ import java.io.IOException;
 @Controller
 public class ResourcesController {
 
-    public static final String KADAI_CUSTOMIZATION_FILE_NAME = "kadai-customization.json";
+  public static final String KADAI_CUSTOMIZATION_FILE_NAME = "kadai-customization.json";
 
-    @GetMapping(
-            value = "/environments/data-sources/kadai-customization.json",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> kadaiCustomization() throws IOException {
-        return ResponseEntity.ok(readResourceAsString(KADAI_CUSTOMIZATION_FILE_NAME));
-    }
+  @GetMapping(
+      value = "/environments/data-sources/kadai-customization.json",
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> kadaiCustomization() throws IOException {
+    return ResponseEntity.ok(readResourceAsString(KADAI_CUSTOMIZATION_FILE_NAME));
+  }
 
-    private String readResourceAsString(String resource) throws IOException {
-        String resourceAsString = ResourceUtil.readResourceAsString(getClass(), resource);
-        if (resourceAsString == null) {
-            return "{}";
-        }
-        return resourceAsString;
+  private String readResourceAsString(String resource) throws IOException {
+    String resourceAsString = ResourceUtil.readResourceAsString(getClass(), resource);
+    if (resourceAsString == null) {
+      return "{}";
     }
+    return resourceAsString;
+  }
 }
 ```
 
@@ -1083,10 +1159,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
-    @GetMapping(path = {"", "kadai/**"})
-    public String index() {
-        return "forward:/index.html";
-    }
+  @GetMapping(path = {"", "kadai/**"})
+  public String index() {
+    return "forward:/index.html";
+  }
 }
 ```
 
@@ -1098,18 +1174,14 @@ messages of the application. Copy following content into ```WebMvcConfig.java```
 ```java title="src/main/com/example/demo/WebMvcConfig.java"
 package com.example.demo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import jakarta.annotation.PostConstruct;
-import java.util.List;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.SerializationFeature;
 
 /**
  * The Web MVC Configuration.
@@ -1118,45 +1190,31 @@ import java.util.List;
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-            "classpath:/META-INF/resources/", "classpath:/resources/",
-            "classpath:/static/", "classpath:/public/", "classpath:/templates/"
-    };
+  private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+      "classpath:/META-INF/resources/", "classpath:/resources/",
+      "classpath:/static/", "classpath:/public/", "classpath:/templates/"
+  };
 
-    private final ObjectMapper objectMapper;
-
-    @Autowired
-    public WebMvcConfig(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    if (!registry.hasMappingForPattern("/webjars/**")) {
+      registry
+          .addResourceHandler("/webjars/**")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (!registry.hasMappingForPattern("/webjars/**")) {
-            registry
-                    .addResourceHandler("/webjars/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
-        if (!registry.hasMappingForPattern("/**")) {
-            registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-        }
+    if (!registry.hasMappingForPattern("/**")) {
+      registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
+  }
 
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        for (HttpMessageConverter<?> converter : converters) {
-            if (converter instanceof MappingJackson2HttpMessageConverter) {
-                MappingJackson2HttpMessageConverter jacksonConverter =
-                        (MappingJackson2HttpMessageConverter) converter;
-                jacksonConverter.setPrettyPrint(true);
-            }
-        }
-    }
-
-    @PostConstruct
-    public void enableObjectIndent() {
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-    }
+  @Bean
+  JsonMapperBuilderCustomizer customizer() {
+    return builder ->
+        builder
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+            .enable(SerializationFeature.INDENT_OUTPUT);
+  }
 }
 
 ```
@@ -1213,12 +1271,15 @@ demo
 ```
 
 ### Step 14: Clone, build & bundle the frontend
+
 First, clone the source code of the Angular demo in a separate project:
+
 ```bash
 git clone https://github.com/kadai-io/kadai.git
 ```
 
 Second, navigate to the Angular source and build the frontend:
+
 ```bash
 cd kadai/web
 yarn install
@@ -1226,6 +1287,7 @@ yarn build:prod
 ```
 
 Then install the frontend:
+
 ```bash
 cd ..
 mvn -B install -pl :kadai-web -am
@@ -1234,13 +1296,14 @@ mvn -B install -pl :kadai-web -am
 ### Step 15: Start backend & frontend
 
 Inside the root of your demo project, now start the application:
+
 ```bash
 mvn spring-boot:run -pl :demo  
 ```
 
 ### Step 16: Explore the Kadai UI
 
-Visit `localhost:8080/kadai` in your browser. 
+Visit `localhost:8080/kadai` in your browser.
 You should see the login screen:
 
 ![Log in](../static/getting-started/login.png)

@@ -76,18 +76,7 @@ After adding the dependencies, reload maven and recompile the project:
 mvn clean install -DskipTests
 ```
 
-**1. spring core dependency:**
-
-```xml title="pom.xml"
-
-<dependency>
-  <groupId>org.springframework.plugin</groupId>
-  <artifactId>spring-plugin-core</artifactId>
-  <version>3.0.0</version>
-</dependency>
-```
-
-**2. database dependencies:**
+**1. database dependencies:**
 
 ```xml title="pom.xml"
 
@@ -101,7 +90,7 @@ mvn clean install -DskipTests
 </dependency>
 ```
 
-**3. kadai dependencies:**
+**2. kadai dependencies:**
 
 ```xml title="pom.xml"
 
@@ -122,7 +111,7 @@ mvn clean install -DskipTests
 </dependency>
 ```
 
-**4. tomcat application server dependency:**
+**3. tomcat application server dependency:**
 
 ```xml title="pom.xml"
 
@@ -132,7 +121,7 @@ mvn clean install -DskipTests
 </dependency>
 ```
 
-**5. HATEOAS dependency:**
+**4. HATEOAS dependency:**
 
 ```xml title="pom.xml"
 
@@ -155,11 +144,6 @@ mvn clean install -DskipTests
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-<dependency>
-<groupId>org.springframework.plugin</groupId>
-<artifactId>spring-plugin-core</artifactId>
-<version>3.0.0</version>
 </dependency>
 <dependency>
 <groupId>io.kadai</groupId>

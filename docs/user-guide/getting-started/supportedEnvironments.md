@@ -14,7 +14,7 @@ sidebar_position: 2
 You can choose one of the following databases:
 
 - DB2 11.5
-- PostgresSQL 14.7
+- PostgresSQL 17
 
 ## Container/Application Server (optional)
 

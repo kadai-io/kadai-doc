@@ -117,7 +117,7 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
 {
   "status": "UP",
   "components": {
-    "camundaSystem1": {
+    "default": {
       "status": "UP",
       "components": {
         "camunda": {
@@ -152,14 +152,25 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
 
 #### Camunda System
 
-- `camundaSystem[i]` contains the health of the i-th Camunda- and Outbox-Component
+- `<camunda7-engine-identifier>` contains the health of the Camunda- and Outbox-Components for
+  the configured engine. The identifier is configured with
+  `kadai-adapter.plugin.camunda7.systems[i].camunda7-engine-identifier`.
+- If no engine identifier is configured, `camundaSystem[i]` is used instead.
+- If an engine identifier is used more than once, subsequent contributors receive a numeric suffix,
+  for example `default-2`.
 
 #### Camunda
 
 When healthy, it should return a list of the available Camunda Engines
 
 - `camundaEngines` lists the available Camunda engines by name.
-- `baseUrl` shows the base URL for the Camunda REST
+- `baseUrl` shows the Camunda REST endpoint used to retrieve the engine list.
+
+The health check verifies that the configured engine is included in `camundaEngines`. When
+`system-rest-url` is engine-scoped (for example, ending in `/engine/default`), the health check
+uses the corresponding engine-list endpoint (in this example, `/engine`) and derives `default` as
+the expected engine if no `camunda7-engine-identifier` is configured. If the expected engine is
+not available, the health status is `DOWN`.
 
 #### Outbox
 

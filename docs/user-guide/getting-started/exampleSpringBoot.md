@@ -19,6 +19,7 @@ To set up the example, please install:
 - Java 21
 - [Maven](https://maven.apache.org/)
 - [Postman](https://www.postman.com/) or any similar tool for creating API requests
+- Node.js 22.22.3+, 24.15.0+, or 26+ (for the UI in steps 14–16)
 
 **Note**: Please name your packages, folders, and files exactly like in the example!
 
@@ -27,7 +28,7 @@ To set up the example, please install:
 ### Step 1: Initialize an empty project
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.6&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.1.0&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
@@ -46,23 +47,6 @@ demo
 │   mvnw
 │   mvnw.cmd
 │   pom.xml
-```
-
-Unfortunately the Initializr ships with the dependency `spring-boot-starter-test`.
-We need to remove a potential conflict by excluding one of its packages:
-
-```xml title="pom.xml"
-
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-test</artifactId>
-  <exclusions>
-    <exclusion>
-      <groupId>com.vaadin.external.google</groupId>
-      <artifactId>android-json</artifactId>
-    </exclusion>
-  </exclusions>
-</dependency>
 ```
 
 ### Step 2: Add dependencies
@@ -128,12 +112,6 @@ mvn clean install -DskipTests
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-hateoas</artifactId>
-  <exclusions>
-    <exclusion>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-    </exclusion>
-  </exclusions>
 </dependency>
 ```
 
@@ -171,12 +149,6 @@ mvn clean install -DskipTests
 <dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-hateoas</artifactId>
-<exclusions>
-  <exclusion>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-logging</artifactId>
-  </exclusion>
-</exclusions>
 </dependency>
 ```
 
@@ -223,6 +195,8 @@ kadai.schemaName=KADAI
 devMode=true
 # This property enables the support of XSRF tokens. This will not work together with devMode.
 enableCsrf=false
+# The embedded LDAP server is added in step 6. Disable its health check until then.
+management.health.ldap.enabled=false
 ####### property that control if the database is cleaned and sample data is generated
 generateSampleData=true
 ####### cache static resources properties
@@ -242,6 +216,7 @@ server.tomcat.max-swallow-size=-1
 server.tomcat.remoteip.internal-proxies=.*
 server.forward-headers-strategy=native
 ####### Properties for AccessIdController to connect to LDAP
+spring.ldap.urls[0]=${kadai.ldap.serverUrl}
 kadai.ldap.serverUrl=ldap://localhost:10389
 kadai.ldap.bindDn=uid=admin
 kadai.ldap.bindPassword=secret
@@ -337,9 +312,23 @@ kadai.jobs.cleanup.history.simple.enable=false
 
 ### Step 4: Add rest configuration
 
-First, Add ```@ComponentScan({"io.kadai","com.example"})``` as annotation above the class
-definition of the `DemoApplication` and a corresponding import to this class. This will allow the
-application to find the necessary components.
+First, replace the content of `DemoApplication.java` with the following. The explicit scan is
+required so Spring discovers both your application classes and the KADAI REST components.
+
+```java title="src/main/java/com/example/demo/DemoApplication.java"
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages = {"com.example.demo", "io.kadai"})
+public class DemoApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(DemoApplication.class, args);
+  }
+}
+```
 
 Then, create a java class with the name ```ExampleRestConfiguration``` in the `com.example.demo`
 package. This class defines the Beans and their dependencies. Your project structure should look
@@ -369,30 +358,24 @@ demo
 
 Copy the following content into ```ExampleRestConfiguration.java```:
 
-```java title="src/main/com/example/demo/ExampleRestConfiguration.java"
+```java title="src/main/java/com/example/demo/ExampleRestConfiguration.java"
 package com.example.demo;
-
-import java.sql.SQLException;
-import javax.sql.DataSource;
-import org.h2.tools.Server;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.hateoas.config.HypermediaMappingInformation;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.SerializationFeature;
-import tools.jackson.databind.json.JsonMapper;
 
 import io.kadai.KadaiConfiguration;
 import io.kadai.common.api.KadaiEngine;
+import io.kadai.common.internal.SpringKadaiEngine;
 import io.kadai.common.internal.configuration.DbSchemaCreator;
 import io.kadai.sampledata.SampleDataGenerator;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.h2.tools.Server;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class ExampleRestConfiguration {
@@ -422,44 +405,22 @@ public class ExampleRestConfiguration {
 
   @Bean
   @DependsOn("generateSampleData")
-  public KadaiEngine getKadaiEngine(KadaiConfiguration kadaiConfiguration)
-      throws SQLException {
-    return KadaiEngine.buildKadaiEngine(kadaiConfiguration);
+  public KadaiEngine getKadaiEngine(KadaiConfiguration kadaiConfiguration) throws SQLException {
+    return SpringKadaiEngine.buildKadaiEngine(kadaiConfiguration);
   }
 
   // only required to let the adapter example connect to the same database
   @Bean(initMethod = "start", destroyMethod = "stop")
-  public Server inMemoryH2DatabaseaServer() throws SQLException {
+  public Server inMemoryH2DatabaseServer() throws SQLException {
     return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9095");
   }
 
   @Bean
   @ConditionalOnMissingBean(KadaiConfiguration.class)
-  public KadaiConfiguration kadaiConfiguration(
-      DataSource dataSource,
-      @Qualifier("kadaiPropertiesFileName") String propertiesFileName,
-      @Qualifier("kadaiPropertiesDelimiter") String delimiter) {
+  public KadaiConfiguration kadaiConfiguration(DataSource dataSource) {
     return new KadaiConfiguration.Builder(dataSource, true, "KADAI")
-        .initKadaiProperties(propertiesFileName, delimiter)
+        .initKadaiProperties("/kadai.properties", "|")
         .build();
-  }
-
-  @Bean
-  public RestClient restClient(RestClient.Builder builder, JsonMapper jsonMapper) {
-    return builder.build();
-  }
-
-  @Bean
-  JsonMapperBuilderCustomizer customizer(ObjectProvider<HypermediaMappingInformation> hypermedia) {
-    return builder -> {
-      hypermedia.ifAvailable(
-          hypermediaMappingInformation ->
-              hypermediaMappingInformation.configureJsonMapper(builder));
-      builder
-          .deactivateDefaultTyping()
-          .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-          .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-    };
   }
 }
 
@@ -471,7 +432,7 @@ public class ExampleRestConfiguration {
 Recompile the project and then start the `DemoApplication` in your IDE.
 
 ```bash
-mvn spring-boot:run -pl :demo
+mvn spring-boot:run
 ```
 
 You can now make the following request:
@@ -557,26 +518,9 @@ Add the following dependencies to your pom and reload maven:
 </dependency>
 ```
 
-Then, set the ``devMode`` property in ``application.properties`` to false. This enables
-authorization checks.
-You also need to remove the following lines from the ``ExampleRestConfiguration.java``:
-
-```java title="src/main/com/example/demo/ExampleRestConfiguration.java"
-
-@Bean
-@ConditionalOnMissingBean(KadaiConfiguration.class)
-public KadaiConfiguration kadaiConfiguration(
-    DataSource dataSource,
-    @Qualifier("kadaiPropertiesFileName") String propertiesFileName,
-    @Qualifier("kadaiPropertiesDelimiter") String delimiter) {
-  return new KadaiConfiguration.Builder(dataSource, true, "KADAI")
-      .initKadaiProperties(propertiesFileName, delimiter)
-      .build();
-}
-```
-
-This way, you don't disable security manually.
-Deleted because KadaiEngineConfiguration doesn't exist anymore
+Then, set the ``devMode`` property in ``application.properties`` to false and
+`management.health.ldap.enabled` to true. This enables authorization checks and re-enables the
+LDAP health check now that the embedded LDAP server is available. 
 
 ### Step 7: Add BootWebSecurityConfigurer.java
 
@@ -584,17 +528,21 @@ Create ```BootWebSecurityConfigurer.java``` in the security folder
 and copy the following content into
 it:
 
-```java title="src/main/com/example/demo/security/BootWebSecurityConfigurer.java"
+```java title="src/main/java/com/example/demo/security/BootWebSecurityConfigurer.java"
 package com.example.demo.security;
 
+import static io.kadai.common.rest.ldap.LdapConfiguration.KADAI_LDAP_CONTEXT_SOURCE;
+
+import io.kadai.common.rest.SpringSecurityToJaasFilter;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
+import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -614,9 +562,7 @@ import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.jaasapi.JaasApiIntegrationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import io.kadai.common.rest.SpringSecurityToJaasFilter;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 /** Default basic configuration for kadai web example. */
 @Configuration
@@ -706,7 +652,8 @@ public class BootWebSecurityConfigurer {
                 logout
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutRequestMatcher(
+                        PathPatternRequestMatcher.withDefaults().matcher("/logout"))
                     .logoutSuccessUrl("/login?logout")
                     .deleteCookies("JSESSIONID")
                     .permitAll());
@@ -714,7 +661,7 @@ public class BootWebSecurityConfigurer {
 
   @Bean
   public LdapAuthoritiesPopulator authoritiesPopulator(
-      DefaultSpringSecurityContextSource contextSource) {
+      @Qualifier(KADAI_LDAP_CONTEXT_SOURCE) ContextSource contextSource) {
     Function<Map<String, List<String>>, GrantedAuthority> authorityMapper =
         recordVar -> new SimpleGrantedAuthority(recordVar.get("spring.security.ldap.dn").get(0));
 
@@ -727,9 +674,8 @@ public class BootWebSecurityConfigurer {
     return populator;
   }
 
-  @Bean
-  @Primary
-  public DefaultSpringSecurityContextSource defaultSpringSecurityContextSource() {
+  @Bean(name = KADAI_LDAP_CONTEXT_SOURCE)
+  public BaseLdapPathContextSource ldapContextSource() {
     return new DefaultSpringSecurityContextSource(ldapServerUrl + "/" + ldapBaseDn);
   }
 
@@ -748,7 +694,8 @@ public class BootWebSecurityConfigurer {
 
   @Bean
   AuthenticationManager ldapAuthenticationManager(
-      BaseLdapPathContextSource contextSource, LdapAuthoritiesPopulator authorities) {
+      @Qualifier(KADAI_LDAP_CONTEXT_SOURCE) BaseLdapPathContextSource contextSource,
+      LdapAuthoritiesPopulator authorities) {
     @SuppressWarnings("deprecation")
     LdapPasswordComparisonAuthenticationManagerFactory factory =
         new LdapPasswordComparisonAuthenticationManagerFactory(
@@ -765,7 +712,7 @@ public class BootWebSecurityConfigurer {
 
 Create ```CsrfCookieFilter.java``` in the security folder and copy the following content into it:
 
-```java title="src/main/com/example/demo/security/CsrfCookieFilter.java"
+```java title="src/main/java/com/example/demo/security/CsrfCookieFilter.java"
 package com.example.demo.security;
 
 import jakarta.servlet.FilterChain;
@@ -781,7 +728,7 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(
       HttpServletRequest request,
-      @SuppressWarnings("NullableProblems") HttpServletResponse response,
+      HttpServletResponse response,
       FilterChain filterChain)
       throws ServletException, IOException {
     CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
@@ -797,7 +744,7 @@ final class CsrfCookieFilter extends OncePerRequestFilter {
 Lastly, create ```SpaCsrfTokenRequestHandler.java``` in the security folder and copy the following
 content into it:
 
-```java title="src/main/com/example/demo/security/SpaCsrfTokenRequestHandler.java"
+```java title="src/main/java/com/example/demo/security/SpaCsrfTokenRequestHandler.java"
 package com.example.demo.security;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -852,7 +799,7 @@ ExampleWebSecurityConfig specifies beans that are used for authorization by spri
 Create ```ExampleWebSecurityConfig.java``` in the ```security``` package and copy following content
 there:
 
-```java title="src/main/com/example/demo/security/ExampleWebSecurityConfig.java"
+```java title="src/main/java/com/example/demo/security/ExampleWebSecurityConfig.java"
 package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
@@ -933,7 +880,7 @@ demo
 First, recompile and restart the `DemoApplication`:
 
 ```bash
-mvn spring-boot:run -pl :demo
+mvn spring-boot:run
 ```
 
 Then try to make a request like in the previous step, for example:
@@ -1034,7 +981,7 @@ in the ```resources``` folder. You can download the templates folder here:
 Please unzip the ```templates``` folder and put it into the ```resources``` folder. Then, copy
 following code into ```LoginController.java```:
 
-```java title="src/main/com/example/demo/controllers/LoginController.java"
+```java title="src/main/java/com/example/demo/controllers/LoginController.java"
 package com.example.demo.controllers;
 
 import org.springframework.core.Ordered;
@@ -1093,7 +1040,7 @@ Unzip the ```com``` folder and put it into ```resources```.
 Then, please copy the following code
 into ```ResourcesController.java```:
 
-```java title="src/main/com/example/demo/controllers/ResourcesController.java"
+```java title="src/main/java/com/example/demo/controllers/ResourcesController.java"
 package com.example.demo.controllers;
 
 import org.springframework.http.MediaType;
@@ -1133,7 +1080,7 @@ The ViewController manages the root view of KADAI.
 Copy following code
 into ```ViewController.java```:
 
-```java title="src/main/com/example/demo/controllers/ViewController.java"
+```java title="src/main/java/com/example/demo/controllers/ViewController.java"
 package com.example.demo.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -1143,7 +1090,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
-  @GetMapping(path = {"", "kadai/**"})
+  @GetMapping
   public String index() {
     return "forward:/index.html";
   }
@@ -1155,7 +1102,7 @@ public class ViewController {
 Create ```WebMvcConfig.java``` in the ``com.example.demo`` package. It handles resources and
 messages of the application. Copy following content into ```WebMvcConfig.java```:
 
-```java title="src/main/com/example/demo/WebMvcConfig.java"
+```java title="src/main/java/com/example/demo/WebMvcConfig.java"
 package com.example.demo;
 
 import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
@@ -1266,7 +1213,8 @@ Second, navigate to the Angular source and build the frontend:
 
 ```bash
 cd kadai/web
-yarn install
+corepack enable
+yarn install --immutable
 yarn build:prod
 ```
 
@@ -1282,7 +1230,7 @@ mvn -B install -pl :kadai-web -am
 Inside the root of your demo project, now start the application:
 
 ```bash
-mvn spring-boot:run -pl :demo  
+mvn spring-boot:run
 ```
 
 ### Step 16: Explore the Kadai UI

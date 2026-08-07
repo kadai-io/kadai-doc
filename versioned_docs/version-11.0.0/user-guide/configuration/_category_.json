@@ -1,0 +1,8 @@
+{
+  "label": "Configuration",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "The articles describe how to configure KADAI for your custom usage. Most of the configuration options are specified in the two configuration files: application.properties and kadai.properties. You can change the name of the kadai.properties file when creating KadaiConfiguration via \"Builder initKadaiProperties(String propertiesFile)\". "
+  }
+}

@@ -10,6 +10,8 @@ Below we will list all configurable and **non-spring-standard** properties and s
 
 ## Kernel
 
+### Properties
+
 | Property                                                                           | Required? | Description                                                                                                                  | Default Value             | Sample Value                                                                                  |
 |------------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------|---------------------------|-----------------------------------------------------------------------------------------------|
 | kadai-adapter.kernel.run-as-user                                                   | yes       | Kadai-name of the user used to interact with Kadai                                                                           | n.a.                      | `taskadmin`                                                                                   |
@@ -33,6 +35,8 @@ Below we will list all configurable and **non-spring-standard** properties and s
 
 ## Camunda 7 (Plugin)
 
+### Properties
+
 For a complete Configuration-Reference of Camunda 7, check
 out [their docs](https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/configuration/).
 
@@ -54,6 +58,8 @@ out [their docs](https://docs.camunda.org/manual/latest/user-guide/spring-boot-i
 
 ## Camunda 8 (Plugin)
 
+### Properties
+
 For a complete Configuration-Reference of Camunda 8, check
 out [their docs](https://docs.camunda.io/docs/apis-tools/camunda-spring-boot-starter/configuration/).
 
@@ -72,3 +78,25 @@ The listed Camunda 8 properties are the central ones for the KadaiAdapter. There
 more.
 
 See [camunda8:properties-reference](https://docs.camunda.io/docs/apis-tools/camunda-spring-boot-starter/properties-reference/).
+
+### Permissions
+
+The KadaiAdapter requires the following minimal permissions in Camunda 8:
+
+```
+Resource Type:  PROCESS_DEFINITION
+Resource Key:   *
+Permissions:    UPDATE_USER_TASK, UPDATE_PROCESS_INSTANCE
+```
+
+Although _currently_ not required, we further recommend the following permissions for long-term
+compatibility:
+
+```
+Resource Type:  PROCESS_DEFINITION
+Resource Key:   *
+Permissions:    READ_USER_TASK, READ_PROCESS_INSTANCE
+```
+
+All Camunda 8 Orchestration Cluster authorizations are documented
+at [camunda8:identity-and-access-management/orchestration-cluster-authorization](https://docs.camunda.io/docs/components/concepts/access-control/authorizations/).

@@ -4,24 +4,26 @@ sidebar_position: 2
 
 # List of provided SPIs
 
-Please read [general SPI information](howToUseServiceProviderInterfaces.md) to understand SPIs in KADAI in general. 
+Read the [general SPI information](howToUseServiceProviderInterfaces.md) to understand SPIs in
+KADAI.
 
-Currently, KADAI provides the following SPIs:
+KADAI provides the following SPIs:
 
-| SPI                                                | Description                                                                                                |
-|----------------------------------------------------|------------------------------------------------------------------------------------------------------------|              
-| io.kadai.spi.history.api.KadaiHistory              | Look up the history of KADAI. You can read more use cases for HistoryService [here](./kadaiHistorySPI.md). |
-| io.kadai.spi.priority.api.PriorityServiceProvider  | Add rules for the calculation of Task priority.                                                            |
-| io.kadai.spi.routing.api.TaskRoutingProvider       | Add rules for automated Workbasket assignment for some of the new Tasks.                                   |
-| io.kadai.spi.task.api.AfterRequestChangesProvider  | Add actions on Task that are executed after changes on reviewed Task have been requested.                  |
-| io.kadai.spi.task.api.AfterRequestReviewProvider   | Add actions on Task that are executed after a review on a claimed Task has been requested.                 |
-| io.kadai.spi.task.api.BeforeRequestChangesProvider | Add actions on Task that are executed before changes on a reviewed Task have been requested.               |
-| io.kadai.spi.task.api.BeforeRequestReviewProvider  | Add actions on Task that are executed before a review on a claimed Task has been requested.                |
-| io.kadai.spi.task.api.BeforeTransferTaskProvider   | Add actions on Task that are executed before a transferring.                                               |
-| io.kadai.spi.task.api.CreateTaskPreprocessor       | Add actions on Task that are executed before a new one is created.                                         |
-| io.kadai.spi.task.api.CreateTaskPostprocessor      | Add actions on Task that are executed after a new one is created.                                          |
-| io.kadai.spi.task.api.ReviewRequiredProvider       | Add actions on Task that are executed after changes on reviewed Task have been requested.                  |
-| io.kadai.spi.task.api.TaskDistributionProvider     | Add custom distribution logic for task distribution.                                                       |
-| io.kadai.spi.user.api.RefreshUserPostprocessor     | Add actions on User that are executed each time after the User is refreshed.                               |
+| SPI | Description |
+| --- | --- |
+| `io.kadai.spi.history.api.KadaiEventConsumer` | Consume KADAI events for Task, Workbasket, and Classification changes. See the [history SPI](kadaiHistorySPI.md). |
+| `io.kadai.spi.priority.api.PriorityServiceProvider` | Calculate a Task's priority when it is created or updated. |
+| `io.kadai.spi.routing.api.TaskRoutingProvider` | Determine the Workbasket, and optionally the owner, for a Task created without a Workbasket. |
+| `io.kadai.spi.task.api.AfterRequestChangesProvider` | Run custom behaviour after changes are requested for a Task. |
+| `io.kadai.spi.task.api.AfterRequestReviewProvider` | Run custom behaviour after a review is requested for a Task. |
+| `io.kadai.spi.task.api.BeforeRequestChangesProvider` | Run custom behaviour before changes are requested for a Task. |
+| `io.kadai.spi.task.api.BeforeRequestReviewProvider` | Run custom behaviour before a review is requested for a Task. |
+| `io.kadai.spi.task.api.BeforeTransferTaskProvider` | Validate a Task transfer before it is performed. |
+| `io.kadai.spi.task.api.CreateTaskPreprocessor` | Run custom behaviour before a Task is created. |
+| `io.kadai.spi.task.api.CreateTaskPostprocessor` | Run custom behaviour after a Task is created. |
+| `io.kadai.spi.task.api.ReviewRequiredProvider` | Decide whether a Task requires review instead of completion. |
+| `io.kadai.spi.task.api.TaskDistributionProvider` | Provide custom logic for distributing Tasks among Workbaskets. |
+| `io.kadai.spi.task.api.TaskEndstatePreprocessor` | Run custom behaviour before a Task enters an end state (completed, cancelled, or terminated). |
+| `io.kadai.spi.user.api.RefreshUserPostprocessor` | Run custom behaviour after a User is refreshed. |
 
-For detailed information on the Task-Lifecycle, see our guide [here](../core-concepts/taskLifecycle.md).
+For detailed information on the Task lifecycle, see the [Task lifecycle guide](../core-concepts/taskLifecycle.md).

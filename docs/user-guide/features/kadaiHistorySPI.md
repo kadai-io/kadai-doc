@@ -11,6 +11,43 @@ KADAI publishes events for changes to Tasks, Workbaskets, and Classifications. I
 application. A consumer declares the event class it accepts through `reify()` and receives matching
 events through `consume()`.
 
+## Batch event consumers
+
+For bulk operations, implement `io.kadai.spi.history.api.BatchKadaiEventConsumer` when your
+consumer can process several events together. KADAI then groups all matching events for that
+consumer and calls `consumeAll(Collection<T> events)`. Event order within a batch is not
+guaranteed.
+
+`BatchKadaiEventConsumer` extends `KadaiEventConsumer`, so implement `consume()` as well. A
+consumer that implements only `KadaiEventConsumer` continues to receive bulk-operation events one
+at a time through `consume()`. Overriding `consumeAll()` on `KadaiEventConsumer` alone does not
+enable batched dispatch.
+
+```java
+import io.kadai.spi.history.api.BatchKadaiEventConsumer;
+import io.kadai.spi.history.api.events.task.TaskHistoryEvent;
+import java.util.Collection;
+
+public class TaskEventBatchConsumer
+    implements BatchKadaiEventConsumer<TaskHistoryEvent> {
+
+  @Override
+  public void consume(TaskHistoryEvent event) {
+    // Handle events that are dispatched individually.
+  }
+
+  @Override
+  public void consumeAll(Collection<TaskHistoryEvent> events) {
+    // Store or forward all matching events together.
+  }
+
+  @Override
+  public Class<TaskHistoryEvent> reify() {
+    return TaskHistoryEvent.class;
+  }
+}
+```
+
 History events can support use cases such as:
 
 - Showing the history of a business process: who handled a Task, transferred it, or changed it.
@@ -21,8 +58,8 @@ History events can support use cases such as:
 
 KADAI provides two implementations of `KadaiEventConsumer`:
 
-- `kadai-simplehistory-provider` persists Task, Workbasket, and Classification history events and
-  provides query services for them.
+- `kadai-simplehistory-provider` persists Task, Workbasket, and Classification history events,
+  provides query services for them, and processes Task history events in batches.
 - `kadai-loghistory-provider` writes history events as JSON to an SLF4J logger.
 
 Add the implementation you want to use to your application. For example, to persist history events:

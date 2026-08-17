@@ -13,7 +13,7 @@ import Link from '@docusaurus/Link';
 ## What you'll need
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
-- Java 17
+- Java 21
 - [Maven](https://maven.apache.org/)
 - [Camunda Modeler](https://camunda.com/de/download/modeler/)
 - [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres
@@ -28,7 +28,7 @@ Note: Please name your packages, folders and files exactly like in the example!
 
 If you don't have a Camunda 7 application that you could use for experimenting with the Adapter,
 install a new application. You can use  https://start.camunda.com/ to initialize an empty
-application. You need to choose Java 17. Additionally, make sure that the modules "REST API", "
+application. You need to choose Java 21. Additionally, make sure that the modules "REST API", "
 Webapps" and "Spin" are chosen and set an admin username and password of your choice.
 
 ![Local Image](../static/adapter/c7/camunda-initialization.png)
@@ -53,7 +53,7 @@ Add following dependencies to the dependencies section of your pom:
 <dependency>
 <groupId>org.jboss.resteasy</groupId>
 <artifactId>resteasy-servlet-spring-boot-starter</artifactId>
-<version>6.2.0.Final</version>
+<version>6.3.0.Final</version>
 </dependency>
 <dependency>
 <groupId>org.camunda.spin</groupId>
@@ -160,7 +160,7 @@ it [here](https://github.com/kadai-io/KadaiAdapter/blob/master/kadai-adapter-cam
 :::
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.6&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.1.0&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
@@ -284,7 +284,7 @@ management.endpoint.health.show-details=always
 ```
 
 You can enable Kadai Adapter to send CSRF Headers and Cookies by removing the comment from the
-`kadai.adapter.xsrf.token` property.
+`kadai-adapter.plugin.camunda7.xsrf-token` property.
 
 ### kadai.properties
 
@@ -444,7 +444,7 @@ Last, start the adapter.
 
 2. Claim the KADAI Task from the previous step using Postman. Make sure you add the following
    property to the `application.properties` file of the adapter application:
-   ``kadai.adapter.camunda.claiming.enabled=true``, then restart the adapter. To send the POST
+   `kadai-adapter.plugin.camunda7.claiming.enabled=true`, then restart the adapter. To send the POST
    request, use the same authorization as in the previous step. The Task should get claimed in
    Camunda automatically.
    ```

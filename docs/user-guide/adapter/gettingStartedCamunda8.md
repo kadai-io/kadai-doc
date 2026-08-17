@@ -44,7 +44,7 @@ in [our GitHub repository](https://github.com/kadai-io/KadaiAdapter/tree/master/
 :::
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.0.6&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.1.0&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 
@@ -278,7 +278,7 @@ Last, start the adapter.
 
 3. Claim the KADAI Task from the previous step using Postman. Make sure you add the following
    property to the `application.properties` file of the adapter application:
-   ``kadai.adapter.camunda.claiming.enabled=true``, then restart the adapter. To send the POST
+   `kadai-adapter.plugin.camunda8.claiming.enabled=true`, then restart the adapter. To send the POST
    request, use the same authorization as in the previous step. The Task should get claimed in
    Camunda automatically.
    ```
@@ -368,4 +368,4 @@ adapter with a multi-tenancy Camunda 8 Instance, follow these steps:
 
 When you deploy a processes to Camunda, you can specify a tenantId. If you don't, the process is
 deployed to the default tenant (
-see [Camunda docs](https://docs.camunda.io/docs/components/concepts/multi-tenancy/#tenant-identifier)). 
+see [Camunda docs](https://docs.camunda.io/docs/components/concepts/multi-tenancy/#tenant-identifier)).

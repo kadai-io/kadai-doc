@@ -113,6 +113,9 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
 
 #### Example-Response
 
+With `kadai-adapter.plugin.camunda7.systems[0].camunda7-engine-identifier=default` configured,
+the Camunda system health component is named `default`:
+
 ```json title="http://localhost:8082/actuator/health/kadaiAdapter/plugin/camunda7"
 {
   "status": "UP",
@@ -123,11 +126,9 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
         "camunda": {
           "status": "UP",
           "details": {
-            "camundaEngines": [
-              {
-                "name": "default"
-              }
-            ],
+            "camundaEngine": {
+              "name": "default"
+            },
             "baseUrl": "http://localhost:8081/example-context-root/engine-rest/engine"
           }
         },
@@ -161,16 +162,20 @@ management.health.kadai-adapter.kernel.scheduler.run-time-acceptance-multiplier=
 
 #### Camunda
 
-When healthy, it should return a list of the available Camunda Engines
+When the health check expects a particular engine, a successful response contains that engine:
 
-- `camundaEngines` lists the available Camunda engines by name.
+- `camundaEngine` contains the configured or inferred Camunda engine.
 - `baseUrl` shows the Camunda REST endpoint used to retrieve the engine list.
 
-The health check verifies that the configured engine is included in `camundaEngines`. When
-`system-rest-url` is engine-scoped (for example, ending in `/engine/default`), the health check
-uses the corresponding engine-list endpoint (in this example, `/engine`) and derives `default` as
-the expected engine if no `camunda7-engine-identifier` is configured. If the expected engine is
-not available, the health status is `DOWN`.
+The expected engine is the configured `camunda7-engine-identifier`. If no identifier is configured
+and `system-rest-url` is engine-scoped (for example, ending in `/engine/default`), the health
+check derives `default` from the URL. In either case, the health check retrieves the engine list
+from the corresponding `/engine` endpoint and is `DOWN` if the expected engine is unavailable.
+
+If neither an engine identifier nor an engine-scoped URL specifies an expected engine, a successful
+response contains `camundaEngines`, the list of available engines. A failed response contains
+`camundaEngineError`; when the expected engine is missing from a non-empty response, it also
+contains `camundaEngines`.
 
 #### Outbox
 

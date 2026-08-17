@@ -276,6 +276,7 @@ kadai-adapter.plugin.camunda7.outbox.client.username=admin
 kadai-adapter.plugin.camunda7.outbox.client.password=admin
 kadai-adapter.plugin.camunda7.systems[0].system-rest-url=http://localhost:8081/example-context-root/engine-rest
 kadai-adapter.plugin.camunda7.systems[0].system-task-event-url=http://localhost:8081/example-context-root/outbox-rest
+kadai-adapter.plugin.camunda7.systems[0].camunda7-engine-identifier=default
 #kadai-adapter.plugin.camunda7.xsrf-token=KAD_UNIQUE_TOKEN_123
 # KadaiAdapter Health
 management.endpoints.web.exposure.include=*

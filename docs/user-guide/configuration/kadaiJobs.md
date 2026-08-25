@@ -80,6 +80,7 @@ These configuration options are overwritten by job-specific configuration option
 | Parameter                                    | Description                                                                                                                   | Default Value        |
 |----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | kadai.jobs.refresh.user.enable               | Enable job to refresh all user info after a period of time                                                                    | false                |
+| kadai.jobs.refresh.user.batchSize            | maximum number of user, group, and permission changes written to the database in one batch                                    | 1000                 |
 | kadai.jobs.refresh.user.runEvery             | period of time between the executions of the UserInfoRefreshJob (Duration in ISO 8601 format)                                 | P1D                  |
 | kadai.jobs.refresh.user.firstRunAt           | first time the job is executed (DateTime in ISO 8601 format)                                                                  | 2023-01-01T23:00:00Z |
 | kadai.jobs.refresh.user.lockExpirationPeriod | period of time the lock is valid (Duration in ISO 8601 format). Should be longer than the longest possible job execution time | PT30M                |

@@ -284,6 +284,7 @@ kadai.jobs.runEvery=P1D
 kadai.jobs.firstRunAt=2018-07-25T08:00:00Z
 kadai.jobs.cleanup.task.batchSize=5000
 kadai.jobs.cleanup.task.minimumAge=P14D
+kadai.jobs.cleanup.task.minimumAgeByDomain.DOMAIN_A=P7D
 kadai.jobs.cleanup.history.simple.batchSize=50
 kadai.jobs.history.cleanup.firstRunAt=2018-07-25T08:00:00Z
 kadai.jobs.cleanup.history.simple.minimumAge=P14D

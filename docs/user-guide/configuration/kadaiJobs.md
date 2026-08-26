@@ -41,9 +41,20 @@ These configuration options are overwritten by job-specific configuration option
 |--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|---------------|
 | kadai.jobs.cleanup.task.enable                         | Enabling automated cleanup of completed tasks after a period of time specified by job.runEvery                                | true          |
 | kadai.jobs.cleanup.task.batchSize                      | upper bound of how many tasks can be processed in one TaskCleanupJob batch; overrides `kadai.jobs.batchSize` for this job     | 5000          |
-| kadai.jobs.cleanup.task.minimumAge                     | the completed task can be deleted by the cleanup only after this period of time or later  (Duration in ISO 8601 format)       | P14D          |
+| kadai.jobs.cleanup.task.minimumAge                     | Default completed-task age before cleanup may delete a task (Duration in ISO 8601 format)                                     | P14D          |
+| kadai.jobs.cleanup.task.minimumAgeByDomain.<DOMAIN>    | Optional domain-specific completed-task age. Takes precedence over `minimumAge` for that domain (Duration in ISO 8601 format) |              |
 | kadai.jobs.cleanup.task.allCompletedSameParentBusiness | Prevent deletion of tasks if other tasks with same parent business process ID are not yet completed                           | true          |
 | kadai.jobs.cleanup.task.lockExpirationPeriod           | period of time the lock is valid (Duration in ISO 8601 format). Should be longer than the longest possible job execution time | PT30M         |
+
+`kadai.jobs.cleanup.task.minimumAge` defaults to `P14D`. A configured
+`minimumAgeByDomain` value takes precedence for its domain; domains without an override use the
+default. When `allCompletedSameParentBusiness=true`, cleanup waits until every sibling sharing a
+parent business process ID has reached its own applicable domain-specific duration.
+
+```properties
+kadai.jobs.cleanup.task.minimumAge=P14D
+kadai.jobs.cleanup.task.minimumAgeByDomain.DOMAIN_A=P7D
+```
 
 ## WorkbasketCleanupJob Configuration
 

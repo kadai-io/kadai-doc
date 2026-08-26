@@ -40,6 +40,7 @@ These configuration options are overwritten by job-specific configuration option
 | Parameter                                              | Description                                                                                                                   | Default Value |
 |--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|---------------|
 | kadai.jobs.cleanup.task.enable                         | Enabling automated cleanup of completed tasks after a period of time specified by job.runEvery                                | true          |
+| kadai.jobs.cleanup.task.batchSize                      | upper bound of how many tasks can be processed in one TaskCleanupJob batch; overrides `kadai.jobs.batchSize` for this job     | 5000          |
 | kadai.jobs.cleanup.task.minimumAge                     | the completed task can be deleted by the cleanup only after this period of time or later  (Duration in ISO 8601 format)       | P14D          |
 | kadai.jobs.cleanup.task.allCompletedSameParentBusiness | Prevent deletion of tasks if other tasks with same parent business process ID are not yet completed                           | true          |
 | kadai.jobs.cleanup.task.lockExpirationPeriod           | period of time the lock is valid (Duration in ISO 8601 format). Should be longer than the longest possible job execution time | PT30M         |

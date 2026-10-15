@@ -18,6 +18,25 @@ Example db2:
 CREATE DATABASE <databaseName> USING CODESET UTF-8 COLLATE USING IDENTITY PAGESIZE 32 K 
 ```
 
+For local development and testing with DB2 12.1, use the Docker Compose setup from
+the [KADAI repository](https://github.com/kadai-io/kadai). From the root of that repository, run:
+
+```bash
+bash ./docker-databases/prepare_db.sh DB2_12_1
+```
+
+This starts the `kadai-db2_12-1` service based on the IBM DB2 Community image
+`icr.io/db2_community/db2:12.1.0.0`. It exposes database `TSKDB` on
+`localhost:5101`, with the local test credentials `db2inst1` / `db2inst1-pwd`.
+The Compose setup creates the database with 32 KB pages, since the image's default
+4 KB page size is insufficient for the KADAI schema.
+
+To stop and remove the local DB2 container, run:
+
+```bash
+bash ./docker-databases/prepare_db.sh stop DB2_12_1
+```
+
 Example Postgres:
 ```sql
 CREATE DATABASE <databaseName> WITH ENCODING 'UTF8' LC_COLLATE='de_DE.UTF-8';

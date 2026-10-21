@@ -23,7 +23,7 @@ This job updates Task priority for each Task once in a fixed time interval.
 
 ### UserInfoRefreshJob
 
-This job loads User Info into the User table from the .ldif file once in a fixed time interval.
+This job synchronizes users, groups, and permissions from the LDAP directory at a fixed time interval. It applies only changes since the previous refresh.
 
 ### TaskCleanupJob
 

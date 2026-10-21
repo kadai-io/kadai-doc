@@ -48,8 +48,13 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: 'v12.*.*',
+              label: 'v12.1.*',
               path: '/',
+              badge: true,
+            },
+            "12.0.1": {
+              label: 'v12.0.*',
+              path: '/12.0.*',
               badge: true,
             },
             "11.0.0": {

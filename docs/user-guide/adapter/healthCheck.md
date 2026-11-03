@@ -14,6 +14,10 @@ all health-information:
 GET http://localhost:8082/actuator/health
 ```
 
+`/actuator/health/kadaiAdapter` reports the adapter's health together with the health of its
+external dependencies. Use `/actuator/health/liveness` for process liveness checks: an unavailable
+Camunda 7 or Outbox service must not cause the application process to be restarted.
+
 ## Kernel
 
 The hierarchical nature allows to just request health information for specific sub-systems, e.g. all
@@ -177,12 +181,48 @@ response contains `camundaEngines`, the list of available engines. A failed resp
 `camundaEngineError`; when the expected engine is missing from a non-empty response, it also
 contains `camundaEngines`.
 
+The Camunda endpoint is healthy only when it returns HTTP `200` and a valid engine response. A
+failed probe returns `DOWN` and the following payload shape (the health endpoint responds with HTTP
+`503` for `DOWN`):
+
+```json title="http://localhost:8082/actuator/health/kadaiAdapter/plugin/camunda7/default/camunda"
+{
+  "status": "DOWN",
+  "details": {
+    "camundaEngineError": "Unexpected HTTP status: 503",
+    "failureType": "http-status",
+    "httpStatus": 503,
+    "baseUrl": "http://localhost:8081/example-context-root/engine-rest/engine"
+  }
+}
+```
+
 #### Outbox
 
 When healthy, it should return the count of events in the outbox
 
 - `outboxService.eventsCount` represents the number of unprocessed events in the outbox
 - `baseUrl` shows the base URL for the Outbox REST
+
+The Outbox endpoint is healthy only when it returns HTTP `200` with a non-negative
+`eventsCount`. A failed probe returns `DOWN` and the following payload shape (the health endpoint
+responds with HTTP `503` for `DOWN`):
+
+```json title="http://localhost:8082/actuator/health/kadaiAdapter/plugin/camunda7/default/outbox"
+{
+  "status": "DOWN",
+  "details": {
+    "outboxServiceError": "Unexpected HTTP status: 503",
+    "failureType": "http-status",
+    "httpStatus": 503,
+    "baseUrl": "http://localhost:8081/example-context-root/outbox-rest"
+  }
+}
+```
+
+`failureType` identifies the reason for a failed probe: `http-status`, `invalid-response`,
+`semantic-mismatch`, `transport-error`, or `client-error`. `httpStatus` is present when the remote
+service returned an HTTP response. The error detail does not expose Outbox persistence internals.
 
 ### Camunda 8
 

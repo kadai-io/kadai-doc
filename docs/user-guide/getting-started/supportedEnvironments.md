@@ -6,8 +6,9 @@ sidebar_position: 2
 
 ## Supported JVM
 
-- Java 21
-- Java 25
+- Java 25 (minimum required to build and run KADAI)
+
+Selected KADAI modules are also tested with Java 27 in CI.
 
 ## Supported Databases
 

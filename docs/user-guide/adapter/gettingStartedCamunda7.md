@@ -13,7 +13,7 @@ import Link from '@docusaurus/Link';
 ## What you'll need
 
 - An IDE of your choice ([IntelliJ](https://www.jetbrains.com/idea/) recommended)
-- Java 21
+- Java 25 or newer (JDK)
 - [Maven](https://maven.apache.org/)
 - [Camunda Modeler](https://camunda.com/de/download/modeler/)
 - [Postgres](https://www.postgresql.org/) or [Docker](https://www.docker.com/) (to set up postgres
@@ -28,7 +28,7 @@ Note: Please name your packages, folders and files exactly like in the example!
 
 If you don't have a Camunda 7 application that you could use for experimenting with the Adapter,
 install a new application. You can use  https://start.camunda.com/ to initialize an empty
-application. You need to choose Java 21. Additionally, make sure that the modules "REST API", "
+application. You need to choose Java 25. Additionally, make sure that the modules "REST API", "
 Webapps" and "Spin" are chosen and set an admin username and password of your choice.
 
 ![Local Image](../static/adapter/c7/camunda-initialization.png)
@@ -160,7 +160,7 @@ it [here](https://github.com/kadai-io/KadaiAdapter/blob/master/kadai-adapter-cam
 :::
 
 Use
-this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.1.0&packaging=jar&jvmVersion=21&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
+this [Spring Initializr-Configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=4.1.0&packaging=jar&jvmVersion=25&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=)
 to create an example Maven Project.
 It is already configured to our needs, you can simply click `GENERATE`.
 

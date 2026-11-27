@@ -68,7 +68,7 @@ Add the implementation you want to use to your application. For example, to pers
 <dependency>
   <groupId>io.kadai.history</groupId>
   <artifactId>kadai-simplehistory-provider</artifactId>
-  <version>12.0.0</version>
+  <version>12.2.0</version>
 </dependency>
 ```
 
@@ -78,7 +78,7 @@ To log history events instead:
 <dependency>
   <groupId>io.kadai.history</groupId>
   <artifactId>kadai-loghistory-provider</artifactId>
-  <version>12.0.0</version>
+  <version>12.2.0</version>
 </dependency>
 ```
 
@@ -91,6 +91,6 @@ provider and exposes a Spring REST API for Task history events at `/api/v1/task-
 <dependency>
   <groupId>io.kadai.history</groupId>
   <artifactId>kadai-simplehistory-rest-spring</artifactId>
-  <version>12.0.0</version>
+  <version>12.2.0</version>
 </dependency>
 ```

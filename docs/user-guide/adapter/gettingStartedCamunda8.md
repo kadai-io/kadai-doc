@@ -85,17 +85,17 @@ exist):
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter</artifactId>
-    <version>12.0.0</version>
+    <version>12.2.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-camunda-8-system-connector</artifactId>
-    <version>12.0.0</version>
+    <version>12.2.0</version>
   </dependency>
   <dependency>
     <groupId>io.kadai</groupId>
     <artifactId>kadai-adapter-kadai-connector</artifactId>
-    <version>12.0.0</version>
+    <version>12.2.0</version>
   </dependency>
   <dependency>
     <groupId>org.postgresql</groupId>
